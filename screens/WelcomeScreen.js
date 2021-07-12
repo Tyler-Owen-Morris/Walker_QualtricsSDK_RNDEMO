@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { View, Text, Image, StyleSheet, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components';
-import { updateAuth } from '../redux/actions/authActions';
+import { updateAuth, updateCreds } from '../redux/actions/authActions';
 import Spinner from 'react-native-loading-spinner-overlay';
 import Qualtrics from 'react-native-qualtrics';
 
@@ -18,16 +18,16 @@ import {
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import CardView from '../controls/CardView';
 
-function WelcomeScreen({ auth, creds, setLogin }) {
+function WelcomeScreen({ auth, creds, setLogin, setCreds }) {
   const [isBusy, setIsBusy] = useState(false);
-  const [brandID, setBrandID] = useState('walkersandbox');
-  const [projectID, setProjectID] = useState('ZN_9XhdWiyfHvNt0ai');
+  const [brandID, setBrandID] = useState(auth.creds.brandID);
+  const [projectID, setProjectID] = useState(auth.creds.projectID);
   const navigation = useNavigation();
 
   useEffect(() => {
-    console.log("auth", auth);
-    console.log("creds", creds);
-  }, [auth, creds]);
+    //console.log("auth", auth);
+    //console.log("creds--", auth.creds);
+  }, [auth.auth, auth.creds]);
 
 
   function brandTextChange(text) {
@@ -40,10 +40,10 @@ function WelcomeScreen({ auth, creds, setLogin }) {
 
   async function initilizeQualt() {
     //console.log('init goes here.', brandID, projectID);
-    setIsBusy(false);
+    setIsBusy(true);
     Qualtrics.initializeProject(brandID, projectID, result => {
-      //console.log('result:', result);
-      if (result.ERROR == null) {
+      console.log('result:', result);
+      if (Object.keys(result).length > 0) {
         console.log('Qualtrics Initilized!');
         setLogin({
           brandID: brandID,
@@ -57,8 +57,8 @@ function WelcomeScreen({ auth, creds, setLogin }) {
         setIsBusy(false);
       } else {
         Alert.alert(
-          'Error',
-          result.ERROR.message,
+          'Failed To Initilize',
+          "Invalid Credentials",
           [
             {
               text: 'OK',

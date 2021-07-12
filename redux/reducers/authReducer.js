@@ -1,11 +1,32 @@
-import { UPDATE_AUTH, UPDATE_CREDS } from '../constants';
+import { UPDATE_AUTH, UPDATE_CREDS, UPDATE_VARS } from '../constants';
 
-const authReducer = (state = null, action) => {
+const initialState = {
+  auth: null,
+  creds: {
+    brandID: 'walkersandbox',
+    projectID: 'ZN_9XhdWiyfHvNt0ai'
+  },
+  custom_vars: []
+}
+
+const authReducer = (state = initialState, action) => {
+  console.log("ACTION:", action)
   switch (action.type) {
     case UPDATE_AUTH:
-      return action.payload;
+      return {
+        ...state,
+        auth: action.payload
+      };
     case UPDATE_CREDS:
-      return action.payload;
+      return {
+        ...state,
+        creds: action.payload
+      };
+    case UPDATE_VARS:
+      return {
+        ...state,
+        custom_vars: action.payload
+      }
     default:
       return state;
   }

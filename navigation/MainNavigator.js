@@ -10,12 +10,12 @@ console.disableYellowBox = true;
 const Stack = createStackNavigator();
 
 function MainNavigator({ auth }) {
-  console.log("Auth:", auth);
+  console.log("Auth:", auth.auth);
   return (
     <>
       <StatusBar barStyle="dark-content" hidden={true} />
       <Stack.Navigator>
-        {auth === null ? (
+        {auth.auth === null ? (
           <>
             <Stack.Screen
               name="WelcomeScreen"

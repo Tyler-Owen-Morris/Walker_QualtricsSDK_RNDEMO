@@ -31,11 +31,11 @@ function FirstIntercept({ auth, setLogin }) {
     const [var2, setVar2] = useState(0);
 
     useEffect(() => {
-        //console.log("auth:", auth)
-        if (auth != null) {
+        console.log("intercept-auth:", auth.auth)
+        if (auth.auth != null && typeof auth.auth.intercepts != 'undefined') {
             //console.log("intercepts:", auth.intercepts)
             let ret = []
-            for (const [key, value] of Object.entries(auth.intercepts)) {
+            for (const [key, value] of Object.entries(auth.auth.intercepts)) {
                 console.log(`${key}: ${value}`);
                 ret.push(`${key}`)
             }
@@ -52,6 +52,7 @@ function FirstIntercept({ auth, setLogin }) {
     }, [currNav, var1, var2]);
 
     const resetCreds = () => {
+        console.log("resettingCreds");
         setLogin(null);
     }
 
@@ -66,7 +67,7 @@ function FirstIntercept({ auth, setLogin }) {
             } else {
                 console.log('intercept failed...');
                 Alert.alert(
-                    'Error',
+                    'Intercept Evaluated to FALSE\nNot displaying Intercept',
                     res,
                     [
                         {
@@ -104,10 +105,10 @@ function FirstIntercept({ auth, setLogin }) {
         <SafeAreaView>
             <Text style={styles.header} >Intercepts</Text>
             <CardView style={styles.card}>
-                <Text style={styles.intHeader} >Click the intercept to test</Text>
+                {interceptIDs.length == 0 ? <Text style={styles.intHeader} >No intercepts have been initilized.</Text> : <Text style={styles.intHeader} >Click the intercept to test</Text>}
                 {interceptIDs.map((val, idx) => {
                     return (
-                        <PrimaryButton style={styles.intButton} onPress={() => { testIntercept(val); }}>
+                        <PrimaryButton key={idx} style={styles.intButton} onPress={() => { testIntercept(val); }}>
                             <PrimaryButtonText>Test: <Text style={styles.idText} >{val}</Text></PrimaryButtonText>
                         </PrimaryButton>
                     )
@@ -129,7 +130,7 @@ function FirstIntercept({ auth, setLogin }) {
                 </PrimaryButton>
                 <Text style={styles.inputLabel} >Value 1: {var1}</Text>
                 <PrimaryTextInput
-                    value={var2}
+                    value={var2.toString()}
                     placeholder="Var2"
                     onChangeText={changeNumeric}
                 />

@@ -1,7 +1,7 @@
-import { UPDATE_AUTH, UPDATE_CREDS } from '../constants';
+import { UPDATE_AUTH, UPDATE_CREDS, UPDATE_VARS } from '../constants';
 
 const setAuth = (auth) => {
-  console.log("Reducer auth:", auth)
+  //console.log("Reducer auth:", auth)
   return {
     type: UPDATE_AUTH,
     payload: auth,
@@ -9,10 +9,17 @@ const setAuth = (auth) => {
 };
 
 const setCreds = (creds) => {
-  console.log("creds:", creds);
+  //console.log("creds reducer:", creds);
   return {
     type: UPDATE_CREDS,
     payload: creds,
+  }
+}
+
+const setVars = (vars) => {
+  return {
+    type: UPDATE_VARS,
+    payload: vars
   }
 }
 
@@ -22,4 +29,8 @@ export const updateAuth = (auth) => dispatch => {
 
 export const updateCreds = (creds) => dispatch => {
   dispatch(setCreds(creds));
+}
+
+export const updateVars = (vars) => dispatch => {
+  dispatch(setVars(vars));
 }
