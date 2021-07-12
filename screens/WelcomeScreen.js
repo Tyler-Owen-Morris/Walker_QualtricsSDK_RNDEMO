@@ -18,7 +18,7 @@ import {
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import CardView from '../controls/CardView';
 
-function WelcomeScreen({ auth, setLogin }) {
+function WelcomeScreen({ auth, creds, setLogin }) {
   const [isBusy, setIsBusy] = useState(false);
   const [brandID, setBrandID] = useState('walkersandbox');
   const [projectID, setProjectID] = useState('ZN_9XhdWiyfHvNt0ai');
@@ -26,7 +26,8 @@ function WelcomeScreen({ auth, setLogin }) {
 
   useEffect(() => {
     console.log("auth", auth);
-  }, [auth]);
+    console.log("creds", creds);
+  }, [auth, creds]);
 
 
   function brandTextChange(text) {
@@ -49,6 +50,10 @@ function WelcomeScreen({ auth, setLogin }) {
           projectID: projectID,
           intercepts: result,
         });
+        setCreds({
+          brandID: brandID,
+          projectID: projectID
+        })
         setIsBusy(false);
       } else {
         Alert.alert(
@@ -145,8 +150,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ auth }) => ({
+const mapStateToProps = ({ auth, creds }) => ({
   auth,
+  creds
 });
 
 const mapDispatchToProps = dispatch => ({
