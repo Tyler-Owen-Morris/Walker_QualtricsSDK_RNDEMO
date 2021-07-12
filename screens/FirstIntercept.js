@@ -31,9 +31,9 @@ function FirstIntercept({ auth, setLogin }) {
     const [var2, setVar2] = useState(0);
 
     useEffect(() => {
-        console.log("auth:", auth)
+        //console.log("auth:", auth)
         if (auth != null) {
-            console.log("intercepts:", auth.intercepts)
+            //console.log("intercepts:", auth.intercepts)
             let ret = []
             for (const [key, value] of Object.entries(auth.intercepts)) {
                 console.log(`${key}: ${value}`);
@@ -102,33 +102,38 @@ function FirstIntercept({ auth, setLogin }) {
 
     return (
         <SafeAreaView>
+            <Text style={styles.header} >Intercepts</Text>
             <CardView style={styles.card}>
+                <Text style={styles.intHeader} >Click the intercept to test</Text>
                 {interceptIDs.map((val, idx) => {
                     return (
                         <PrimaryButton style={styles.intButton} onPress={() => { testIntercept(val); }}>
-                            <PrimaryButtonText>Test Intercept {val}</PrimaryButtonText>
+                            <PrimaryButtonText>Test: <Text style={styles.idText} >{val}</Text></PrimaryButtonText>
                         </PrimaryButton>
                     )
                 })}
-                {/* <PrimaryButton onPress={resetCreds} style={{ marginTop: 20 }}>
-                    <PrimaryButtonText>Reset Credentials</PrimaryButtonText>
-                </PrimaryButton> */}
+
             </CardView>
             <CardView>
+                <Text style={styles.intHeader} >Qualtrics Variables:</Text>
                 <PrimaryTextInput
                     value={currNav}
                     placeholder="CurrentNavigation"
                     onChangeText={changeNavText}
                     autoCapitalize='none'
+                    style={styles.currLocText}
                 />
-                <PrimaryButton onPress={toggleVar1} >
+                <Text style={styles.inputLabel} >Current Navigation: {currNav}</Text>
+                <PrimaryButton style={styles.intButton} onPress={toggleVar1} >
                     <PrimaryButtonText>Toggle {var1}</PrimaryButtonText>
                 </PrimaryButton>
+                <Text style={styles.inputLabel} >Value 1: {var1}</Text>
                 <PrimaryTextInput
                     value={var2}
                     placeholder="Var2"
                     onChangeText={changeNumeric}
                 />
+                <Text style={styles.inputLabel} >Value 2: {var2}</Text>
             </CardView>
             <BottomHud resetCreds={resetCreds} />
         </SafeAreaView>
@@ -136,12 +141,30 @@ function FirstIntercept({ auth, setLogin }) {
 }
 
 const styles = StyleSheet.create({
+    header: {
+        alignSelf: 'center',
+        fontSize: 30,
+        marginVertical: 12
+    },
+    intHeader: {
+        fontSize: 19,
+        marginBottom: 10,
+        alignSelf: 'center'
+    },
     card: {
         margin: 5
     },
     intButton: {
         marginVertical: 5
-    }
+    },
+    idText: {
+        fontSize: 13,
+        fontStyle: 'italic'
+    },
+    currLocText: {
+        fontSize: 21
+    },
+    inputLabel: { marginLeft: 12, fontSize: 11, marginBottom: 10 }
 });
 
 const mapStateToProps = ({ auth }) => ({

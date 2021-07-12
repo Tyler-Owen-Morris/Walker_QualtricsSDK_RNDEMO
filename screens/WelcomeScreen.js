@@ -112,45 +112,6 @@ function WelcomeScreen({ auth, setLogin }) {
         </PrimaryButton>
       </CardView>
     </SafeAreaView>
-    // <SafeAreaView>
-    //   <TouchableWithoutFeedback onPressIn={pressIn} onPressOut={pressOut}>
-    //     <ImageLogo source={require('../assets/timbergrove_logo.png')} />
-    //   </TouchableWithoutFeedback>
-    //   <Title>
-    //     <WelcomeText>Welcome</WelcomeText>
-    //     <WelcomeSecondaryText> to our building</WelcomeSecondaryText>
-    //   </Title>
-    //   <CardView>
-    //     <View>
-    //       <QRLegend>
-    //         Scan the QR code to check in using your cell phone
-    //       </QRLegend>
-    //       <QRContainer>
-    //         <QRCode source={require('../assets/qr_code.png')} />
-    //       </QRContainer>
-    //     </View>
-    //     <SeparatorContainer>
-    //       <Separator />
-    //     </SeparatorContainer>
-    //     <PrimaryButton onPress={goToPrescreen} style={{marginTop: 20}}>
-    //       <PrimaryButtonText>Prescreen Checkin here</PrimaryButtonText>
-    //     </PrimaryButton>
-    //     <PrimaryButton onPress={goToNextScreen} style={{marginTop: 20}}>
-    //       <PrimaryButtonText>Otherwise check in here</PrimaryButtonText>
-    //     </PrimaryButton>
-    //      <PrimaryButton onPress={openQR} style={{marginTop: 20}}>
-    //       <PrimaryButtonText>QR Provisioning</PrimaryButtonText>
-    //     </PrimaryButton> 
-    //   </CardView>
-    //   <CardView>
-    //     <Text>You are logged in/initilized</Text>
-    //     <PrimaryButton>
-    //       <PrimaryButtonText onPress={resetCredentials}>
-    //         Reset Project
-    //       </PrimaryButtonText>
-    //     </PrimaryButton>
-    //   </CardView>
-    // </SafeAreaView>
   );
 }
 
@@ -190,6 +151,7 @@ const mapStateToProps = ({ auth }) => ({
 
 const mapDispatchToProps = dispatch => ({
   setLogin: data => dispatch(updateAuth(data)),
+  setCreds: data => dispatch(updateCreds(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WelcomeScreen);
