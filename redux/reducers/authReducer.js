@@ -6,11 +6,14 @@ const initialState = {
     brandID: 'walkersandbox',
     projectID: 'ZN_9XhdWiyfHvNt0ai'
   },
-  custom_vars: []
+  custom_vars: [{
+    key: 'curr_nav',
+    value: 'purchase'
+  }, { key: 'var1', value: 'FOO' }]
 }
 
 const authReducer = (state = initialState, action) => {
-  console.log("ACTION:", action)
+  //console.log("ACTION:", action)
   switch (action.type) {
     case UPDATE_AUTH:
       return {

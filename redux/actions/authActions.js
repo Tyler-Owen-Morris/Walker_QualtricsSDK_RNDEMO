@@ -17,6 +17,7 @@ const setCreds = (creds) => {
 }
 
 const setVars = (vars) => {
+  console.log("vars reducer:", vars);
   return {
     type: UPDATE_VARS,
     payload: vars

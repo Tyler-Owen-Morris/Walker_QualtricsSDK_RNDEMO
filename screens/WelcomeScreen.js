@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { View, Text, Image, StyleSheet, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components';
-import { updateAuth, updateCreds } from '../redux/actions/authActions';
+import { updateAuth, updateCreds, updateVars } from '../redux/actions/authActions';
 import Spinner from 'react-native-loading-spinner-overlay';
 import Qualtrics from 'react-native-qualtrics';
 
@@ -18,7 +18,7 @@ import {
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import CardView from '../controls/CardView';
 
-function WelcomeScreen({ auth, creds, setLogin, setCreds }) {
+function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
   const [isBusy, setIsBusy] = useState(false);
   const [brandID, setBrandID] = useState(auth.creds.brandID);
   const [projectID, setProjectID] = useState(auth.creds.projectID);
@@ -43,7 +43,7 @@ function WelcomeScreen({ auth, creds, setLogin, setCreds }) {
     setIsBusy(true);
     Qualtrics.initializeProject(brandID, projectID, result => {
       console.log('result:', result);
-      if (Object.keys(result).length > 0) {
+      if (result.ERROR == null) {
         console.log('Qualtrics Initilized!');
         setLogin({
           brandID: brandID,
@@ -54,11 +54,12 @@ function WelcomeScreen({ auth, creds, setLogin, setCreds }) {
           brandID: brandID,
           projectID: projectID
         })
+        setVars([{ key: 'curr_nav', value: 'purchase' }, { key: 'var1', value: 'FOO' }])
         setIsBusy(false);
       } else {
         Alert.alert(
           'Failed To Initilize',
-          "Invalid Credentials",
+          result.ERROR.message,
           [
             {
               text: 'OK',
@@ -98,6 +99,7 @@ function WelcomeScreen({ auth, creds, setLogin, setCreds }) {
           placeholder="Brand ID"
           placholderTextColor="#adb5bd"
           onChangeText={brandTextChange}
+          autoCapitalize='none'
         />
         <Text style={{ marginLeft: 18, fontSize: 9, marginTop: -5 }}>
           Brand ID
@@ -105,6 +107,7 @@ function WelcomeScreen({ auth, creds, setLogin, setCreds }) {
         <PrimaryTextInput
           style={styles.input}
           value={projectID}
+          autoCapitalize='none'
           placeholder="Project ID"
           placholderTextColor="#adb5bd"
           onChangeText={projectTextChange}
@@ -150,14 +153,16 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ auth, creds }) => ({
+const mapStateToProps = ({ auth, creds, custom_vars }) => ({
   auth,
-  creds
+  creds,
+  custom_vars
 });
 
 const mapDispatchToProps = dispatch => ({
   setLogin: data => dispatch(updateAuth(data)),
-  setCreds: data => dispatch(updateCreds(data))
+  setCreds: data => dispatch(updateCreds(data)),
+  setVars: data => dispatch(updateVars(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WelcomeScreen);
