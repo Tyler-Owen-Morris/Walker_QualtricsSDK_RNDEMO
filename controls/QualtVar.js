@@ -4,18 +4,27 @@ import Qualtrics from 'react-native-qualtrics';
 import { ScrollView } from 'react-native-gesture-handler';
 
 function QualtVar(props) {
-  //console.log("qualt props:", props);
   const [key, setKey] = useState(props.input.key);
   const [name, setName] = useState(props.input.name);
   const [val, setVal] = useState(props.input.value);
+  let [numeric, setNumeric] = useState(false);
 
-  // useEffect(() => {
-  //     if (!Number.isNaN(val)) {
-  //         Qualtrics.setNumber(name, val);
-  //     } else {
-  //         Qualtrics.setString(name, val);
-  //     }
-  // }, [props]);
+  useEffect(() => {
+    setKey(props.input.key);
+    setName(props.input.name);
+    setVal(props.input.value);
+  }, [props.input])
+
+  useEffect(() => {
+    let v = parseInt(val);
+    if (Number.isNaN(v)) {
+      Qualtrics.setString(name, val);
+      setNumeric(false);
+    } else {
+      Qualtrics.setNumber(name, v);
+      setNumeric(true);
+    }
+  }, [props])
 
   function onVarNameChange(e) {
     console.log('name-change:', e);
@@ -35,7 +44,6 @@ function QualtVar(props) {
 
   return (
     <View style={styles.bar}>
-      {/* <Button onPress={deleteMe} title="deleteme"></Button> */}
       <Text onPress={deleteMe} style={styles.removeText}>
         -
       </Text>
@@ -44,13 +52,17 @@ function QualtVar(props) {
           style={styles.varText}
           onChangeText={onVarNameChange}
           placeholder="Name"
-          value={name}></TextInput>
+          value={name}
+          autoCapitalize='none'>
+
+        </TextInput>
         <Text style={{ fontSize: 18, padding: 10, marginLeft: 15 }}>:</Text>
         <TextInput
           onChangeText={onVarValChange}
           placeholder="Value"
-          style={styles.varText}
-          value={val}>
+          style={numeric ? styles.varNumeric : styles.varText}
+          value={val}
+          autoCapitalize='none'>
         </TextInput>
       </ScrollView>
     </View>
@@ -63,15 +75,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     marginVertical: 5,
-    //backgroundColor: 'blue'
+    //backgroundColor: '#bfbfbf',
+    borderRadius: 15,
+    padding: 5
   },
   removeText: {
+    borderRadius: 10,
     fontSize: 30,
-    // backgroundColor: 'yellow',
+    backgroundColor: 'white',
     margin: 7,
     paddingLeft: 20,
     alignSelf: 'center',
-    //borderWidth: 1,
+    borderWidth: 1,
     width: 60,
   },
   varText: {
@@ -84,6 +99,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
     //backgroundColor: 'red'
   },
+  varNumeric: {
+    fontSize: 18,
+    marginLeft: 15,
+    borderColor: 'gray',
+    borderWidth: 1,
+    padding: 15,
+    borderRadius: 10,
+    backgroundColor: '#ffffcc'
+  }
 });
 
 export default QualtVar;

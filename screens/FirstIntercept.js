@@ -43,9 +43,9 @@ function FirstIntercept({ auth, setLogin, setCustomVars }) {
     //     Qualtrics.setString('locale', var1);
     //     Qualtrics.setNumber('random_number', var2);
     // }, [currNav, var1, var2]);
-    useEffect(() => {
-        setCVars(auth.custom_vars)
-    }, [auth.custom_vars]);
+    // useEffect(() => {
+    //     setCVars(auth.custom_vars)
+    // }, [auth.custom_vars]);
 
     const resetCreds = () => {
         console.log("resettingCreds");
@@ -105,39 +105,36 @@ function FirstIntercept({ auth, setLogin, setCustomVars }) {
     }
 
     function removeVariable(k) {
-        console.log("Remove:", customVars, k);
         let cur = [];
+        let kei = 0;
         for (var i = 0; i < customVars.length; i++) {
-            //console.log(customVars[i].name);
             if (customVars[i].key != k) {
-                //console.log(i, customVars[i]);
-                cur.push(customVars[i]);
+                cur.push({ ...customVars[i], key: kei });
+                kei++;
             }
         }
-        console.log("cur:", cur);
-        setCVars(cur);
+        console.log(">>>>>>> ", cur)
         setCustomVars(cur);
+        setCVars(cur);
     }
 
     function updateCurrentVars(k, n, v) {
-        //console.log("update vars", k, n, v)
         let current = [];
         for (var i = 0; i < customVars.length; i++) {
-            if (i == k) {
+            if (customVars[i].key == k) {
                 let a = {
-                    key: i,
+                    key: k,
                     name: n,
                     value: v,
                 }
-                //console.log("a", a);
                 current.push(a);
             } else {
-                //console.log("cur", customVars[i]);
                 current.push(customVars[i])
             }
         }
-        //console.log("curren-vars", current);
+        // set local state for viewing and update redux store
         setCustomVars(current);
+        setCVars(current);
     }
 
     return (
@@ -145,7 +142,7 @@ function FirstIntercept({ auth, setLogin, setCustomVars }) {
             <Text style={styles.header} >Intercepts</Text>
             <ScrollView>
                 <CardView style={styles.card}>
-                    {interceptIDs.length == 0 ? <Text style={styles.intHeader} >No intercepts have been initilized.</Text> : <Text style={styles.intHeader} >Click the intercept to test</Text>}
+                    {interceptIDs.length == 0 ? <Text style={styles.interceptHeader} >No intercepts have been initilized.</Text> : <Text style={styles.interceptHeader} >Click the intercept to test</Text>}
                     {interceptIDs.map((val, idx) => {
                         return (
                             <PrimaryButton key={idx} style={styles.intButton} onPress={() => { testIntercept(val); }}>
@@ -157,12 +154,11 @@ function FirstIntercept({ auth, setLogin, setCustomVars }) {
                 </CardView>
                 <CardView>
                     <View style={{ backgroundColor: '#d3d3d3', borderRadius: 10, flexDirection: 'row', justifyContent: 'center' }} >
-                        <Text style={styles.interceptHeader} >Qualtrics Variables:</Text>
                         <Text onPress={newVariable} style={styles.interceptPlus} >+</Text>
+                        <Text style={styles.interceptHeader} >Qualtrics Variables:</Text>
                     </View>
                     <View style={{ marginTop: 10 }}>
                         {customVars.length > 0 ? customVars.map((val, idx) => {
-                            //console.log("val:", val, "idx:", idx);
                             return (<QualtVar input={val} key={idx} changeValue={updateCurrentVars} removeVar={removeVariable} />)
                         }) : <TouchableOpacity onPress={newVariable} >
                                 <Text style={{ fontSize: 20, alignSelf: 'center', marginRight: 10, margin: 10 }}>No Custom Variables</Text>
@@ -188,7 +184,7 @@ const styles = StyleSheet.create({
     },
     interceptPlus: {
         fontSize: 29,
-        marginLeft: 10,
+        marginRight: 20,
         alignSelf: 'center'
     },
     card: {

@@ -43,7 +43,7 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
     setIsBusy(true);
     Qualtrics.initializeProject(brandID, projectID, result => {
       console.log('result:', result);
-      if (result.ERROR == null) {
+      if (result.ERROR == null && Object.keys(result).length > 0) {
         console.log('Qualtrics Initilized!');
         setLogin({
           brandID: brandID,
@@ -66,9 +66,15 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
         // }]);
         setIsBusy(false);
       } else {
+        let msg = "";
+        if (result.ERROR == null) {
+          msg = "There was a problem logging in. Please check your credentials";
+        } else {
+          msg = result.ERROR.message;
+        }
         Alert.alert(
           'Failed To Initilize',
-          result.ERROR.message,
+          msg,
           [
             {
               text: 'OK',
