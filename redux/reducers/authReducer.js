@@ -7,9 +7,15 @@ const initialState = {
     projectID: 'ZN_9XhdWiyfHvNt0ai'
   },
   custom_vars: [{
-    key: 'curr_nav',
-    value: 'purchase'
-  }, { key: 'var1', value: 'FOO' }]
+    key: 0,
+    name: 'curr_nav',
+    value: 'home'
+  },
+  {
+    key: 1,
+    name: 'var1',
+    value: 'FOO'
+  }]
 }
 
 const authReducer = (state = initialState, action) => {

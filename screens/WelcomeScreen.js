@@ -25,7 +25,7 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
   const navigation = useNavigation();
 
   useEffect(() => {
-    //console.log("auth", auth);
+    //console.log("WelcomeAuth", auth);
     //console.log("creds--", auth.creds);
   }, [auth.auth, auth.creds]);
 
@@ -54,7 +54,16 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
           brandID: brandID,
           projectID: projectID
         })
-        setVars([{ key: 'curr_nav', value: 'purchase' }, { key: 'var1', value: 'FOO' }])
+        // setVars([{
+        //   key: 0,
+        //   name: 'curr_nav',
+        //   value: 'home'
+        // },
+        // {
+        //   key: 1,
+        //   name: 'var1',
+        //   value: 'FOO'
+        // }]);
         setIsBusy(false);
       } else {
         Alert.alert(
