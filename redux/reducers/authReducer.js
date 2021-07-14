@@ -8,13 +8,8 @@ const initialState = {
   },
   custom_vars: [{
     key: 0,
-    name: 'curr_nav',
+    name: 'navigation',
     value: 'home'
-  },
-  {
-    key: 1,
-    name: 'var1',
-    value: 'FOO'
   }]
 }
 
