@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, TextInput, Button } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {Text, View, StyleSheet, TextInput, Button} from 'react-native';
 import Qualtrics from 'react-native-qualtrics';
-import { ScrollView } from 'react-native-gesture-handler';
+import {ScrollView} from 'react-native-gesture-handler';
 
 function QualtVar(props) {
   const [key, setKey] = useState(props.input.key);
@@ -13,7 +13,7 @@ function QualtVar(props) {
     setKey(props.input.key);
     setName(props.input.name);
     setVal(props.input.value);
-  }, [props.input])
+  }, [props.input]);
 
   useEffect(() => {
     let v = parseInt(val);
@@ -24,21 +24,23 @@ function QualtVar(props) {
       Qualtrics.setNumber(name, v);
       setNumeric(true);
     }
-  }, [props])
+  }, [props]);
 
   function onVarNameChange(e) {
-    console.log('name-change:', e);
+    //console.log('name-change:', e);
+    Qualtrics.setString(name, '');
     setName(e);
     props.changeValue(key, e, val);
   }
 
   function onVarValChange(e) {
-    console.log('val-change:', e);
+    //console.log('val-change:', e);
     setVal(e);
     props.changeValue(key, name, e);
   }
   function deleteMe() {
-    console.log("reging");
+    //console.log('reging');
+    Qualtrics.setString(name, '');
     props.removeVar(props.input.key);
   }
 
@@ -47,23 +49,29 @@ function QualtVar(props) {
       <Text onPress={deleteMe} style={styles.removeText}>
         -
       </Text>
-      <ScrollView style={{ borderWidth: 1, paddingVertical: 4, borderRadius: 10, backgroundColor: '#d3d3d3' }} horizontal={true} >
-        <TextInput
-          style={styles.varText}
-          onChangeText={onVarNameChange}
-          placeholder="Name"
-          value={name}
-          autoCapitalize='none'>
-
-        </TextInput>
-        <Text style={{ fontSize: 18, padding: 10, marginLeft: 15 }}>:</Text>
-        <TextInput
-          onChangeText={onVarValChange}
-          placeholder="Value"
-          style={numeric ? styles.varNumeric : styles.varText}
-          value={val}
-          autoCapitalize='none'>
-        </TextInput>
+      <ScrollView
+        style={{
+          borderWidth: 1,
+          paddingVertical: 4,
+          borderRadius: 10,
+          backgroundColor: '#d3d3d3',
+        }}
+        horizontal={true}>
+        <View style={{flexDirection: 'row', marginLeft: 10}}>
+          <TextInput
+            style={styles.varText}
+            onChangeText={onVarNameChange}
+            placeholder="Name"
+            value={name}
+            autoCapitalize="none"></TextInput>
+          <Text style={{fontSize: 18, padding: 10}}>:</Text>
+          <TextInput
+            onChangeText={onVarValChange}
+            placeholder="Value"
+            style={numeric ? styles.varNumeric : styles.varText}
+            value={val}
+            autoCapitalize="none"></TextInput>
+        </View>
       </ScrollView>
     </View>
   );
@@ -77,7 +85,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     //backgroundColor: '#bfbfbf',
     borderRadius: 15,
-    padding: 5
+    padding: 5,
   },
   removeText: {
     borderRadius: 10,
@@ -91,23 +99,24 @@ const styles = StyleSheet.create({
   },
   varText: {
     fontSize: 18,
-    marginLeft: 15,
+    //marginHorizontal: 15,
+    paddingVertical: 10,
     borderColor: 'gray',
     borderWidth: 1,
     padding: 15,
     borderRadius: 10,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
     //backgroundColor: 'red'
   },
   varNumeric: {
     fontSize: 18,
-    marginLeft: 15,
+    //6marginLeft: 15,
     borderColor: 'gray',
     borderWidth: 1,
-    padding: 15,
+    padding: 10,
     borderRadius: 10,
-    backgroundColor: '#ffffcc'
-  }
+    backgroundColor: '#ffffcc',
+  },
 });
 
 export default QualtVar;
