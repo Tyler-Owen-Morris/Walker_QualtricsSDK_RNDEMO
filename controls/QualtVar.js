@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   varNumeric: {
     fontSize: 18,
-    //6marginLeft: 15,
+    //marginLeft: 15,
     borderColor: 'gray',
     borderWidth: 1,
     padding: 10,
