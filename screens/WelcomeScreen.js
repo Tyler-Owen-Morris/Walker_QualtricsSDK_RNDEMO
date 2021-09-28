@@ -99,12 +99,47 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
     });
     */
 
+    console.log('brand:', brandID, ' proj:', projectID, 'extRef:', extRefID);
     Qualtrics.initializeProjectWithExtRefId(
       brandID,
       projectID,
       extRefID,
       result => {
         console.log('result:', result);
+        if (result.ERROR == null && Object.keys(result).length > 0) {
+          console.log('Qualtrics Initilized!');
+          setLogin({
+            brandID: brandID,
+            projectID: projectID,
+            intercepts: result,
+          });
+          setCreds({
+            brandID: brandID,
+            projectID: projectID,
+          });
+          setIsBusy(false);
+        } else {
+          let msg = '';
+          if (result.ERROR == null) {
+            msg =
+              'There was a problem logging in. Please check your credentials';
+          } else {
+            msg = result.ERROR.message;
+          }
+          Alert.alert(
+            'Failed To Initilize',
+            msg,
+            [
+              {
+                text: 'OK',
+                onPress: () => {
+                  setIsBusy(false);
+                },
+              },
+            ],
+            {cancelable: false},
+          );
+        }
       },
     );
   }
