@@ -19,7 +19,10 @@ import {
   PrimaryButtonText,
   PrimaryTextInput,
 } from '../controls/styles';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import {
+  ScrollView,
+  TouchableWithoutFeedback,
+} from 'react-native-gesture-handler';
 import CardView from '../controls/CardView';
 
 function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
@@ -150,56 +153,61 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
 
   return (
     <SafeAreaView>
-      <Spinner visible={isBusy} textContent={''} />
-      <CardView style={styles.card}>
-        <View style={styles.logoContainer}>
-          <Image style={styles.logo} source={require('../assets/Walker.png')} />
-          <Image
-            source={require('../assets/qualtrics2.png')}
-            resizeMethod="scale"
+      <ScrollView>
+        <Spinner visible={isBusy} textContent={''} />
+        <CardView style={styles.card}>
+          <View style={styles.logoContainer}>
+            <Image
+              style={styles.logo}
+              source={require('../assets/Walker.png')}
+            />
+            <Image
+              source={require('../assets/qualtrics2.png')}
+              resizeMethod="scale"
+            />
+            <Text style={{alignSelf: 'center', marginBottom: 10}}>
+              React Native 2.2.0 SDK Demo
+            </Text>
+          </View>
+          <Text style={styles.header}>Input Your Project Credendials:</Text>
+          <PrimaryTextInput
+            style={styles.input}
+            value={brandID}
+            placeholder="Brand ID"
+            placholderTextColor="#adb5bd"
+            onChangeText={brandTextChange}
+            autoCapitalize="none"
           />
-          <Text style={{alignSelf: 'center', marginBottom: 10}}>
-            React Native 2.0.0 SDK Demo
+          <Text style={{marginLeft: 18, fontSize: 9, marginTop: -5}}>
+            Brand ID
           </Text>
-        </View>
-        <Text style={styles.header}>Input Your Project Credendials:</Text>
-        <PrimaryTextInput
-          style={styles.input}
-          value={brandID}
-          placeholder="Brand ID"
-          placholderTextColor="#adb5bd"
-          onChangeText={brandTextChange}
-          autoCapitalize="none"
-        />
-        <Text style={{marginLeft: 18, fontSize: 9, marginTop: -5}}>
-          Brand ID
-        </Text>
-        <PrimaryTextInput
-          style={styles.input}
-          value={projectID}
-          autoCapitalize="none"
-          placeholder="Project ID"
-          placholderTextColor="#adb5bd"
-          onChangeText={projectTextChange}
-        />
-        <Text style={{marginLeft: 18, fontSize: 9, marginTop: -5}}>
-          Project ID
-        </Text>
-        <PrimaryTextInput
-          style={styles.input}
-          value={extRefID}
-          autoCapitalize="none"
-          placeholder="External Reference ID"
-          placholderTextColor="#adb5bd"
-          onChangeText={extRefTextChange}
-        />
-        <Text style={{marginLeft: 18, fontSize: 9, marginTop: -5}}>
-          ExtRef ID
-        </Text>
-        <PrimaryButton onPress={initilizeQualt} style={{marginTop: 20}}>
-          <PrimaryButtonText>Initilize Project</PrimaryButtonText>
-        </PrimaryButton>
-      </CardView>
+          <PrimaryTextInput
+            style={styles.input}
+            value={projectID}
+            autoCapitalize="none"
+            placeholder="Project ID"
+            placholderTextColor="#adb5bd"
+            onChangeText={projectTextChange}
+          />
+          <Text style={{marginLeft: 18, fontSize: 9, marginTop: -5}}>
+            Project ID
+          </Text>
+          <PrimaryTextInput
+            style={styles.input}
+            value={extRefID}
+            autoCapitalize="none"
+            placeholder="External Reference ID"
+            placholderTextColor="#adb5bd"
+            onChangeText={extRefTextChange}
+          />
+          <Text style={{marginLeft: 18, fontSize: 9, marginTop: -5}}>
+            ExtRef ID
+          </Text>
+          <PrimaryButton onPress={initilizeQualt} style={{marginTop: 20}}>
+            <PrimaryButtonText>Initilize Project</PrimaryButtonText>
+          </PrimaryButton>
+        </CardView>
+      </ScrollView>
     </SafeAreaView>
   );
 }

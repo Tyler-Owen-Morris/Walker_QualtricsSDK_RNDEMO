@@ -1,15 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { StatusBar } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {connect} from 'react-redux';
+import {LogBox, StatusBar} from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import FirstIntercept from '../screens/FirstIntercept';
 
-console.disableYellowBox = true;
+LogBox.ignoreAllLogs();
 
 const Stack = createStackNavigator();
 
-function MainNavigator({ auth }) {
+function MainNavigator({auth}) {
   //console.log("Auth:", auth.auth);
   return (
     <>
@@ -20,23 +20,23 @@ function MainNavigator({ auth }) {
             <Stack.Screen
               name="WelcomeScreen"
               component={WelcomeScreen}
-              options={{ headerShown: false }}
+              options={{headerShown: false}}
             />
           </>
         ) : (
-            <>
-              <Stack.Screen
-                name="Welcome"
-                component={FirstIntercept}
-                options={{ headerShown: false }}
-              />
-            </>
-          )}
+          <>
+            <Stack.Screen
+              name="Welcome"
+              component={FirstIntercept}
+              options={{headerShown: false}}
+            />
+          </>
+        )}
       </Stack.Navigator>
     </>
   );
 }
-const mapStateToProps = ({ auth }) => ({
+const mapStateToProps = ({auth}) => ({
   auth,
 });
 
