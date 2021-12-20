@@ -114,11 +114,13 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
           setLogin({
             brandID: brandID,
             projectID: projectID,
+            extRefID: extRefID,
             intercepts: result,
           });
           setCreds({
             brandID: brandID,
             projectID: projectID,
+            extRefID: extRefID,
           });
           setIsBusy(false);
         } else {

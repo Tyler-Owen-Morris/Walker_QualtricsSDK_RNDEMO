@@ -17,7 +17,11 @@ function QualtVar(props) {
 
   useEffect(() => {
     let v = parseInt(val);
-    if (Number.isNaN(v)) {
+    let isNum = val.match(/^[0-9]*$/) != null;
+    console.log('isnum:', isNum);
+    //console.log('val:', val);
+    //console.log('v', v);
+    if (!isNum) {
       Qualtrics.setString(name, val);
       setNumeric(false);
     } else {
