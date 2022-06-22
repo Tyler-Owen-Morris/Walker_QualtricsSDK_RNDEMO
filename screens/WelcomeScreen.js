@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, Image, StyleSheet, Alert } from 'react-native';
+import { View, Text, Image, StyleSheet, Alert, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components';
 import {
@@ -172,40 +172,42 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
               React Native 2.2.0 SDK Demo
             </Text>
           </View>
-          <Text style={styles.header}>Input Your Project Credendials:</Text>
-          <PrimaryTextInput
-            style={styles.input}
-            value={brandID}
-            placeholder="Brand ID"
-            placholderTextColor="#adb5bd"
-            onChangeText={brandTextChange}
-            autoCapitalize="none"
-          />
-          <Text style={{ marginLeft: 18, fontSize: 9, marginTop: -5 }}>
-            Brand ID
+          <KeyboardAvoidingView>
+            <Text style={styles.header}>Input Your Project Credendials:</Text>
+            <PrimaryTextInput
+              style={styles.input}
+              value={brandID}
+              placeholder="Brand ID"
+              placholderTextColor="#adb5bd"
+              onChangeText={brandTextChange}
+              autoCapitalize="none"
+            />
+            <Text style={{ marginLeft: 18, fontSize: 9, marginTop: -5 }}>
+              Brand ID
           </Text>
-          <PrimaryTextInput
-            style={styles.input}
-            value={projectID}
-            autoCapitalize="none"
-            placeholder="Project ID"
-            placholderTextColor="#adb5bd"
-            onChangeText={projectTextChange}
-          />
-          <Text style={{ marginLeft: 18, fontSize: 9, marginTop: -5 }}>
-            Project ID
+            <PrimaryTextInput
+              style={styles.input}
+              value={projectID}
+              autoCapitalize="none"
+              placeholder="Project ID"
+              placholderTextColor="#adb5bd"
+              onChangeText={projectTextChange}
+            />
+            <Text style={{ marginLeft: 18, fontSize: 9, marginTop: -5 }}>
+              Project ID
           </Text>
-          <PrimaryTextInput
-            style={styles.input}
-            value={extRefID}
-            autoCapitalize="none"
-            placeholder="External Reference ID"
-            placholderTextColor="#adb5bd"
-            onChangeText={extRefTextChange}
-          />
-          <Text style={{ marginLeft: 18, fontSize: 9, marginTop: -5 }}>
-            ExtRef ID
+            <PrimaryTextInput
+              style={styles.input}
+              value={extRefID}
+              autoCapitalize="none"
+              placeholder="External Reference ID"
+              placholderTextColor="#adb5bd"
+              onChangeText={extRefTextChange}
+            />
+            <Text style={{ marginLeft: 18, fontSize: 9, marginTop: -5 }}>
+              ExtRef ID
           </Text>
+          </KeyboardAvoidingView>
           <PrimaryButton onPress={initilizeQualt} style={{ marginTop: 20 }}>
             <PrimaryButtonText>Initilize Project</PrimaryButtonText>
           </PrimaryButton>
