@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Text, StyleSheet, Alert, View} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, StyleSheet, Alert, View } from 'react-native';
 import {
   SafeAreaView,
   PrimaryButton,
@@ -7,14 +7,14 @@ import {
   PrimaryTextInput,
 } from '../controls/styles';
 import CardView from '../controls/CardView';
-import {connect} from 'react-redux';
-import {updateAuth, updateVars} from '../redux/actions/authActions';
+import { connect } from 'react-redux';
+import { updateAuth, updateVars } from '../redux/actions/authActions';
 import Qualtrics from 'react-native-qualtrics';
 import BottomHud from '../controls/BottomHud';
-import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
+import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import QualtVar from '../controls/QualtVar';
 
-function FirstIntercept({auth, setLogin, setCustomVars}) {
+function FirstIntercept({ auth, setLogin, setCustomVars }) {
   const [interceptIDs, setInterceptIDs] = useState([]);
   const [customVars, setCVars] = useState(auth.custom_vars);
   const [currNav, setCurrNav] = useState('home');
@@ -53,6 +53,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
 
   async function testIntercept(intId) {
     console.log('intId:', intId);
+
     Qualtrics.evaluateIntercept(intId, async res => {
       console.log('evalRes:', res);
       if (res.passed) {
@@ -72,10 +73,11 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
               },
             },
           ],
-          {cancelable: false},
+          { cancelable: false },
         );
       }
     });
+
   }
 
   function changeNavText(textIn) {
@@ -98,7 +100,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
 
   function newVariable() {
     let newvars = [...customVars];
-    newvars.push({key: customVars.length, name: '', value: ''});
+    newvars.push({ key: customVars.length, name: '', value: '' });
     setCVars(newvars);
     setCustomVars(newvars);
   }
@@ -108,16 +110,17 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
     let kei = 0;
     for (var i = 0; i < customVars.length; i++) {
       if (customVars[i].key != k) {
-        cur.push({...customVars[i], key: kei});
+        cur.push({ ...customVars[i], key: kei });
         kei++;
       }
     }
     //console.log(">>>>>>> ", cur)
-    setCustomVars(cur);
     setCVars(cur);
+    setCustomVars(cur);
   }
 
   function updateCurrentVars(k, n, v) {
+    console.log("key:", k, " value:", v, " name:", n);
     let current = [];
     for (var i = 0; i < customVars.length; i++) {
       if (customVars[i].key == k) {
@@ -132,8 +135,8 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
       }
     }
     // set local state for viewing and update redux store
-    setCustomVars(current);
     setCVars(current);
+    setCustomVars(current);
   }
 
   return (
@@ -146,10 +149,10 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
               No intercepts have been initilized.
             </Text>
           ) : (
-            <Text style={styles.interceptHeader}>
-              Click the intercept to test
-            </Text>
-          )}
+              <Text style={styles.interceptHeader}>
+                Click the intercept to test
+              </Text>
+            )}
           {interceptIDs.map((val, idx) => {
             return (
               <PrimaryButton
@@ -178,7 +181,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
             </Text>
             <Text style={styles.interceptHeader}>Qualtrics Variables:</Text>
           </View>
-          <View style={{marginTop: 10}}>
+          <View style={{ marginTop: 10 }}>
             {customVars.length > 0 ? (
               customVars.map((val, idx) => {
                 return (
@@ -191,19 +194,20 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
                 );
               })
             ) : (
-              <TouchableOpacity onPress={newVariable}>
-                <Text
-                  style={{
-                    fontSize: 20,
-                    alignSelf: 'center',
-                    marginRight: 10,
-                    margin: 10,
-                  }}>
-                  No Custom Variables
+                <TouchableOpacity onPress={newVariable}>
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      alignSelf: 'center',
+                      marginRight: 10,
+                      margin: 10,
+                    }}>
+                    No Custom Variables
                 </Text>
-              </TouchableOpacity>
-            )}
+                </TouchableOpacity>
+              )}
           </View>
+
         </CardView>
       </ScrollView>
       <BottomHud resetCreds={resetCreds} />
@@ -240,10 +244,10 @@ const styles = StyleSheet.create({
   currLocText: {
     fontSize: 21,
   },
-  inputLabel: {marginLeft: 12, fontSize: 11, marginBottom: 10},
+  inputLabel: { marginLeft: 12, fontSize: 11, marginBottom: 10 },
 });
 
-const mapStateToProps = ({auth, custom_vars}) => ({
+const mapStateToProps = ({ auth, custom_vars }) => ({
   auth,
   custom_vars,
 });

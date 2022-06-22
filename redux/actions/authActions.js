@@ -1,4 +1,4 @@
-import {UPDATE_AUTH, UPDATE_CREDS, UPDATE_VARS} from '../constants';
+import { UPDATE_AUTH, UPDATE_CREDS, UPDATE_VARS } from '../constants';
 
 const setAuth = auth => {
   //console.log("Reducer auth:", auth)

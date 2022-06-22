@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react';
-import {Text, View, StyleSheet, TextInput, Button} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text, View, StyleSheet, TextInput, Button } from 'react-native';
 import Qualtrics from 'react-native-qualtrics';
-import {ScrollView} from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 
 function QualtVar(props) {
   const [key, setKey] = useState(props.input.key);
@@ -19,13 +19,17 @@ function QualtVar(props) {
     let v = parseInt(val);
     let isNum = val.match(/^[0-9]*$/) != null;
     console.log('isnum:', isNum);
-    //console.log('val:', val);
-    //console.log('v', v);
+    console.log('val:', val);
+    console.log('v', v);
     if (!isNum) {
       Qualtrics.setString(name, val);
       setNumeric(false);
     } else {
-      Qualtrics.setNumber(name, v);
+      if (isNaN(v)) {
+        Qualtrics.setNumber(name, 0)
+      } else {
+        Qualtrics.setNumber(name, v);
+      }
       setNumeric(true);
     }
   }, [props]);
@@ -61,14 +65,14 @@ function QualtVar(props) {
           backgroundColor: '#d3d3d3',
         }}
         horizontal={true}>
-        <View style={{flexDirection: 'row', marginLeft: 10}}>
+        <View style={{ flexDirection: 'row', marginLeft: 10 }}>
           <TextInput
             style={styles.varText}
             onChangeText={onVarNameChange}
             placeholder="Name"
             value={name}
             autoCapitalize="none"></TextInput>
-          <Text style={{fontSize: 18, padding: 10}}>:</Text>
+          <Text style={{ fontSize: 18, padding: 10 }}>:</Text>
           <TextInput
             onChangeText={onVarValChange}
             placeholder="Value"
