@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, Image, StyleSheet, Alert, KeyboardAvoidingView } from 'react-native';
+import { View, Text, Image, StyleSheet, Alert, KeyboardAvoidingView, Switch } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components';
 import {
@@ -30,6 +30,7 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
   const [brandID, setBrandID] = useState(auth.creds.brandID);
   const [projectID, setProjectID] = useState(auth.creds.projectID);
   const [extRefID, setExtRefID] = useState(auth.creds.extRefID);
+  const [doExtRef, toggleExtRef] = useState(true);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -53,81 +54,71 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
     //console.log('init goes here.', brandID, projectID);
     setIsBusy(true);
 
-    /*
-    Qualtrics.initializeProject(brandID, projectID, result => {
-      console.log('result:', result);
-      if (result.ERROR == null && Object.keys(result).length > 0) {
-        console.log('Qualtrics Initilized!');
-        setLogin({
-          brandID: brandID,
-          projectID: projectID,
-          intercepts: result,
-        });
-        setCreds({
-          brandID: brandID,
-          projectID: projectID,
-        });
-        // setVars([{
-        //   key: 0,
-        //   name: 'curr_nav',
-        //   value: 'home'
-        // },
-        // {
-        //   key: 1,
-        //   name: 'var1',
-        //   value: 'FOO'
-        // }]);
-        setIsBusy(false);
-      } else {
-        let msg = '';
-        if (result.ERROR == null) {
-          msg = 'There was a problem logging in. Please check your credentials';
-        } else {
-          msg = result.ERROR.message;
-        }
-        Alert.alert(
-          'Failed To Initilize',
-          msg,
-          [
-            {
-              text: 'OK',
-              onPress: () => {
-                setIsBusy(false);
-              },
-            },
-          ],
-          {cancelable: false},
-        );
-      }
-    });
-    */
-
-    console.log('brand:', brandID, ' proj:', projectID, 'extRef:', extRefID);
-    Qualtrics.initializeProjectWithExtRefId(
-      brandID,
-      projectID,
-      extRefID,
-      result => {
+    if (doExtRef) {
+      console.log('brand:', brandID, ' proj:', projectID, 'extRef:', extRefID);
+      Qualtrics.initializeProjectWithExtRefId(
+        brandID,
+        projectID,
+        extRefID,
+        result => {
+          console.log('result:', result);
+          if (result.ERROR == null && Object.keys(result).length > 0) {
+            console.log('Qualtrics Initilized!');
+            setLogin({
+              brandID: brandID,
+              projectID: projectID,
+              extRefID: extRefID,
+              intercepts: result,
+            });
+            setCreds({
+              brandID: brandID,
+              projectID: projectID,
+              extRefID: extRefID,
+            });
+            setIsBusy(false);
+          } else {
+            let msg = '';
+            if (result.ERROR == null) {
+              msg =
+                'There was a problem logging in. Please check your credentials';
+            } else {
+              msg = result.ERROR.message;
+            }
+            Alert.alert(
+              'Failed To Initilize',
+              msg,
+              [
+                {
+                  text: 'OK',
+                  onPress: () => {
+                    setIsBusy(false);
+                  },
+                },
+              ],
+              { cancelable: false },
+            );
+          }
+        },
+      );
+    } else {
+      Qualtrics.initializeProject(brandID, projectID, result => {
         console.log('result:', result);
         if (result.ERROR == null && Object.keys(result).length > 0) {
           console.log('Qualtrics Initilized!');
           setLogin({
             brandID: brandID,
             projectID: projectID,
-            extRefID: extRefID,
             intercepts: result,
           });
           setCreds({
             brandID: brandID,
             projectID: projectID,
-            extRefID: extRefID,
           });
           setIsBusy(false);
         } else {
           let msg = '';
           if (result.ERROR == null) {
-            msg =
-              'There was a problem logging in. Please check your credentials';
+            msg = 'There was a problem logging in. Please check your credentials';
           } else {
             msg = result.ERROR.message;
           }
@@ -145,12 +136,20 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
             { cancelable: false },
           );
         }
-      },
-    );
+      });
+    }
+
+
+
+
+
+
+
+
   }
 
-  const resetCredentials = () => {
-    //navigation.navigate('SignIn');
+  const doExtRefValChange = () => {
+    toggleExtRef(!doExtRef);
   };
 
   return (
@@ -169,8 +168,23 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
               style={{ paddingLeft: 100 }}
             />
             <Text style={{ alignSelf: 'center', marginBottom: 10 }}>
-              React Native 2.2.0 SDK Demo
+              React Native 2.3.0 SDK Demo
             </Text>
+            <View style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: 35
+            }}>
+              <Switch
+                trackColor={{ false: '#767577', true: "#81b0ff" }}
+                value={doExtRef}
+                onValueChange={doExtRefValChange}
+              />
+              <Text style={{ marginLeft: 15 }} >
+                Initilize with External Data Reference
+              </Text>
+            </View>
           </View>
           <KeyboardAvoidingView>
             <Text style={styles.header}>Input Your Project Credendials:</Text>
@@ -196,17 +210,21 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
             <Text style={{ marginLeft: 18, fontSize: 9, marginTop: -5 }}>
               Project ID
           </Text>
-            <PrimaryTextInput
-              style={styles.input}
-              value={extRefID}
-              autoCapitalize="none"
-              placeholder="External Reference ID"
-              placholderTextColor="#adb5bd"
-              onChangeText={extRefTextChange}
-            />
-            <Text style={{ marginLeft: 18, fontSize: 9, marginTop: -5 }}>
-              ExtRef ID
-          </Text>
+            {doExtRef ? (
+              <>
+                <PrimaryTextInput
+                  style={styles.input}
+                  value={extRefID}
+                  autoCapitalize="none"
+                  placeholder="External Reference ID"
+                  placholderTextColor="#adb5bd"
+                  onChangeText={extRefTextChange}
+                />
+                <Text style={{ marginLeft: 18, fontSize: 9, marginTop: -5 }}>
+                  ExtRef ID
+                </Text>
+              </>) : (<></>)
+            }
           </KeyboardAvoidingView>
           <PrimaryButton onPress={initilizeQualt} style={{ marginTop: 20 }}>
             <PrimaryButtonText>Initilize Project</PrimaryButtonText>
