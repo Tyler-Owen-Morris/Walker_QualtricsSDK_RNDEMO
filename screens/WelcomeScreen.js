@@ -86,7 +86,7 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
             }
             Alert.alert(
               'Failed To Initilize',
-              msg,
+              (msg + "\nResult:" + JSON.stringify(result)),
               [
                 {
                   text: 'OK',
@@ -117,6 +117,7 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
           setIsBusy(false);
         } else {
           let msg = '';
+          console.log("failed result:", result)
           if (result.ERROR == null) {
             msg = 'There was a problem logging in. Please check your credentials';
           } else {
@@ -124,7 +125,7 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
           }
           Alert.alert(
             'Failed To Initilize',
-            msg,
+            (msg + "\nResult : " + JSON.stringify(result)),
             [
               {
                 text: 'OK',

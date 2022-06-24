@@ -25,10 +25,10 @@ function FirstIntercept({ auth, setLogin, setCustomVars }) {
     console.log('intercept-auth:', auth);
     //console.log("custom_vars-int", custom_vars, customVars);
     if (auth.auth != null && typeof auth.auth.intercepts != 'undefined') {
-      //console.log("intercepts:", auth.intercepts)
+      console.log("intercepts:", auth.auth.intercepts)
       let ret = [];
       for (const [key, value] of Object.entries(auth.auth.intercepts)) {
-        //console.log(`${key}: ${value}`);
+        console.log(`${key}: ${JSON.stringify(value)}`);
         ret.push(`${key}`);
       }
       setInterceptIDs(ret);

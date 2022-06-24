@@ -12,7 +12,7 @@ const initialState = {
     //projectID: 'ZN_40H0UIBvgsiTEBE', //this is for smartnews
     //projectID: 'ZN_3OSd4nH9nOQsTc2',
     //projectID: 'ZN_d5TRrsV1GMEawSy',
-    extRefID: 'TEST_CONTACT123',
+    extRefID: 'tmorris',
     //extRefID: 'XeRILVNuSkyMAam-iostKA',
   },
   custom_vars: [
