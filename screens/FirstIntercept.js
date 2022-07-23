@@ -1,5 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Text, StyleSheet, Alert, View } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  Text,
+  StyleSheet,
+  Alert,
+  View,
+  KeyboardAvoidingView,
+} from 'react-native';
 import {
   SafeAreaView,
   PrimaryButton,
@@ -7,14 +13,14 @@ import {
   PrimaryTextInput,
 } from '../controls/styles';
 import CardView from '../controls/CardView';
-import { connect } from 'react-redux';
-import { updateAuth, updateVars } from '../redux/actions/authActions';
+import {connect} from 'react-redux';
+import {updateAuth, updateVars} from '../redux/actions/authActions';
 import Qualtrics from 'react-native-qualtrics';
 import BottomHud from '../controls/BottomHud';
-import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
+import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
 import QualtVar from '../controls/QualtVar';
 
-function FirstIntercept({ auth, setLogin, setCustomVars }) {
+function FirstIntercept({auth, setLogin, setCustomVars}) {
   const [interceptIDs, setInterceptIDs] = useState([]);
   const [customVars, setCVars] = useState(auth.custom_vars);
   const [currNav, setCurrNav] = useState('home');
@@ -25,7 +31,7 @@ function FirstIntercept({ auth, setLogin, setCustomVars }) {
     console.log('intercept-auth:', auth);
     //console.log("custom_vars-int", custom_vars, customVars);
     if (auth.auth != null && typeof auth.auth.intercepts != 'undefined') {
-      console.log("intercepts:", auth.auth.intercepts)
+      console.log('intercepts:', auth.auth.intercepts);
       let ret = [];
       for (const [key, value] of Object.entries(auth.auth.intercepts)) {
         console.log(`${key}: ${JSON.stringify(value)}`);
@@ -73,11 +79,10 @@ function FirstIntercept({ auth, setLogin, setCustomVars }) {
               },
             },
           ],
-          { cancelable: false },
+          {cancelable: false},
         );
       }
     });
-
   }
 
   function changeNavText(textIn) {
@@ -100,7 +105,7 @@ function FirstIntercept({ auth, setLogin, setCustomVars }) {
 
   function newVariable() {
     let newvars = [...customVars];
-    newvars.push({ key: customVars.length, name: '', value: '' });
+    newvars.push({key: customVars.length, name: '', value: ''});
     setCVars(newvars);
     setCustomVars(newvars);
   }
@@ -110,7 +115,7 @@ function FirstIntercept({ auth, setLogin, setCustomVars }) {
     let kei = 0;
     for (var i = 0; i < customVars.length; i++) {
       if (customVars[i].key != k) {
-        cur.push({ ...customVars[i], key: kei });
+        cur.push({...customVars[i], key: kei});
         kei++;
       }
     }
@@ -120,7 +125,7 @@ function FirstIntercept({ auth, setLogin, setCustomVars }) {
   }
 
   function updateCurrentVars(k, n, v) {
-    console.log("key:", k, " value:", v, " name:", n);
+    console.log('key:', k, ' value:', v, ' name:', n);
     let current = [];
     for (var i = 0; i < customVars.length; i++) {
       if (customVars[i].key == k) {
@@ -142,58 +147,59 @@ function FirstIntercept({ auth, setLogin, setCustomVars }) {
   return (
     <SafeAreaView>
       <Text style={styles.header}>Intercepts</Text>
-      <ScrollView>
-        <CardView style={styles.card}>
-          {interceptIDs.length == 0 ? (
-            <Text style={styles.interceptHeader}>
-              No intercepts have been initilized.
-            </Text>
-          ) : (
+      <KeyboardAvoidingView behavior="position">
+        <ScrollView>
+          <CardView style={styles.card}>
+            {interceptIDs.length == 0 ? (
+              <Text style={styles.interceptHeader}>
+                No intercepts have been initilized.
+              </Text>
+            ) : (
               <Text style={styles.interceptHeader}>
                 Click the intercept to test
               </Text>
             )}
-          {interceptIDs.map((val, idx) => {
-            return (
-              <PrimaryButton
-                key={idx}
-                style={styles.intButton}
-                onPress={() => {
-                  testIntercept(val);
-                }}>
-                <PrimaryButtonText>
-                  Test: <Text style={styles.idText}>{val}</Text>
-                </PrimaryButtonText>
-              </PrimaryButton>
-            );
-          })}
-        </CardView>
-        <CardView>
-          <View
-            style={{
-              backgroundColor: '#d3d3d3',
-              borderRadius: 10,
-              flexDirection: 'row',
-              justifyContent: 'center',
-            }}>
-            <Text onPress={newVariable} style={styles.interceptPlus}>
-              +
-            </Text>
-            <Text style={styles.interceptHeader}>Qualtrics Variables:</Text>
-          </View>
-          <View style={{ marginTop: 10 }}>
-            {customVars.length > 0 ? (
-              customVars.map((val, idx) => {
-                return (
-                  <QualtVar
-                    input={val}
-                    key={idx}
-                    changeValue={updateCurrentVars}
-                    removeVar={removeVariable}
-                  />
-                );
-              })
-            ) : (
+            {interceptIDs.map((val, idx) => {
+              return (
+                <PrimaryButton
+                  key={idx}
+                  style={styles.intButton}
+                  onPress={() => {
+                    testIntercept(val);
+                  }}>
+                  <PrimaryButtonText>
+                    Test: <Text style={styles.idText}>{val}</Text>
+                  </PrimaryButtonText>
+                </PrimaryButton>
+              );
+            })}
+          </CardView>
+          <CardView>
+            <View
+              style={{
+                backgroundColor: '#d3d3d3',
+                borderRadius: 10,
+                flexDirection: 'row',
+                justifyContent: 'center',
+              }}>
+              <Text onPress={newVariable} style={styles.interceptPlus}>
+                +
+              </Text>
+              <Text style={styles.interceptHeader}>Qualtrics Variables:</Text>
+            </View>
+            <View style={{marginTop: 10}}>
+              {customVars.length > 0 ? (
+                customVars.map((val, idx) => {
+                  return (
+                    <QualtVar
+                      input={val}
+                      key={idx}
+                      changeValue={updateCurrentVars}
+                      removeVar={removeVariable}
+                    />
+                  );
+                })
+              ) : (
                 <TouchableOpacity onPress={newVariable}>
                   <Text
                     style={{
@@ -203,13 +209,13 @@ function FirstIntercept({ auth, setLogin, setCustomVars }) {
                       margin: 10,
                     }}>
                     No Custom Variables
-                </Text>
+                  </Text>
                 </TouchableOpacity>
               )}
-          </View>
-
-        </CardView>
-      </ScrollView>
+            </View>
+          </CardView>
+        </ScrollView>
+      </KeyboardAvoidingView>
       <BottomHud resetCreds={resetCreds} />
     </SafeAreaView>
   );
@@ -244,10 +250,10 @@ const styles = StyleSheet.create({
   currLocText: {
     fontSize: 21,
   },
-  inputLabel: { marginLeft: 12, fontSize: 11, marginBottom: 10 },
+  inputLabel: {marginLeft: 12, fontSize: 11, marginBottom: 10},
 });
 
-const mapStateToProps = ({ auth, custom_vars }) => ({
+const mapStateToProps = ({auth, custom_vars}) => ({
   auth,
   custom_vars,
 });

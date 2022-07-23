@@ -1,7 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { View, Text, Image, StyleSheet, Alert, KeyboardAvoidingView, Switch } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, {useState, useEffect} from 'react';
+import {connect} from 'react-redux';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Alert,
+  KeyboardAvoidingView,
+  Switch,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import styled from 'styled-components';
 import {
   updateAuth,
@@ -25,7 +33,7 @@ import {
 } from 'react-native-gesture-handler';
 import CardView from '../controls/CardView';
 
-function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
+function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   const [isBusy, setIsBusy] = useState(false);
   const [brandID, setBrandID] = useState(auth.creds.brandID);
   const [projectID, setProjectID] = useState(auth.creds.projectID);
@@ -86,7 +94,7 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
             }
             Alert.alert(
               'Failed To Initilize',
-              (msg + "\nResult:" + JSON.stringify(result)),
+              msg + '\nResult:' + JSON.stringify(result),
               [
                 {
                   text: 'OK',
@@ -95,7 +103,7 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
                   },
                 },
               ],
-              { cancelable: false },
+              {cancelable: false},
             );
           }
         },
@@ -117,15 +125,16 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
           setIsBusy(false);
         } else {
           let msg = '';
-          console.log("failed result:", result)
+          console.log('failed result:', result);
           if (result.ERROR == null) {
-            msg = 'There was a problem logging in. Please check your credentials';
+            msg =
+              'There was a problem logging in. Please check your credentials';
           } else {
             msg = result.ERROR.message;
           }
           Alert.alert(
             'Failed To Initilize',
-            (msg + "\nResult : " + JSON.stringify(result)),
+            msg + '\nResult : ' + JSON.stringify(result),
             [
               {
                 text: 'OK',
@@ -134,19 +143,11 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
                 },
               },
             ],
-            { cancelable: false },
+            {cancelable: false},
           );
         }
       });
     }
-
-
-
-
-
-
-
-
   }
 
   const doExtRefValChange = () => {
@@ -155,83 +156,91 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
 
   return (
     <SafeAreaView>
-      <ScrollView>
-        <Spinner visible={isBusy} textContent={'loading...'} />
-        <CardView style={styles.card}>
-          <View style={styles.logoContainer}>
-            {/*<Image
+      <KeyboardAvoidingView behavior="height">
+        <ScrollView>
+          <Spinner visible={isBusy} textContent={'loading...'} />
+          <CardView style={styles.card}>
+            <View style={styles.logoContainer}>
+              {/*<Image
               style={styles.logo}
               source={require('../assets/Walker.png')}
             /> */}
-            <Image
-              source={require('../assets/qualtrics2.png')}
-              resizeMethod="scale"
-              style={{ paddingLeft: 100 }}
-            />
-            <Text style={{ alignSelf: 'center', marginBottom: 10 }}>
-              React Native 2.3.0 SDK Demo
-            </Text>
-            <View style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: 35
-            }}>
-              <Switch
-                trackColor={{ false: '#767577', true: "#81b0ff" }}
-                value={doExtRef}
-                onValueChange={doExtRefValChange}
+              <Image
+                source={require('../assets/qualtrics2.png')}
+                resizeMethod="scale"
+                style={{paddingLeft: 100}}
               />
-              <Text style={{ marginLeft: 15 }} >
-                Initilize with External Data Reference
+              <Text style={{alignSelf: 'center', marginBottom: 10}}>
+                React Native 2.3.0 SDK Demo
               </Text>
-            </View>
-          </View>
-          <KeyboardAvoidingView>
-            <Text style={styles.header}>Input Your Project Credendials:</Text>
-            <PrimaryTextInput
-              style={styles.input}
-              value={brandID}
-              placeholder="Brand ID"
-              placholderTextColor="#adb5bd"
-              onChangeText={brandTextChange}
-              autoCapitalize="none"
-            />
-            <Text style={{ marginLeft: 18, fontSize: 9, marginTop: -5 }}>
-              Brand ID
-          </Text>
-            <PrimaryTextInput
-              style={styles.input}
-              value={projectID}
-              autoCapitalize="none"
-              placeholder="Project ID"
-              placholderTextColor="#adb5bd"
-              onChangeText={projectTextChange}
-            />
-            <Text style={{ marginLeft: 18, fontSize: 9, marginTop: -5 }}>
-              Project ID
-          </Text>
-            {doExtRef ? (
-              <>
-                <PrimaryTextInput
-                  style={styles.input}
-                  value={extRefID}
-                  autoCapitalize="none"
-                  placeholder="External Reference ID"
-                  placholderTextColor="#adb5bd"
-                  onChangeText={extRefTextChange}
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginTop: 35,
+                }}>
+                <Switch
+                  trackColor={{false: '#767577', true: '#81b0ff'}}
+                  value={doExtRef}
+                  onValueChange={doExtRefValChange}
                 />
-                <Text style={{ marginLeft: 18, fontSize: 9, marginTop: -5 }}>
-                  ExtRef ID
+                <Text style={{marginLeft: 15}}>
+                  Initilize with External Data Reference
                 </Text>
-              </>) : (<></>)
-            }
-          </KeyboardAvoidingView>
-          <PrimaryButton onPress={initilizeQualt} style={{ marginTop: 20 }}>
-            <PrimaryButtonText>Initilize Project</PrimaryButtonText>
-          </PrimaryButton>
-        </CardView>
-      </ScrollView>
+              </View>
+            </View>
+
+            <Text style={styles.header}>Input Your Project Credendials:</Text>
+
+            <View>
+              <PrimaryTextInput
+                style={styles.input}
+                value={brandID}
+                placeholder="Brand ID"
+                placholderTextColor="#adb5bd"
+                onChangeText={brandTextChange}
+                autoCapitalize="none"
+              />
+              <Text style={{marginLeft: 18, fontSize: 9, marginTop: -5}}>
+                Brand ID
+              </Text>
+              <PrimaryTextInput
+                style={styles.input}
+                value={projectID}
+                autoCapitalize="none"
+                placeholder="Project ID"
+                placholderTextColor="#adb5bd"
+                onChangeText={projectTextChange}
+              />
+              <Text style={{marginLeft: 18, fontSize: 9, marginTop: -5}}>
+                Project ID
+              </Text>
+              {doExtRef ? (
+                <>
+                  <PrimaryTextInput
+                    style={styles.input}
+                    value={extRefID}
+                    autoCapitalize="none"
+                    placeholder="External Reference ID"
+                    placholderTextColor="#adb5bd"
+                    onChangeText={extRefTextChange}
+                  />
+                  <Text style={{marginLeft: 18, fontSize: 9, marginTop: -5}}>
+                    ExtRef ID
+                  </Text>
+                </>
+              ) : (
+                <></>
+              )}
+            </View>
+
+            <PrimaryButton onPress={initilizeQualt} style={{marginTop: 20}}>
+              <PrimaryButtonText>Initilize Project</PrimaryButtonText>
+            </PrimaryButton>
+          </CardView>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
@@ -266,7 +275,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ auth, creds, custom_vars }) => ({
+const mapStateToProps = ({auth, creds, custom_vars}) => ({
   auth,
   creds,
   custom_vars,
