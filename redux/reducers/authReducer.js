@@ -1,4 +1,4 @@
-import { UPDATE_AUTH, UPDATE_CREDS, UPDATE_VARS } from '../constants';
+import {UPDATE_AUTH, UPDATE_CREDS, UPDATE_VARS} from '../constants';
 
 const initialState = {
   auth: null,
@@ -16,6 +16,8 @@ const initialState = {
     //extRefID: 'XeRILVNuSkyMAam-iostKA',
   },
   custom_vars: [
+    {name: 'first var', value: 5},
+    {name: 'I am String', value: 'Peter Pan'},
   ],
 };
 

@@ -23,9 +23,6 @@ import QualtVar from '../controls/QualtVar';
 function FirstIntercept({auth, setLogin, setCustomVars}) {
   const [interceptIDs, setInterceptIDs] = useState([]);
   const [customVars, setCVars] = useState(auth.custom_vars);
-  const [currNav, setCurrNav] = useState('home');
-  const [var1, setVar1] = useState('FOO');
-  const [var2, setVar2] = useState(0);
 
   useEffect(() => {
     console.log('intercept-auth:', auth);
@@ -43,15 +40,6 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
     }
   }, [auth.auth]);
 
-  // useEffect(() => {
-  //     Qualtrics.setString('screen_name', currNav);
-  //     Qualtrics.setString('locale', var1);
-  //     Qualtrics.setNumber('random_number', var2);
-  // }, [currNav, var1, var2]);
-  // useEffect(() => {
-  //     setCVars(auth.custom_vars)
-  // }, [auth.custom_vars]);
-
   const resetCreds = () => {
     console.log('resettingCreds');
     setLogin(null);
@@ -59,7 +47,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
 
   async function testIntercept(intId) {
     console.log('intId:', intId);
-
+    setQualtricsVariables();
     Qualtrics.evaluateIntercept(intId, async res => {
       console.log('evalRes:', res);
       if (res.passed) {
@@ -70,12 +58,14 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
         console.log('intercept failed...');
         Alert.alert(
           'Intercept Evaluated to FALSE\nNot displaying Intercept',
-          res,
+          JSON.stringify(res),
           [
+            {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
             {
               text: 'OK',
               onPress: () => {
                 //setIsBusy(false);
+                console.log('OK Pressed');
               },
             },
           ],
@@ -85,23 +75,32 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
     });
   }
 
-  function changeNavText(textIn) {
-    setCurrNav(textIn);
-  }
-
-  function changeNumeric(strIn) {
-    var midl = strIn.replace(/\D/g, '');
-    var ret = parseFloat(midl);
-    setVar2(ret);
-  }
-
-  function toggleVar1() {
-    if (var1 == 'FOO') {
-      setVar1('BAR');
-    } else {
-      setVar1('FOO');
+  const setQualtricsVariables = () => {
+    for (let i = 0; i < customVars.length; i++) {
+      let cVal = customVars[i].value;
+      let nme = customVars[i].name;
+      if (nme == '') {
+        continue;
+      }
+      let v = parseInt(cVal);
+      let isNum = cVal.match(/^[0-9]*$/) != null;
+      console.log('isnum:', isNum);
+      console.log('val:', cVal);
+      console.log('v', v);
+      if (!isNum) {
+        Qualtrics.setString(nme, cVal);
+        console.log('set strin:', cVal);
+      } else {
+        if (isNaN(v)) {
+          Qualtrics.setNumber(nme, 0);
+          console.log('set num:', 0);
+        } else {
+          Qualtrics.setNumber(nme, cVal);
+          console.log('set num:', cVal);
+        }
+      }
     }
-  }
+  };
 
   function newVariable() {
     let newvars = [...customVars];
@@ -124,24 +123,69 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
     setCustomVars(cur);
   }
 
-  function updateCurrentVars(k, n, v) {
-    console.log('key:', k, ' value:', v, ' name:', n);
-    let current = [];
+  // function updateCurrentVars(k, n, v) {
+  //   console.log('key:', k, ' value:', v, ' name:', n);
+  //   let current = [];
+  //   for (var i = 0; i < customVars.length; i++) {
+  //     if (customVars[i].name == n) {
+  //       let a = {
+  //         key: k,
+  //         name: n,
+  //         value: v,
+  //       };
+  //       current.push(a);
+  //     } else {
+  //       current.push(customVars[i]);
+  //     }
+  //   }
+  //   // set local state for viewing and update redux store
+  //   setCVars(current);
+  //   setCustomVars(current);
+  // }
+
+  function updateCvarName(k, n, v, o) {
+    // where k is position in DOM, n is var new name, v is var value, and o is old value - to be removed
+    let result = [];
     for (var i = 0; i < customVars.length; i++) {
+      console.log('update cvar, name:', i, customVars[i].key, n, o);
       if (customVars[i].key == k) {
-        let a = {
-          key: k,
+        let nObj = {
+          key: customVars[i].key,
           name: n,
-          value: v,
+          value: customVars[i].value,
         };
-        current.push(a);
+        result.push(nObj);
       } else {
-        current.push(customVars[i]);
+        console.log('passing on ', k, n, v, o);
+        result.push(customVars[i]);
       }
     }
-    // set local state for viewing and update redux store
-    setCVars(current);
-    setCustomVars(current);
+    console.log('after Name Change array:', result);
+    setCVars(result);
+    setCustomVars(result);
+  }
+
+  function updateCvarValue(k, n, v) {
+    // where k is posision in dom, n is var name, and v is new value
+    let accum = [];
+    for (var i = 0; i < customVars.length; i++) {
+      if (customVars[i].key == k) {
+        accum.push({
+          key: customVars[i].key,
+          name: customVars[i].name,
+          value: v,
+        });
+      } else {
+        accum.push({
+          key: customVars[i].key,
+          name: customVars[i].name,
+          value: customVars[i].value,
+        });
+      }
+    }
+    console.log('after value change:', accum);
+    setCVars(accum);
+    setCustomVars(accum);
   }
 
   return (
@@ -194,7 +238,8 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
                     <QualtVar
                       input={val}
                       key={idx}
-                      changeValue={updateCurrentVars}
+                      changeValue={updateCvarValue}
+                      changeName={updateCvarName}
                       removeVar={removeVariable}
                     />
                   );

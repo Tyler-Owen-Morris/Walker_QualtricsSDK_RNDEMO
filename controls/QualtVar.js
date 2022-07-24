@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {Text, View, StyleSheet, TextInput, Button} from 'react-native';
-import Qualtrics from 'react-native-qualtrics';
 import {ScrollView} from 'react-native-gesture-handler';
 
 function QualtVar(props) {
+  console.log('var input: ', props.input);
   const [key, setKey] = useState(props.input.key);
   const [name, setName] = useState(props.input.name);
   const [val, setVal] = useState(props.input.value);
-  let [numeric, setNumeric] = useState(false);
+  const [numeric, setNumeric] = useState(false);
 
   useEffect(() => {
     setKey(props.input.key);
@@ -22,23 +22,18 @@ function QualtVar(props) {
     console.log('val:', val);
     console.log('v', v);
     if (!isNum) {
-      Qualtrics.setString(name, val);
+      //Qualtrics.setString(name, val);
       setNumeric(false);
     } else {
-      if (isNaN(v)) {
-        Qualtrics.setNumber(name, 0);
-      } else {
-        Qualtrics.setNumber(name, v);
-      }
       setNumeric(true);
     }
-  }, [props]);
+  }, [val]);
 
   function onVarNameChange(e) {
     //console.log('name-change:', e);
-    Qualtrics.setString(name, '');
+    //Qualtrics.setString(name, '');
     setName(e);
-    props.changeValue(key, e, val);
+    props.changeName(key, e, val, name);
   }
 
   function onVarValChange(e) {
@@ -48,7 +43,7 @@ function QualtVar(props) {
   }
   function deleteMe() {
     //console.log('reging');
-    Qualtrics.setString(name, '');
+    //Qualtrics.setString(name, '');
     props.removeVar(props.input.key);
   }
 
