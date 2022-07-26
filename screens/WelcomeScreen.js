@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {connect} from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import {
   View,
   Text,
@@ -9,7 +9,7 @@ import {
   KeyboardAvoidingView,
   Switch,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components';
 import {
   updateAuth,
@@ -33,7 +33,7 @@ import {
 } from 'react-native-gesture-handler';
 import CardView from '../controls/CardView';
 
-function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
+function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
   const [isBusy, setIsBusy] = useState(false);
   const [brandID, setBrandID] = useState(auth.creds.brandID);
   const [projectID, setProjectID] = useState(auth.creds.projectID);
@@ -103,7 +103,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                   },
                 },
               ],
-              {cancelable: false},
+              { cancelable: false },
             );
           }
         },
@@ -143,7 +143,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                 },
               },
             ],
-            {cancelable: false},
+            { cancelable: false },
           );
         }
       });
@@ -166,11 +166,16 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
               source={require('../assets/Walker.png')}
             /> */}
               <Image
-                source={require('../assets/qualtrics2.png')}
+                style={styles.Wlogo}
                 resizeMethod="scale"
-                style={{paddingLeft: 100}}
+                source={require('../assets/Walker_Logo.png')}
               />
-              <Text style={{alignSelf: 'center', marginBottom: 10}}>
+              <Image
+                source={require('../assets/qualtrics3.png')}
+                resizeMethod="scale"
+                style={styles.Qlogo}
+              />
+              <Text style={{ alignSelf: 'center', marginBottom: 10 }}>
                 React Native 2.3.0 SDK Demo
               </Text>
               <View
@@ -178,14 +183,14 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                   flexDirection: 'row',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  marginTop: 35,
+                  marginTop: 15,
                 }}>
                 <Switch
-                  trackColor={{false: '#767577', true: '#81b0ff'}}
+                  trackColor={{ false: '#767577', true: '#81b0ff' }}
                   value={doExtRef}
                   onValueChange={doExtRefValChange}
                 />
-                <Text style={{marginLeft: 15}}>
+                <Text style={{ marginLeft: 15 }}>
                   Initilize with External Data Reference
                 </Text>
               </View>
@@ -202,7 +207,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                 onChangeText={brandTextChange}
                 autoCapitalize="none"
               />
-              <Text style={{marginLeft: 18, fontSize: 9, marginTop: -5}}>
+              <Text style={{ marginLeft: 18, fontSize: 9, marginTop: -5 }}>
                 Brand ID
               </Text>
               <PrimaryTextInput
@@ -213,7 +218,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                 placholderTextColor="#adb5bd"
                 onChangeText={projectTextChange}
               />
-              <Text style={{marginLeft: 18, fontSize: 9, marginTop: -5}}>
+              <Text style={{ marginLeft: 18, fontSize: 9, marginTop: -5 }}>
                 Project ID
               </Text>
               {doExtRef ? (
@@ -226,16 +231,16 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                     placholderTextColor="#adb5bd"
                     onChangeText={extRefTextChange}
                   />
-                  <Text style={{marginLeft: 18, fontSize: 9, marginTop: -5}}>
+                  <Text style={{ marginLeft: 18, fontSize: 9, marginTop: -5 }}>
                     ExtRef ID
                   </Text>
                 </>
               ) : (
-                <></>
-              )}
+                  <></>
+                )}
             </View>
 
-            <PrimaryButton onPress={initilizeQualt} style={{marginTop: 20}}>
+            <PrimaryButton onPress={initilizeQualt} style={{ marginTop: 20 }}>
               <PrimaryButtonText>Initilize Project</PrimaryButtonText>
             </PrimaryButton>
           </CardView>
@@ -247,9 +252,15 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
 
 const styles = StyleSheet.create({
   logoContainer: {},
-  logo: {
+  Wlogo: {
     alignSelf: 'center',
     alignContent: 'center',
+  },
+  Qlogo: {
+    alignSelf: 'center',
+    alignContent: 'center',
+    marginVertical: 5,
+    marginTop: 25
   },
   card: {
     marginTop: 15,
@@ -275,7 +286,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({auth, creds, custom_vars}) => ({
+const mapStateToProps = ({ auth, creds, custom_vars }) => ({
   auth,
   creds,
   custom_vars,
