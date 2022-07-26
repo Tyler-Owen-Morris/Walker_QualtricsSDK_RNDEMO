@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import {Text, View, StyleSheet, TextInput, Button} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import React, { useState, useEffect } from 'react';
+import { Text, View, StyleSheet, TextInput, Button } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 function QualtVar(props) {
   console.log('var input: ', props.input);
@@ -60,14 +60,14 @@ function QualtVar(props) {
           backgroundColor: '#d3d3d3',
         }}
         horizontal={true}>
-        <View style={{flexDirection: 'row', marginLeft: 10}}>
+        <View style={{ flexDirection: 'row', marginLeft: 10 }}>
           <TextInput
             style={styles.varText}
             onChangeText={onVarNameChange}
             placeholder="Name"
             value={name}
             autoCapitalize="none"></TextInput>
-          <Text style={{fontSize: 18, padding: 10}}>:</Text>
+          <Text style={{ fontSize: 22, padding: 5, alignSelf: 'center' }}>:</Text>
           <TextInput
             onChangeText={onVarValChange}
             placeholder="Value"
@@ -85,10 +85,10 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    marginVertical: 5,
+    //marginVertical: 5,
     //backgroundColor: '#bfbfbf',
     borderRadius: 15,
-    padding: 5,
+    padding: 3,
   },
   removeText: {
     borderRadius: 10,
