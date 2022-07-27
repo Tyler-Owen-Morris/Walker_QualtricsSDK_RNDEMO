@@ -241,7 +241,7 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
             </View>
 
             <PrimaryButton onPress={initilizeQualt} style={{ marginTop: 20 }}>
-              <PrimaryButtonText>Initilize Project</PrimaryButtonText>
+              <PrimaryButtonText style={styles.initBtn}>Initilize Project</PrimaryButtonText>
             </PrimaryButton>
           </CardView>
         </ScrollView>
@@ -260,13 +260,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignContent: 'center',
     marginVertical: 5,
-    marginTop: 25
+    marginTop: 12
   },
   inputText: {
     marginLeft: 18,
-    fontSize: 17,
+    fontSize: 15,
     marginTop: 5,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   card: {
     marginTop: 15,
@@ -282,14 +282,21 @@ const styles = StyleSheet.create({
   header: {
     alignSelf: 'center',
     fontSize: 20,
-    marginTop: 30,
-    marginBottom: 20,
+    marginVertical: 15,
     margin: 5,
     fontWeight: 'bold',
+    textShadowRadius: .5,
+    textShadowColor: 'black'
   },
   input: {
     margin: 5,
   },
+  initBtn: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    textShadowRadius: 1,
+    textShadowColor: 'black'
+  }
 });
 
 const mapStateToProps = ({ auth, creds, custom_vars }) => ({
