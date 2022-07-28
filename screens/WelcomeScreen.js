@@ -178,30 +178,27 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
               <Text style={{ alignSelf: 'center', marginBottom: 10 }}>
                 React Native 2.3.0 SDK Demo
               </Text>
-            </View>
-
-            <Text style={styles.header}>Qualtrics Project Credendials:</Text>
-
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginVertical: 8,
-              }}>
-              <Switch
-                trackColor={{ false: '#767577', true: '#81b0ff' }}
-                value={doExtRef}
-                onValueChange={doExtRefValChange}
-              />
-              <Text style={{ marginLeft: 15 }}>
-                Initilize with External Data Reference
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginTop: 15,
+                }}>
+                <Switch
+                  trackColor={{ false: '#767577', true: '#81b0ff' }}
+                  value={doExtRef}
+                  onValueChange={doExtRefValChange}
+                />
+                <Text style={{ marginLeft: 15 }}>
+                  Initilize with External Data Reference
                 </Text>
+              </View>
             </View>
-            <View style={{ marginTop: 10 }} >
-              <Text style={styles.inputText}>
-                Brand ID:
-              </Text>
+
+            <Text style={styles.header}>Input Your Project Credendials:</Text>
+
+            <View>
               <PrimaryTextInput
                 style={styles.input}
                 value={brandID}
@@ -210,8 +207,8 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
                 onChangeText={brandTextChange}
                 autoCapitalize="none"
               />
-              <Text style={styles.inputText}>
-                Project ID:
+              <Text style={{ marginLeft: 18, fontSize: 9, marginTop: -5 }}>
+                Brand ID
               </Text>
               <PrimaryTextInput
                 style={styles.input}
@@ -221,11 +218,11 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
                 placholderTextColor="#adb5bd"
                 onChangeText={projectTextChange}
               />
+              <Text style={{ marginLeft: 18, fontSize: 9, marginTop: -5 }}>
+                Project ID
+              </Text>
               {doExtRef ? (
                 <>
-                  <Text style={styles.inputText}>
-                    ExtRef ID:
-                  </Text>
                   <PrimaryTextInput
                     style={styles.input}
                     value={extRefID}
@@ -234,6 +231,9 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
                     placholderTextColor="#adb5bd"
                     onChangeText={extRefTextChange}
                   />
+                  <Text style={{ marginLeft: 18, fontSize: 9, marginTop: -5 }}>
+                    ExtRef ID
+                  </Text>
                 </>
               ) : (
                   <></>
@@ -262,12 +262,15 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     marginTop: 12
   },
+<<<<<<< HEAD
   inputText: {
     marginLeft: 18,
     fontSize: 15,
     marginTop: 5,
     fontWeight: 'bold',
   },
+=======
+>>>>>>> parent of 9bd3fce... Stable with UI improvements for Walker
   card: {
     marginTop: 15,
     alignSelf: 'center',
@@ -289,7 +292,7 @@ const styles = StyleSheet.create({
     textShadowColor: 'black'
   },
   input: {
-    margin: 5,
+    margin: 10,
   },
   initBtn: {
     fontWeight: 'bold',
