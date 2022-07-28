@@ -262,12 +262,15 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     marginTop: 12
   },
+<<<<<<< HEAD
   inputText: {
     marginLeft: 18,
     fontSize: 15,
     marginTop: 5,
     fontWeight: 'bold',
   },
+=======
+>>>>>>> parent of 9bd3fce... Stable with UI improvements for Walker
   card: {
     marginTop: 15,
     alignSelf: 'center',
