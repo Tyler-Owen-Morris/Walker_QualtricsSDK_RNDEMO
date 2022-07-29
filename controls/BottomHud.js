@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import {StyleSheet, View, Text, Button} from 'react-native';
 
 function BottomHud(props) {
   return (
     <View style={styles.container}>
-      <Button title="Reset Project Credentials" onPress={props.resetCreds}>Reset Credentials</Button>
+      <Button title="Reset Project Credentials" onPress={props.resetCreds}>
+        Reset Credentials
+      </Button>
     </View>
   );
 }

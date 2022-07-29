@@ -11,28 +11,6 @@ import {configureStore} from './redux/configureStore';
 import MainNavigator from './navigation/MainNavigator';
 import ErrorBoundary from 'react-native-error-boundary';
 
-//Font Awesome setup
-import {library} from '@fortawesome/fontawesome-svg-core';
-//import {fab} from '@fortawesome/free-brands-svg-icons';
-import {
-  faIdCard,
-  faCamera,
-  faPrint,
-  faThermometer,
-  faPhone,
-  faCross,
-  faTimes,
-} from '@fortawesome/free-solid-svg-icons';
-
-library.add(
-  faIdCard,
-  faCamera,
-  faPrint,
-  faThermometer,
-  faPhone,
-  faCross,
-  faTimes,
-);
 const {store, persistor} = configureStore();
 
 function App() {
