@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, {useState, useEffect} from 'react';
+import {connect} from 'react-redux';
 import {
   View,
   Text,
@@ -9,7 +9,7 @@ import {
   KeyboardAvoidingView,
   Switch,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import styled from 'styled-components';
 import {
   updateAuth,
@@ -33,7 +33,7 @@ import {
 } from 'react-native-gesture-handler';
 import CardView from '../controls/CardView';
 
-function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
+function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   const [isBusy, setIsBusy] = useState(false);
   const [brandID, setBrandID] = useState(auth.creds.brandID);
   const [projectID, setProjectID] = useState(auth.creds.projectID);
@@ -103,7 +103,7 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
                   },
                 },
               ],
-              { cancelable: false },
+              {cancelable: false},
             );
           }
         },
@@ -143,7 +143,7 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
                 },
               },
             ],
-            { cancelable: false },
+            {cancelable: false},
           );
         }
       });
@@ -175,7 +175,7 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
                 resizeMethod="scale"
                 style={styles.Qlogo}
               />
-              <Text style={{ alignSelf: 'center', marginBottom: 10 }}>
+              <Text style={{alignSelf: 'center', marginBottom: 10}}>
                 React Native 2.3.0 SDK Demo
               </Text>
               <View
@@ -186,11 +186,11 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
                   marginTop: 15,
                 }}>
                 <Switch
-                  trackColor={{ false: '#767577', true: '#81b0ff' }}
+                  trackColor={{false: '#767577', true: '#81b0ff'}}
                   value={doExtRef}
                   onValueChange={doExtRefValChange}
                 />
-                <Text style={{ marginLeft: 15 }}>
+                <Text style={{marginLeft: 15}}>
                   Initilize with External Data Reference
                 </Text>
               </View>
@@ -207,7 +207,7 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
                 onChangeText={brandTextChange}
                 autoCapitalize="none"
               />
-              <Text style={{ marginLeft: 18, fontSize: 9, marginTop: -5 }}>
+              <Text style={{marginLeft: 18, fontSize: 9, marginTop: -5}}>
                 Brand ID
               </Text>
               <PrimaryTextInput
@@ -218,7 +218,7 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
                 placholderTextColor="#adb5bd"
                 onChangeText={projectTextChange}
               />
-              <Text style={{ marginLeft: 18, fontSize: 9, marginTop: -5 }}>
+              <Text style={{marginLeft: 18, fontSize: 9, marginTop: -5}}>
                 Project ID
               </Text>
               {doExtRef ? (
@@ -231,17 +231,19 @@ function WelcomeScreen({ auth, setLogin, setCreds, setVars }) {
                     placholderTextColor="#adb5bd"
                     onChangeText={extRefTextChange}
                   />
-                  <Text style={{ marginLeft: 18, fontSize: 9, marginTop: -5 }}>
+                  <Text style={{marginLeft: 18, fontSize: 9, marginTop: -5}}>
                     ExtRef ID
                   </Text>
                 </>
               ) : (
-                  <></>
-                )}
+                <></>
+              )}
             </View>
 
-            <PrimaryButton onPress={initilizeQualt} style={{ marginTop: 20 }}>
-              <PrimaryButtonText style={styles.initBtn}>Initilize Project</PrimaryButtonText>
+            <PrimaryButton onPress={initilizeQualt} style={{marginTop: 20}}>
+              <PrimaryButtonText style={styles.initBtn}>
+                Initilize Project
+              </PrimaryButtonText>
             </PrimaryButton>
           </CardView>
         </ScrollView>
@@ -260,17 +262,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignContent: 'center',
     marginVertical: 5,
-    marginTop: 12
+    marginTop: 12,
   },
-<<<<<<< HEAD
   inputText: {
     marginLeft: 18,
     fontSize: 15,
     marginTop: 5,
     fontWeight: 'bold',
   },
-=======
->>>>>>> parent of 9bd3fce... Stable with UI improvements for Walker
   card: {
     marginTop: 15,
     alignSelf: 'center',
@@ -288,8 +287,8 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     margin: 5,
     fontWeight: 'bold',
-    textShadowRadius: .5,
-    textShadowColor: 'black'
+    textShadowRadius: 0.5,
+    textShadowColor: 'black',
   },
   input: {
     margin: 10,
@@ -298,11 +297,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     textShadowRadius: 1,
-    textShadowColor: 'black'
-  }
+    textShadowColor: 'black',
+  },
 });
 
-const mapStateToProps = ({ auth, creds, custom_vars }) => ({
+const mapStateToProps = ({auth, creds, custom_vars}) => ({
   auth,
   creds,
   custom_vars,
