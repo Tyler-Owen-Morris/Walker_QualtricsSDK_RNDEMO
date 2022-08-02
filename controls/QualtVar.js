@@ -16,6 +16,7 @@ function QualtVar(props) {
   }, [props.input]);
 
   useEffect(() => {
+    try {
     let v = parseInt(val);
     let isNum = val.match(/^[0-9]*$/) != null;
     console.log('isnum:', isNum);
@@ -27,6 +28,9 @@ function QualtVar(props) {
     } else {
       setNumeric(true);
     }
+  }catch(err){
+    setNumeric(false)
+  }
   }, [val]);
 
   function onVarNameChange(e) {
