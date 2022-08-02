@@ -123,26 +123,6 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
     setCustomVars(cur);
   }
 
-  // function updateCurrentVars(k, n, v) {
-  //   console.log('key:', k, ' value:', v, ' name:', n);
-  //   let current = [];
-  //   for (var i = 0; i < customVars.length; i++) {
-  //     if (customVars[i].name == n) {
-  //       let a = {
-  //         key: k,
-  //         name: n,
-  //         value: v,
-  //       };
-  //       current.push(a);
-  //     } else {
-  //       current.push(customVars[i]);
-  //     }
-  //   }
-  //   // set local state for viewing and update redux store
-  //   setCVars(current);
-  //   setCustomVars(current);
-  // }
-
   function updateCvarName(k, n, v, o) {
     // where k is position in DOM, n is var new name, v is var value, and o is old value - to be removed
     let result = [];
@@ -234,6 +214,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
             <View style={{marginTop: 10}}>
               {customVars.length > 0 ? (
                 customVars.map((val, idx) => {
+                  console.log('creating variables:', idx);
                   return (
                     <QualtVar
                       input={val}

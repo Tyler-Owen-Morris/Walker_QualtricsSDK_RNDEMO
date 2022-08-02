@@ -4,7 +4,8 @@ import {ScrollView} from 'react-native-gesture-handler';
 
 function QualtVar(props) {
   console.log('var input: ', props.input);
-  const [key, setKey] = useState(props.input.key);
+  console.log('var props', props);
+  const [key, setKey] = useState(props.key);
   const [name, setName] = useState(props.input.name);
   const [val, setVal] = useState(props.input.value);
   const [numeric, setNumeric] = useState(false);
