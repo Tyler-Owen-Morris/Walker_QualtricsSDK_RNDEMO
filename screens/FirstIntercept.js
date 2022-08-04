@@ -19,6 +19,7 @@ import Qualtrics from 'react-native-qualtrics';
 import BottomHud from '../controls/BottomHud';
 import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
 import QualtVar from '../controls/QualtVar';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 function FirstIntercept({auth, setLogin, setCustomVars}) {
   const [interceptIDs, setInterceptIDs] = useState([]);
@@ -180,7 +181,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
               </Text>
             ) : (
               <Text style={styles.interceptHeader}>
-                Click the intercept to test
+                Press the intercept to test
               </Text>
             )}
             {interceptIDs.map((val, idx) => {
@@ -206,11 +207,14 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
                 flexDirection: 'row',
                 justifyContent: 'center',
               }}>
-              <Text onPress={newVariable} style={styles.interceptPlus}>
-                +
-              </Text>
+              <FontAwesomeIcon
+                onPress={newVariable}
+                icon="plus"
+                style={styles.interceptPlus}
+              />
               <Text style={styles.interceptHeader}>Qualtrics Variables:</Text>
             </View>
+
             <View style={{marginTop: 10}}>
               {customVars.length > 0 ? (
                 customVars.map((val, idx) => {

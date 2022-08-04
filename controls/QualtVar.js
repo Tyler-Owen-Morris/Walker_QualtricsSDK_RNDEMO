@@ -1,6 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, StyleSheet, TextInput, Button} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TextInput,
+  Button,
+  KeyboardAvoidingView,
+} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 function QualtVar(props) {
   console.log('var input: ', props.input);
@@ -18,15 +26,19 @@ function QualtVar(props) {
 
   useEffect(() => {
     let v = parseInt(val);
-    let isNum = val.match(/^[0-9]*$/) != null;
-    console.log('isnum:', isNum);
-    console.log('val:', val);
-    console.log('v', v);
-    if (!isNum) {
-      //Qualtrics.setString(name, val);
+    try {
+      let isNum = val.match(/^[0-9]*$/) != null;
+      console.log('isnum:', isNum);
+      console.log('val:', val);
+      console.log('v', v);
+      if (!isNum) {
+        //Qualtrics.setString(name, val);
+        setNumeric(false);
+      } else {
+        setNumeric(true);
+      }
+    } catch (e) {
       setNumeric(false);
-    } else {
-      setNumeric(true);
     }
   }, [val]);
 
@@ -50,8 +62,14 @@ function QualtVar(props) {
 
   return (
     <View style={styles.bar}>
-      <Text onPress={deleteMe} style={styles.removeText}>
-        -
+      <Text onPress={deleteMe} style={styles.removeTextWrapper}>
+        &nbsp;&nbsp;
+        <FontAwesomeIcon
+          onPress={deleteMe}
+          icon="minus"
+          style={styles.removeIcon}
+        />
+        &nbsp;&nbsp;
       </Text>
       <ScrollView
         style={{
@@ -86,20 +104,25 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    marginVertical: 5,
+    marginVertical: 2,
     //backgroundColor: '#bfbfbf',
     borderRadius: 15,
     padding: 5,
   },
-  removeText: {
+  removeTextWrapper: {
     borderRadius: 10,
     fontSize: 30,
-    backgroundColor: 'white',
-    margin: 7,
-    paddingLeft: 20,
-    alignSelf: 'center',
-    borderWidth: 1,
-    width: 60,
+    //backgroundColor: 'white',
+    //margin: 7,
+    //paddingHorizontal: 20,
+    //alignSelf: 'center',
+    //borderWidth: 1,
+    //width: 20,
+    //backgroundColor: 'red',
+    paddingBottom: 10,
+  },
+  removeIcon: {
+    //backgroundColor: 'blue',
   },
   varText: {
     fontSize: 18,

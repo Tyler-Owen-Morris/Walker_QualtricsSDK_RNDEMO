@@ -22,6 +22,9 @@ import {
   faPhone,
   faCross,
   faTimes,
+  faPlus,
+  faMinus,
+  faCircle,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -32,6 +35,9 @@ library.add(
   faPhone,
   faCross,
   faTimes,
+  faPlus,
+  faMinus,
+  faCircle,
 );
 const {store, persistor} = configureStore();
 

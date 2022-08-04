@@ -178,27 +178,27 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
               <Text style={{alignSelf: 'center', marginBottom: 10}}>
                 React Native 2.3.0 SDK Demo
               </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginTop: 15,
-                }}>
-                <Switch
-                  trackColor={{false: '#767577', true: '#81b0ff'}}
-                  value={doExtRef}
-                  onValueChange={doExtRefValChange}
-                />
-                <Text style={{marginLeft: 15}}>
-                  Initilize with External Data Reference
-                </Text>
-              </View>
             </View>
 
             <Text style={styles.header}>Input Your Project Credendials:</Text>
-
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginBottom: 30,
+              }}>
+              <Switch
+                trackColor={{false: '#767577', true: '#81b0ff'}}
+                value={doExtRef}
+                onValueChange={doExtRefValChange}
+              />
+              <Text style={{marginLeft: 15}}>
+                Initilize with External Data Reference
+              </Text>
+            </View>
             <View>
+              <Text style={styles.inputTitleText}>Brand ID</Text>
               <PrimaryTextInput
                 style={styles.input}
                 value={brandID}
@@ -207,9 +207,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                 onChangeText={brandTextChange}
                 autoCapitalize="none"
               />
-              <Text style={{marginLeft: 18, fontSize: 9, marginTop: -5}}>
-                Brand ID
-              </Text>
+              <Text style={styles.inputTitleText}>Project ID</Text>
               <PrimaryTextInput
                 style={styles.input}
                 value={projectID}
@@ -218,11 +216,9 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                 placholderTextColor="#adb5bd"
                 onChangeText={projectTextChange}
               />
-              <Text style={{marginLeft: 18, fontSize: 9, marginTop: -5}}>
-                Project ID
-              </Text>
               {doExtRef ? (
                 <>
+                  <Text style={styles.inputTitleText}>ExtRef ID</Text>
                   <PrimaryTextInput
                     style={styles.input}
                     value={extRefID}
@@ -231,9 +227,6 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                     placholderTextColor="#adb5bd"
                     onChangeText={extRefTextChange}
                   />
-                  <Text style={{marginLeft: 18, fontSize: 9, marginTop: -5}}>
-                    ExtRef ID
-                  </Text>
                 </>
               ) : (
                 <></>
@@ -279,6 +272,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 20,
     marginVertical: 15,
+    paddingBottom: 20,
     margin: 5,
     fontWeight: 'bold',
     textShadowRadius: 0.5,
@@ -286,6 +280,12 @@ const styles = StyleSheet.create({
   },
   input: {
     margin: 10,
+  },
+  inputTitleText: {
+    marginLeft: 18,
+    fontSize: 12,
+    fontWeight: 'bold',
+    marginTop: -5,
   },
   initBtn: {
     fontWeight: 'bold',
