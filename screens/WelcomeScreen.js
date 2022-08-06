@@ -32,6 +32,8 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native-gesture-handler';
 import CardView from '../controls/CardView';
+import WalkerLogoComponent from '../assets/Walker_Logo_JSX';
+import QualtricsLogoComponent from '../assets/Qualtrics_logo_JSX';
 
 function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   const [isBusy, setIsBusy] = useState(false);
@@ -161,11 +163,12 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
           <Spinner visible={isBusy} textContent={'loading...'} />
           <CardView style={styles.card}>
             <View style={styles.logoContainer}>
-              {/*<Image
-              style={styles.logo}
-              source={require('../assets/Walker.png')}
-            /> */}
-              <Image
+              <WalkerLogoComponent
+                width="280"
+                height="50"
+                style={styles.Wlogo}
+              />
+              {/* <Image
                 style={styles.Wlogo}
                 resizeMethod="scale"
                 source={require('../assets/Walker_Logo.png')}
@@ -174,9 +177,9 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                 source={require('../assets/qualtrics3.png')}
                 resizeMethod="scale"
                 style={styles.Qlogo}
-              />
+  /> */}
               <Text style={{alignSelf: 'center', marginBottom: 10}}>
-                React Native 2.3.0 SDK Demo
+                Qualtrics React Native 2.3.0 SDK Demo
               </Text>
             </View>
 
@@ -232,15 +235,17 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                 <></>
               )}
             </View>
-
-            <PrimaryButton onPress={initilizeQualt} style={{marginTop: 20}}>
-              <PrimaryButtonText style={styles.initBtn}>
-                Initilize Project
-              </PrimaryButtonText>
-            </PrimaryButton>
           </CardView>
         </ScrollView>
+        <PrimaryButton onPress={initilizeQualt} style={styles.initBtn}>
+          <PrimaryButtonText style={styles.initBtnTxt}>
+            Initilize Project
+          </PrimaryButtonText>
+        </PrimaryButton>
       </KeyboardAvoidingView>
+      <View style={styles.footer}>
+        <QualtricsLogoComponent style={styles.Qlogo} height="80" width="150" />
+      </View>
     </SafeAreaView>
   );
 }
@@ -250,12 +255,13 @@ const styles = StyleSheet.create({
   Wlogo: {
     alignSelf: 'center',
     alignContent: 'center',
+    marginBottom: 10,
   },
   Qlogo: {
     alignSelf: 'center',
     alignContent: 'center',
-    marginVertical: 5,
-    marginTop: 12,
+    //marginVertical: 5,
+    //marginTop: 12,
   },
   card: {
     marginTop: 15,
@@ -287,11 +293,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: -5,
   },
-  initBtn: {
+  initBtn: {marginTop: 20, marginHorizontal: 15},
+  initBtnTxt: {
     fontWeight: 'bold',
     fontSize: 20,
     textShadowRadius: 1,
     textShadowColor: 'black',
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 10,
+    alignSelf: 'center',
+    alignContent: 'center',
   },
 });
 
