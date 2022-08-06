@@ -26,6 +26,10 @@ function QualtVar(props) {
   }, [props.input]);
 
   useEffect(() => {
+    if (val == '') {
+      setNumeric(false);
+      return;
+    }
     let v = parseInt(val);
     try {
       let isNum = val.match(/^[0-9]*$/) != null;
@@ -147,7 +151,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
-    backgroundColor: '#ffffcc',
+    backgroundColor: '#f5f3e1',
   },
 });
 
