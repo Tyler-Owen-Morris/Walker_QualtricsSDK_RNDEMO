@@ -3,21 +3,14 @@ import {UPDATE_AUTH, UPDATE_CREDS, UPDATE_VARS} from '../constants';
 const initialState = {
   auth: null,
   creds: {
-    //brandID: '',
-    //projectID: '',
-    //extRefID: '',
-    //brandID: 'smartnews',
     brandID: 'walkersandbox',
     projectID: 'ZN_9XhdWiyfHvNt0ai', //this is for walkersandbox brand
-    //projectID: 'ZN_40H0UIBvgsiTEBE', //this is for smartnews
-    //projectID: 'ZN_3OSd4nH9nOQsTc2',
-    //projectID: 'ZN_d5TRrsV1GMEawSy',
     extRefID: 'tmorris',
-    //extRefID: 'XeRILVNuSkyMAam-iostKA',
   },
   custom_vars: [
-    {name: 'first var', value: 5},
-    {name: 'I am String', value: 'Peter Pan'},
+    {key: 0, name: 'test', value: 'true'},
+    {key: 1, name: 'Number', value: 55},
+    {key: 2, name: 'String', value: 'sample string'},
   ],
 };
 

@@ -5,6 +5,7 @@ import {
   Alert,
   View,
   KeyboardAvoidingView,
+  Button,
 } from 'react-native';
 import {
   SafeAreaView,
@@ -185,22 +186,29 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
               </Text>
             )}
             {interceptIDs.map((val, idx) => {
+              let my_title = 'ID: ' + val;
               return (
-                <PrimaryButton
-                  key={idx}
-                  style={styles.intButton}
-                  onPress={() => {
-                    testIntercept(val);
-                  }}>
-                  <PrimaryButtonText>
+                <View style={styles.intContainer}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      testIntercept(val);
+                    }}
+                    style={styles.interceptPlay}>
                     <FontAwesomeIcon
                       icon="play-circle"
                       size={22}
                       style={styles.interceptPlay}
                     />
-                    ID: <Text style={styles.idText}>{val}</Text>
-                  </PrimaryButtonText>
-                </PrimaryButton>
+                  </TouchableOpacity>
+                  <Button
+                    key={idx}
+                    style={styles.intButton}
+                    title={my_title}
+                    onPress={() => {
+                      testIntercept(val);
+                    }}
+                    color="#d1dfea"></Button>
+                </View>
               );
             })}
           </CardView>
@@ -208,7 +216,8 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
             <View
               style={{
                 backgroundColor: '#d3d3d3',
-                borderRadius: 10,
+                marginHorizontal: -20,
+                //borderRadius: 10,
                 flexDirection: 'row',
                 justifyContent: 'center',
               }}>
@@ -266,8 +275,18 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginVertical: 12,
   },
+  intContainer: {
+    backgroundColor: '#548ab4',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    color: '#a4a4a4',
+    borderRadius: 10,
+    marginVertical: 10,
+    height: 45,
+  },
   interceptHeader: {
-    fontSize: 19,
+    fontSize: 22,
     margin: 10,
     alignSelf: 'center',
   },
@@ -278,8 +297,8 @@ const styles = StyleSheet.create({
     //color: 'blue',
   },
   interceptPlay: {
-    marginLeft: 80,
-    color: 'white',
+    marginLeft: 8,
+    color: '#d1dfea',
     paddingTop: 3,
   },
   touchablePlusContainer: {

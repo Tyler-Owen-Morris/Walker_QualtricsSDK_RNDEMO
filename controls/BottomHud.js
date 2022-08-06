@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Text, Button} from 'react-native';
+import {StyleSheet, View, Text, Button, TouchableOpacity} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
   SafeAreaView,
@@ -13,12 +13,16 @@ function BottomHud(props) {
   //<Button title="Reset Project Credentials" onPress={props.resetCreds}>Reset Credentials</Button>
   return (
     <View style={styles.container}>
-      <PrimaryButton style={styles.myButton} onPress={props.resetCreds}>
-        <PrimaryButtonText style={styles.myButtonText}>
-          <FontAwesomeIcon style={styles.myIcon} icon="undo" />
-          Reset Project Credentials
-        </PrimaryButtonText>
-      </PrimaryButton>
+      <TouchableOpacity onPress={props.resetCreds} style={styles.myIcon}>
+        <FontAwesomeIcon style={{color: '#d1dfea'}} icon="undo" />
+      </TouchableOpacity>
+      <Button
+        title="Reset Project Credentials"
+        style={styles.myButton}
+        color="#d1dfea"
+        onPress={props.resetCreds}>
+        <PrimaryButtonText style={styles.myButtonText}></PrimaryButtonText>
+      </Button>
     </View>
   );
 }
@@ -34,20 +38,25 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   myButton: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
+    borderRadius: 10,
   },
   myIcon: {
     marginHorizontal: 8,
-    color: 'white',
+    color: '#d1dfea',
   },
   container: {
+    backgroundColor: '#548ab4',
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'row',
     position: 'absolute',
-    bottom: 10,
-    left: 10,
-    right: 10,
+    color: '#a4a4a4',
+    bottom: 35,
+    left: 20,
+    right: 20,
     borderRadius: 10,
+    marginHorizontal: 20,
   },
 });
 

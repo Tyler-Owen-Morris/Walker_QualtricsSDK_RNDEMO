@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const TextInput = styled.TextInput`
   height: 40px;
-  borderWidth: 1px;
-  borderRadius: 10px;
+  borderwidth: 1px;
+  borderradius: 10px;
 `;
 
 export const SafeAreaView = styled.SafeAreaView`
@@ -13,56 +13,56 @@ export const SafeAreaView = styled.SafeAreaView`
 
 export const CenteredView = styled.SafeAreaView`
   flex: 1;
-  alignItems: center;
-  justifyContent: center;
+  alignitems: center;
+  justifycontent: center;
 `;
 
 export const PrimaryButton = styled.TouchableOpacity`
-  backgroundColor: #007BFF;
-  color: #FFFFFF;
+  backgroundcolor: #007bff;
+  color: #ffffff;
   height: 50px;
-  borderRadius: 10px;
-  justifyContent: center;
+  borderradius: 10px;
+  justifycontent: center;
 `;
 
 export const PrimaryButtonText = styled.Text`
-  color: #FFFFFF;
-  textAlign: center;
-  fontSize: 18px;
+  color: #ffffff;
+  textalign: center;
+  fontsize: 18px;
 `;
 
 export const PrimaryButtonAlt = styled.TouchableOpacity`
   height: 50px;
-  borderRadius: 10px;
-  justifyContent: center;
+  borderradius: 10px;
+  justifycontent: center;
 `;
 
 export const PrimaryButtonAltText = styled.Text`
-  color: #007BFF;
-  textAlign: center;
-  fontSize: 18px;
+  color: #007bff;
+  textalign: center;
+  fontsize: 18px;
 `;
 
 export const SecondaryButton = styled.TouchableOpacity`
-  fontSize: 16px;
-  paddingRight: 20;
+  fontsize: 16px;
+  paddingright: 20;
 `;
 
 export const SecondaryButtonText = styled.Text`
-  color: #4C5E7A;
-  textAlign: center;
-  fontSize: 18px;
+  color: #4c5e7a;
+  textalign: center;
+  fontsize: 18px;
 `;
 
 export const ImageLogo = styled.Image`
-  marginLeft: 5%;
+  marginleft: 5%;
   width: 35%;
-  resizeMode: contain;
+  resizemode: contain;
 `;
 
 export const PrimaryTextInput = styled.TextInput`
   background: #f4f7fa;
   height: 50px;
-  borderRadius: 10px;
+  borderradius: 10px;
   padding: 10px;
 `;

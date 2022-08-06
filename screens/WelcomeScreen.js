@@ -8,6 +8,8 @@ import {
   Alert,
   KeyboardAvoidingView,
   Switch,
+  Linking,
+  Button,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import styled from 'styled-components';
@@ -26,6 +28,8 @@ import {
   ImageLogo,
   PrimaryButtonText,
   PrimaryTextInput,
+  SecondaryButton,
+  SecondaryButtonText,
 } from '../controls/styles';
 import {
   ScrollView,
@@ -42,6 +46,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   const [extRefID, setExtRefID] = useState(auth.creds.extRefID);
   const [doExtRef, toggleExtRef] = useState(true);
   const navigation = useNavigation();
+  const walkerURL = 'https://walkerinfo.com/resources/';
 
   useEffect(() => {
     //console.log("WelcomeAuth", auth);
@@ -156,6 +161,10 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
     toggleExtRef(!doExtRef);
   };
 
+  const openWalkerHelp = () => {
+    Linking.openURL(walkerURL);
+  };
+
   return (
     <SafeAreaView>
       <KeyboardAvoidingView behavior="height">
@@ -178,11 +187,18 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                 resizeMethod="scale"
                 style={styles.Qlogo}
   /> */}
-              <Text style={{alignSelf: 'center', marginBottom: 10}}>
+              <Text style={styles.subHeader}>
                 Qualtrics React Native 2.3.0 SDK Demo
               </Text>
             </View>
-
+            <View style={styles.helpTextContainer}>
+              <Text style={styles.helpText}>
+                For more detailed instructions see
+              </Text>
+              <Text style={styles.helpTextLink} onPress={openWalkerHelp}>
+                the Walker Help Page
+              </Text>
+            </View>
             <Text style={styles.header}>Input Your Project Credendials:</Text>
             <View
               style={{
@@ -191,14 +207,14 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                 alignItems: 'center',
                 marginBottom: 30,
               }}>
+              <Text style={{marginRight: 15}}>
+                Initilize with External Data Reference
+              </Text>
               <Switch
-                trackColor={{false: '#767577', true: '#81b0ff'}}
+                trackColor={{false: '#548ab4', true: '#d1dfea'}}
                 value={doExtRef}
                 onValueChange={doExtRefValChange}
               />
-              <Text style={{marginLeft: 15}}>
-                Initilize with External Data Reference
-              </Text>
             </View>
             <View>
               <Text style={styles.inputTitleText}>Brand ID</Text>
@@ -237,11 +253,12 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
             </View>
           </CardView>
         </ScrollView>
-        <PrimaryButton onPress={initilizeQualt} style={styles.initBtn}>
-          <PrimaryButtonText style={styles.initBtnTxt}>
-            Initilize Project
-          </PrimaryButtonText>
-        </PrimaryButton>
+        <View style={styles.initBtn}>
+          <Button
+            title="Initilize Project"
+            onPress={initilizeQualt}
+            color="#d1dfea"></Button>
+        </View>
       </KeyboardAvoidingView>
       <View style={styles.footer}>
         <QualtricsLogoComponent style={styles.Qlogo} height="80" width="150" />
@@ -262,6 +279,24 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     //marginVertical: 5,
     //marginTop: 12,
+  },
+  subHeader: {
+    alignSelf: 'center',
+    marginBottom: 10,
+  },
+  helpTextContainer: {
+    alignContent: 'center',
+    marginVertical: 10,
+    marginTop: 20,
+  },
+  helpText: {
+    alignSelf: 'center',
+    fontSize: 20,
+  },
+  helpTextLink: {
+    alignSelf: 'center',
+    color: '#548ab4',
+    fontSize: 20,
   },
   card: {
     marginTop: 15,
@@ -289,16 +324,18 @@ const styles = StyleSheet.create({
   },
   inputTitleText: {
     marginLeft: 18,
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: 'bold',
-    marginTop: -5,
+    marginTop: 0,
+    paddingTop: 8,
   },
-  initBtn: {marginTop: 20, marginHorizontal: 15},
-  initBtnTxt: {
-    fontWeight: 'bold',
-    fontSize: 20,
-    textShadowRadius: 1,
-    textShadowColor: 'black',
+  initBtn: {
+    marginTop: 5,
+    marginHorizontal: 15,
+    fontSize: 50,
+    backgroundColor: '#548ab4',
+    borderRadius: 10,
+    color: '#548ab4',
   },
   footer: {
     position: 'absolute',
