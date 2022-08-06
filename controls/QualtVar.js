@@ -6,6 +6,7 @@ import {
   TextInput,
   Button,
   KeyboardAvoidingView,
+  TouchableOpacity,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
@@ -62,15 +63,17 @@ function QualtVar(props) {
 
   return (
     <View style={styles.bar}>
-      <Text onPress={deleteMe} style={styles.removeTextWrapper}>
-        &nbsp;&nbsp;
-        <FontAwesomeIcon
-          onPress={deleteMe}
-          icon="minus"
-          style={styles.removeIcon}
-        />
-        &nbsp;&nbsp;
-      </Text>
+      <TouchableOpacity onPress={deleteMe}>
+        <Text style={styles.removeTextWrapper}>
+          &nbsp;&nbsp;
+          <FontAwesomeIcon
+            icon="minus-circle"
+            size={20}
+            style={styles.removeIcon}
+          />
+          &nbsp;&nbsp;
+        </Text>
+      </TouchableOpacity>
       <ScrollView
         style={{
           borderWidth: 1,
@@ -122,7 +125,9 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   removeIcon: {
-    //backgroundColor: 'blue',
+    // backgroundColor: 'blue',
+    // scaleX: 1.5,
+    // scaleY: 1.5,
   },
   varText: {
     fontSize: 18,

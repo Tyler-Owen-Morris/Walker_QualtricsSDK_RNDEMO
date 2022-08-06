@@ -170,7 +170,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
   }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
       <Text style={styles.header}>Intercepts</Text>
       <KeyboardAvoidingView behavior="position">
         <ScrollView>
@@ -193,7 +193,12 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
                     testIntercept(val);
                   }}>
                   <PrimaryButtonText>
-                    Test: <Text style={styles.idText}>{val}</Text>
+                    <FontAwesomeIcon
+                      icon="play-circle"
+                      size={22}
+                      style={styles.interceptPlay}
+                    />
+                    ID: <Text style={styles.idText}>{val}</Text>
                   </PrimaryButtonText>
                 </PrimaryButton>
               );
@@ -207,12 +212,16 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
                 flexDirection: 'row',
                 justifyContent: 'center',
               }}>
-              <FontAwesomeIcon
+              <Text style={styles.interceptHeader}>Custom Variables:</Text>
+              <TouchableOpacity
                 onPress={newVariable}
-                icon="plus"
-                style={styles.interceptPlus}
-              />
-              <Text style={styles.interceptHeader}>Qualtrics Variables:</Text>
+                style={styles.touchablePlusContainer}>
+                <FontAwesomeIcon
+                  icon="plus"
+                  size={20}
+                  style={styles.interceptPlus}
+                />
+              </TouchableOpacity>
             </View>
 
             <View style={{marginTop: 10}}>
@@ -264,8 +273,19 @@ const styles = StyleSheet.create({
   },
   interceptPlus: {
     fontSize: 29,
-    marginRight: 20,
+    marginLeft: 10,
     alignSelf: 'center',
+    //color: 'blue',
+  },
+  interceptPlay: {
+    marginLeft: 80,
+    color: 'white',
+    paddingTop: 3,
+  },
+  touchablePlusContainer: {
+    alignContent: 'center',
+    //color: 'red',
+    marginTop: 13,
   },
   card: {
     margin: 5,
@@ -274,7 +294,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   idText: {
-    fontSize: 13,
+    fontSize: 15,
     fontStyle: 'italic',
   },
   currLocText: {

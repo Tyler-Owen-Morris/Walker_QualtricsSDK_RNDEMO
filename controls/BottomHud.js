@@ -7,14 +7,15 @@ import {
   PrimaryButtonText,
   PrimaryTextInput,
 } from '../controls/styles';
+import CardView from './CardView';
 
 function BottomHud(props) {
   //<Button title="Reset Project Credentials" onPress={props.resetCreds}>Reset Credentials</Button>
   return (
     <View style={styles.container}>
-      <PrimaryButton onPress={props.resetCreds}>
-        <PrimaryButtonText>
-          <FontAwesomeIcon icon="circle-xmark" />
+      <PrimaryButton style={styles.myButton} onPress={props.resetCreds}>
+        <PrimaryButtonText style={styles.myButtonText}>
+          <FontAwesomeIcon style={styles.myIcon} icon="undo" />
           Reset Project Credentials
         </PrimaryButtonText>
       </PrimaryButton>
@@ -23,26 +24,30 @@ function BottomHud(props) {
 }
 
 const styles = StyleSheet.create({
-  rows: {
+  cardContainer: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
   },
-  row: {
-    color: '#ADB5BD',
+  myButtonText: {
+    //color: '#ADB5BD',
     fontSize: 18,
   },
-  selectedRow: {
-    color: '#007BFF',
-    fontSize: 18,
+  myButton: {
+    paddingHorizontal: 20,
+  },
+  myIcon: {
+    marginHorizontal: 8,
+    color: 'white',
   },
   container: {
-    marginTop: 10,
-    marginHorizontal: 30,
-    justifyContent: 'flex-end',
-    flexDirection: 'column',
-    color: '#e7e3e3',
-    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 10,
+    left: 10,
+    right: 10,
+    borderRadius: 10,
   },
 });
 

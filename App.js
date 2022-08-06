@@ -25,6 +25,11 @@ import {
   faPlus,
   faMinus,
   faCircle,
+  faTimesCircle,
+  faUndo,
+  faMinusCircle,
+  faPlay,
+  faPlayCircle,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -37,7 +42,12 @@ library.add(
   faTimes,
   faPlus,
   faMinus,
+  faMinusCircle,
   faCircle,
+  faTimesCircle,
+  faUndo,
+  faPlay,
+  faPlayCircle,
 );
 const {store, persistor} = configureStore();
 
