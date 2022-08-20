@@ -188,91 +188,104 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
             Digitial CX {'\n'}Mobile Demo
           </Text>
         </View>
-        <KeyboardAvoidingView behavior="position">
-          <ScrollView>
-            <CardView style={styles.card}>
-              {interceptIDs.length == 0 ? (
-                <Text style={styles.interceptHeader}>
-                  No intercepts have been initilized.
-                </Text>
-              ) : (
-                <Text style={styles.interceptHeader}>Available Intercepts</Text>
-              )}
-              {interceptIDs.map((val, idx) => {
-                let my_title = val;
-                return (
-                  <TouchableOpacity
-                    key={idx}
-                    onPress={() => {
-                      testIntercept(val);
-                    }}
-                    style={styles.intContainer}>
-                    <Button
-                      title={my_title}
-                      style={styles.intButton}
-                      color="white"></Button>
+        <View style={{backgroundColor: 'white', height: '100%'}}>
+          <KeyboardAvoidingView behavior="position">
+            <ScrollView>
+              <CardView style={styles.card}>
+                {interceptIDs.length == 0 ? (
+                  <Text style={styles.interceptHeader}>
+                    No intercepts have been initilized.
+                  </Text>
+                ) : (
+                  <Text style={styles.interceptHeader}>
+                    Available Intercepts
+                  </Text>
+                )}
+                {interceptIDs.map((val, idx) => {
+                  let my_title = val;
+                  return (
+                    <TouchableOpacity
+                      key={idx}
+                      onPress={() => {
+                        testIntercept(val);
+                      }}
+                      style={styles.intContainer}>
+                      <Button
+                        title={my_title}
+                        style={styles.intButton}
+                        color="white"></Button>
 
-                    <FontAwesomeIcon
-                      icon="arrow-right"
-                      size={22}
-                      style={styles.interceptPlay}
-                    />
-                  </TouchableOpacity>
-                );
-              })}
-            </CardView>
-            <CardView>
+                      <FontAwesomeIcon
+                        icon="arrow-right"
+                        size={22}
+                        style={styles.interceptPlay}
+                      />
+                    </TouchableOpacity>
+                  );
+                })}
+              </CardView>
               <View
                 style={{
-                  backgroundColor: '#d3d3d3',
-                  marginHorizontal: -20,
+                  //borderWidth: 1,
+                  borderColor: '#e9ecef',
                   //borderRadius: 10,
-                  flexDirection: 'row',
-                  justifyContent: 'space-around',
+                  justifyContent: 'space-between',
+                  padding: 10,
                 }}>
-                <Text style={styles.interceptHeader}>Qualtrics Variables:</Text>
-                <TouchableOpacity
-                  onPress={newVariable}
-                  style={styles.touchablePlusContainer}>
-                  <FontAwesomeIcon
-                    icon="plus-circle"
-                    size={30}
-                    style={styles.interceptPlus}
-                  />
-                </TouchableOpacity>
-              </View>
-
-              <View style={{marginTop: 10}}>
-                {customVars.length > 0 ? (
-                  customVars.map((val, idx) => {
-                    console.log('creating variables:', idx);
-                    return (
-                      <QualtVar
-                        input={val}
-                        key={idx}
-                        changeValue={updateCvarValue}
-                        changeName={updateCvarName}
-                        removeVar={removeVariable}
-                      />
-                    );
-                  })
-                ) : (
-                  <TouchableOpacity onPress={newVariable}>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        alignSelf: 'center',
-                        marginRight: 10,
-                        margin: 10,
-                      }}>
-                      No Custom Variables
-                    </Text>
+                <View
+                  style={{
+                    backgroundColor: '#d3d3d3',
+                    marginHorizontal: -10,
+                    //borderRadius: 10,
+                    flexDirection: 'row',
+                    justifyContent: 'space-evenly',
+                  }}>
+                  <Text style={styles.interceptHeader}>
+                    Qualtrics Variables:
+                  </Text>
+                  <TouchableOpacity
+                    onPress={newVariable}
+                    style={styles.touchablePlusContainer}>
+                    <FontAwesomeIcon
+                      icon="plus-circle"
+                      size={30}
+                      style={styles.interceptPlus}
+                    />
                   </TouchableOpacity>
-                )}
+                </View>
+
+                <View style={{marginTop: 5}}>
+                  {customVars.length > 0 ? (
+                    customVars.map((val, idx) => {
+                      console.log('creating variables:', idx);
+                      return (
+                        <QualtVar
+                          input={val}
+                          key={idx}
+                          changeValue={updateCvarValue}
+                          changeName={updateCvarName}
+                          removeVar={removeVariable}
+                        />
+                      );
+                    })
+                  ) : (
+                    <TouchableOpacity onPress={newVariable}>
+                      <Text
+                        style={{
+                          fontSize: 20,
+                          alignSelf: 'center',
+                          marginRight: 10,
+                          margin: 10,
+                        }}>
+                        No Custom Variables
+                      </Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
               </View>
-            </CardView>
-          </ScrollView>
-        </KeyboardAvoidingView>
+            </ScrollView>
+          </KeyboardAvoidingView>
+        </View>
       </SafeAreaView>
       <CardView style={styles.footer}>
         <TouchableOpacity style={styles.resetButton} onPress={resetCreds}>
@@ -284,7 +297,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
             />
             <Button
               style={styles.resetButton}
-              title="RESET"
+              title="Reset Project"
               color="white"></Button>
           </View>
         </TouchableOpacity>

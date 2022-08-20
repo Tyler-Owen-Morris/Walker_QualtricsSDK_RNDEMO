@@ -66,36 +66,39 @@ function QualtVar(props) {
   }
 
   return (
-    <View style={styles.bar}>
-      <ScrollView style={styles.inputContainer} horizontal={true}>
-        <View style={{flexDirection: 'row', marginLeft: 10}}>
-          <TextInput
-            style={styles.varText}
-            onChangeText={onVarNameChange}
-            placeholder="Name"
-            value={name}
-            autoCapitalize="none"></TextInput>
-          <Text style={{fontSize: 18, padding: 10}}>:</Text>
-          <TextInput
-            onChangeText={onVarValChange}
-            placeholder="Value"
-            style={numeric ? styles.varNumeric : styles.varText}
-            value={val}
-            autoCapitalize="none"></TextInput>
-        </View>
-      </ScrollView>
-      <TouchableOpacity onPress={deleteMe}>
-        <Text style={styles.removeTextWrapper}>
-          &nbsp;&nbsp;
-          <FontAwesomeIcon
-            icon="minus-circle"
-            size={27}
-            style={styles.removeIcon}
-          />
-          &nbsp;&nbsp;
-        </Text>
-      </TouchableOpacity>
-    </View>
+    <>
+      <View style={styles.bar}>
+        <ScrollView style={styles.inputContainer} horizontal={true}>
+          <View style={{flexDirection: 'row', marginLeft: 10}}>
+            <TextInput
+              style={styles.varText}
+              onChangeText={onVarNameChange}
+              placeholder="Name"
+              value={name}
+              autoCapitalize="none"></TextInput>
+            <Text style={{fontSize: 18, padding: 10}}>:</Text>
+            <TextInput
+              onChangeText={onVarValChange}
+              placeholder="Value"
+              style={numeric ? styles.varNumeric : styles.varText}
+              value={val}
+              autoCapitalize="none"></TextInput>
+          </View>
+        </ScrollView>
+        <TouchableOpacity onPress={deleteMe}>
+          <Text style={styles.removeTextWrapper}>
+            &nbsp;&nbsp;
+            <FontAwesomeIcon
+              icon="minus-circle"
+              size={27}
+              style={styles.removeIcon}
+            />
+            &nbsp;&nbsp;
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.barSeparator} />
+    </>
   );
 }
 
@@ -111,6 +114,13 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     marginHorizontal: -21,
     //borderRadius: 1,
+  },
+  barSeparator: {
+    backgroundColor: '#bfbfbf',
+    height: 1,
+    opacity: 0.5,
+    marginHorizontal: -21,
+    marginVertical: 2,
   },
   removeTextWrapper: {
     borderRadius: 10,
