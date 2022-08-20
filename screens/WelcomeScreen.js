@@ -226,17 +226,17 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                     flexDirection: 'row',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    marginBottom: 2,
+                    marginBottom: 10,
                     marginTop: 30,
                   }}>
-                  <Text style={{marginRight: 15}}>
-                    Initilize with External Data Reference
-                  </Text>
                   <Switch
                     trackColor={{false: '#548ab4', true: '#81b2fc'}}
                     value={doExtRef}
                     onValueChange={doExtRefValChange}
                   />
+                  <Text style={{marginLeft: 15, fontFamily: my_font}}>
+                    Initilize with External Data Reference
+                  </Text>
                 </View>
                 {doExtRef ? (
                   <>
@@ -291,6 +291,8 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   );
 }
 
+const my_font = 'HelveticaNeue';
+
 const styles = StyleSheet.create({
   logoContainer: {},
   Wlogo: {
@@ -311,6 +313,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     fontSize: 20,
     color: 'white',
+    fontFamily: my_font,
   },
   helpTextContainer: {
     alignContent: 'center',
@@ -320,6 +323,7 @@ const styles = StyleSheet.create({
   helpText: {
     alignSelf: 'center',
     fontSize: 20,
+    fontFamily: my_font,
   },
   helpTextLink: {
     alignSelf: 'center',
@@ -356,6 +360,7 @@ const styles = StyleSheet.create({
     padding: 7,
     fontSize: 16,
     backgroundColor: '#f4f8fb',
+    fontFamily: my_font,
   },
   inputTitleText: {
     marginLeft: 18,
@@ -363,6 +368,7 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     marginTop: 0,
     paddingTop: 8,
+    fontFamily: my_font,
   },
   initBtn: {
     marginTop: 5,
@@ -388,6 +394,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginHorizontal: 10,
     color: 'white',
+    fontFamily: my_font,
   },
   initBtnIcon: {
     color: 'white',

@@ -184,13 +184,19 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
             marginBottom: 10,
           }}>
           <WalkerLogoComponent width="180" height="50" style={styles.Wlogo} />
-          <Text style={{color: 'white', fontSize: 15, marginLeft: 20}}>
+          <Text
+            style={{
+              color: 'white',
+              fontSize: 15,
+              marginLeft: 20,
+              fontFamily: my_font,
+            }}>
             Digitial CX {'\n'}Mobile Demo
           </Text>
         </View>
         <View style={{backgroundColor: 'white', height: '100%'}}>
           <KeyboardAvoidingView behavior="position">
-            <ScrollView>
+            <ScrollView style={{height: '100%'}}>
               <CardView style={styles.card}>
                 {interceptIDs.length == 0 ? (
                   <Text style={styles.interceptHeader}>
@@ -210,11 +216,11 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
                         testIntercept(val);
                       }}
                       style={styles.intContainer}>
-                      <Button
+                      {/* <Button
                         title={my_title}
                         style={styles.intButton}
-                        color="white"></Button>
-
+                    color="white"></Button> */}
+                      <Text style={styles.intButton}>{my_title}</Text>
                       <FontAwesomeIcon
                         icon="arrow-right"
                         size={22}
@@ -262,6 +268,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
                         <QualtVar
                           input={val}
                           key={idx}
+                          font={my_font}
                           changeValue={updateCvarValue}
                           changeName={updateCvarName}
                           removeVar={removeVariable}
@@ -276,6 +283,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
                           alignSelf: 'center',
                           marginRight: 10,
                           margin: 10,
+                          fontFamily: my_font,
                         }}>
                         No Custom Variables
                       </Text>
@@ -295,10 +303,11 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
               size={22}
               style={styles.interceptPlay}
             />
-            <Button
+            <Text style={styles.resetButton}>Reset Project</Text>
+            {/* <Button
               style={styles.resetButton}
               title="Reset Project"
-              color="white"></Button>
+                      color="white"></Button> */}
           </View>
         </TouchableOpacity>
         {/*<Button title="RESET" onPress={resetCreds} style={styles.resetButton} />
@@ -321,6 +330,8 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
   );
 }
 
+const my_font = 'HelveticaNeue';
+
 const styles = StyleSheet.create({
   header: {
     alignSelf: 'center',
@@ -340,7 +351,7 @@ const styles = StyleSheet.create({
   resetContainer: {
     backgroundColor: '#6a737c',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    //justifyContent: 'center',
     flexDirection: 'row',
     color: 'white',
     borderRadius: 10,
@@ -352,16 +363,18 @@ const styles = StyleSheet.create({
     fontSize: 22,
     margin: 10,
     alignSelf: 'center',
+    fontFamily: my_font,
   },
   interceptPlus: {
     fontSize: 29,
     marginLeft: 20,
     alignSelf: 'center',
     marginBottom: 9,
+    fontFamily: my_font,
     //color: 'blue',
   },
   interceptPlay: {
-    marginLeft: 8,
+    marginRight: 8,
     color: 'white',
     paddingTop: 3,
   },
@@ -375,24 +388,33 @@ const styles = StyleSheet.create({
   },
   intButton: {
     marginVertical: 5,
+    fontFamily: my_font,
+    color: 'white',
+    fontSize: 18,
   },
   idText: {
     fontSize: 15,
     fontStyle: 'italic',
+    fontFamily: my_font,
   },
   currLocText: {
     fontSize: 21,
+    fontFamily: my_font,
   },
   inputLabel: {
     marginLeft: 12,
     fontSize: 11,
     marginBottom: 10,
+    fontFamily: my_font,
   },
   resetButton: {
-    justifyContent: 'center',
+    //justifyContent: 'center',
     alignSelf: 'center',
     marginVertical: 5,
-    marginTop: -10,
+    fontSize: 17,
+    //marginTop: -10,
+    fontFamily: my_font,
+    color: 'white',
   },
   footer: {
     position: 'absolute',

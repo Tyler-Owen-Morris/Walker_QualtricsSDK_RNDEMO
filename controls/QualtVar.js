@@ -14,6 +14,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 function QualtVar(props) {
   console.log('var input: ', props.input);
   console.log('var props', props);
+  //const [font, setFont] = useState(props.font);
   const [key, setKey] = useState(props.key);
   const [name, setName] = useState(props.input.name);
   const [val, setVal] = useState(props.input.value);
@@ -102,6 +103,8 @@ function QualtVar(props) {
   );
 }
 
+const my_font = 'HelveticaNeue';
+
 const styles = StyleSheet.create({
   bar: {
     alignContent: 'center',
@@ -125,6 +128,7 @@ const styles = StyleSheet.create({
   removeTextWrapper: {
     borderRadius: 10,
     fontSize: 30,
+    fontFamily: my_font,
     //backgroundColor: 'white',
     //margin: 7,
     //paddingHorizontal: 20,
@@ -147,6 +151,7 @@ const styles = StyleSheet.create({
   },
   varText: {
     fontSize: 18,
+    fontFamily: my_font,
     //marginHorizontal: 15,
     paddingVertical: 10,
     //borderColor: 'gray',
@@ -159,6 +164,7 @@ const styles = StyleSheet.create({
   },
   varNumeric: {
     fontSize: 18,
+    fontFamily: my_font,
     //marginLeft: 15,
     //borderColor: 'gray',
     //borderWidth: 1,
