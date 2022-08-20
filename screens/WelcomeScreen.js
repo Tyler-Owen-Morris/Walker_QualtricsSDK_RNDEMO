@@ -10,6 +10,8 @@ import {
   Switch,
   Linking,
   Button,
+  TouchableOpacity,
+  TextInput,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import styled from 'styled-components';
@@ -23,7 +25,7 @@ import Qualtrics from 'react-native-qualtrics';
 
 import {
   SafeAreaView,
-  TextInput,
+  //TextInput,
   PrimaryButton,
   ImageLogo,
   PrimaryButtonText,
@@ -38,6 +40,7 @@ import {
 import CardView from '../controls/CardView';
 import WalkerLogoComponent from '../assets/Walker_Logo_JSX';
 import QualtricsLogoComponent from '../assets/Qualtrics_logo_JSX';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   const [isBusy, setIsBusy] = useState(false);
@@ -166,17 +169,16 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   };
 
   return (
-    <SafeAreaView>
-      <KeyboardAvoidingView behavior="height">
-        <ScrollView>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#417cca'}}>
+      <KeyboardAvoidingView
+        style={{backgroundColor: '#417cca'}}
+        behavior="height">
+        <WalkerLogoComponent width="280" height="50" style={styles.Wlogo} />
+        <Text style={styles.subHeader}>Digital CX Mobile Demo</Text>
+        <View>
           <Spinner visible={isBusy} textContent={'loading...'} />
           <CardView style={styles.card}>
             <View style={styles.logoContainer}>
-              <WalkerLogoComponent
-                width="280"
-                height="50"
-                style={styles.Wlogo}
-              />
               {/* <Image
                 style={styles.Wlogo}
                 resizeMethod="scale"
@@ -186,39 +188,21 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                 source={require('../assets/qualtrics3.png')}
                 resizeMethod="scale"
                 style={styles.Qlogo}
-  /> */}
-              <Text style={styles.subHeader}>
-                Qualtrics React Native 2.3.0 SDK Demo
-              </Text>
+              /> */}
             </View>
-            <View style={styles.helpTextContainer}>
+            {/* <View style={styles.helpTextContainer}>
               <Text style={styles.helpText}>
                 For more detailed instructions see
               </Text>
               <Text style={styles.helpTextLink} onPress={openWalkerHelp}>
                 the Walker Help Page
               </Text>
-            </View>
-            <Text style={styles.header}>Input Your Project Credendials:</Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginBottom: 30,
-              }}>
-              <Text style={{marginRight: 15}}>
-                Initilize with External Data Reference
-              </Text>
-              <Switch
-                trackColor={{false: '#548ab4', true: '#d1dfea'}}
-                value={doExtRef}
-                onValueChange={doExtRefValChange}
-              />
-            </View>
+            </View> */}
+            {/* <Text style={styles.header}>Input Your Project Credendials:</Text> */}
+
             <View>
-              <Text style={styles.inputTitleText}>Brand ID</Text>
-              <PrimaryTextInput
+              <Text style={styles.inputTitleText}>Brand ID:</Text>
+              <TextInput
                 style={styles.input}
                 value={brandID}
                 placeholder="Brand ID"
@@ -226,8 +210,8 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                 onChangeText={brandTextChange}
                 autoCapitalize="none"
               />
-              <Text style={styles.inputTitleText}>Project ID</Text>
-              <PrimaryTextInput
+              <Text style={styles.inputTitleText}>Project ID:</Text>
+              <TextInput
                 style={styles.input}
                 value={projectID}
                 autoCapitalize="none"
@@ -235,10 +219,29 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                 placholderTextColor="#adb5bd"
                 onChangeText={projectTextChange}
               />
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginBottom: 2,
+                  marginTop: 30,
+                }}>
+                <Text style={{marginRight: 15}}>
+                  Initilize with External Data Reference
+                </Text>
+                <Switch
+                  trackColor={{false: '#548ab4', true: '#81b2fc'}}
+                  value={doExtRef}
+                  onValueChange={doExtRefValChange}
+                />
+              </View>
               {doExtRef ? (
                 <>
-                  <Text style={styles.inputTitleText}>ExtRef ID</Text>
-                  <PrimaryTextInput
+                  <Text style={styles.inputTitleText}>
+                    External Reference ID:
+                  </Text>
+                  <TextInput
                     style={styles.input}
                     value={extRefID}
                     autoCapitalize="none"
@@ -251,18 +254,36 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                 <></>
               )}
             </View>
+            <TouchableOpacity style={styles.initBtn} onPress={initilizeQualt}>
+              <View style={styles.initBtnContent}>
+                <Text style={styles.initBtnTxt}>Load Project</Text>
+                <FontAwesomeIcon
+                  icon="arrow-right"
+                  size={22}
+                  style={styles.initBtnIcon}
+                />
+              </View>
+            </TouchableOpacity>
           </CardView>
-        </ScrollView>
-        <View style={styles.initBtn}>
+        </View>
+        {/*<View style={styles.initBtn}>
           <Button
             title="Initilize Project"
             onPress={initilizeQualt}
-            color="#d1dfea"></Button>
-        </View>
+            color="#d1dfea"
+            accessibilityLabel="Learn more about this purple button"></Button>
+        </View> */}
       </KeyboardAvoidingView>
-      <View style={styles.footer}>
+      <CardView style={styles.footer}>
+        <TouchableOpacity style={styles.helpContainer} onPress={openWalkerHelp}>
+          <FontAwesomeIcon
+            style={{color: '#417cca'}}
+            icon="question-circle"
+            size={20}></FontAwesomeIcon>
+          <Text style={styles.helpText}>Help</Text>
+        </TouchableOpacity>
         <QualtricsLogoComponent style={styles.Qlogo} height="80" width="150" />
-      </View>
+      </CardView>
     </SafeAreaView>
   );
 }
@@ -272,7 +293,8 @@ const styles = StyleSheet.create({
   Wlogo: {
     alignSelf: 'center',
     alignContent: 'center',
-    marginBottom: 10,
+    marginTop: 20,
+    marginRight: 0,
   },
   Qlogo: {
     alignSelf: 'center',
@@ -282,7 +304,10 @@ const styles = StyleSheet.create({
   },
   subHeader: {
     alignSelf: 'center',
-    marginBottom: 10,
+    marginBottom: 20,
+    marginTop: 15,
+    fontSize: 20,
+    color: 'white',
   },
   helpTextContainer: {
     alignContent: 'center',
@@ -320,28 +345,66 @@ const styles = StyleSheet.create({
     textShadowColor: 'black',
   },
   input: {
+    marginTop: 10,
     margin: 10,
+    height: 45,
+    borderWidth: 0.3,
+    borderRadius: 10,
+    padding: 7,
+    fontSize: 16,
+    backgroundColor: '#f4f8fb',
   },
   inputTitleText: {
     marginLeft: 18,
-    fontSize: 13,
-    fontWeight: 'bold',
+    fontSize: 19,
+    fontWeight: 'normal',
     marginTop: 0,
     paddingTop: 8,
   },
   initBtn: {
     marginTop: 5,
-    marginHorizontal: 15,
-    fontSize: 50,
-    backgroundColor: '#548ab4',
+    marginHorizontal: 10,
+    marginTop: 30,
+    marginBottom: 20,
+    height: 50,
+    fontSize: 5,
+    backgroundColor: '#f7971e',
     borderRadius: 10,
     color: '#548ab4',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  initBtnContent: {
+    alignItems: 'center',
+    alignSelf: 'center',
+    flexDirection: 'row',
+    //backgroundColor: 'red',
+  },
+  initBtnTxt: {
+    fontSize: 20,
+    marginHorizontal: 10,
+    color: 'white',
+  },
+  initBtnIcon: {
+    color: 'white',
+  },
+  helpContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  helpText: {
+    fontSize: 20,
+    marginLeft: 10,
+    color: '#417cca',
   },
   footer: {
     position: 'absolute',
-    bottom: 10,
+    //bottom: 0,
     alignSelf: 'center',
     alignContent: 'center',
+    backgroundColor: 'white',
   },
 });
 

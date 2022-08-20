@@ -67,25 +67,7 @@ function QualtVar(props) {
 
   return (
     <View style={styles.bar}>
-      <TouchableOpacity onPress={deleteMe}>
-        <Text style={styles.removeTextWrapper}>
-          &nbsp;&nbsp;
-          <FontAwesomeIcon
-            icon="minus-circle"
-            size={20}
-            style={styles.removeIcon}
-          />
-          &nbsp;&nbsp;
-        </Text>
-      </TouchableOpacity>
-      <ScrollView
-        style={{
-          borderWidth: 1,
-          paddingVertical: 4,
-          borderRadius: 10,
-          backgroundColor: '#d3d3d3',
-        }}
-        horizontal={true}>
+      <ScrollView style={styles.inputContainer} horizontal={true}>
         <View style={{flexDirection: 'row', marginLeft: 10}}>
           <TextInput
             style={styles.varText}
@@ -102,6 +84,17 @@ function QualtVar(props) {
             autoCapitalize="none"></TextInput>
         </View>
       </ScrollView>
+      <TouchableOpacity onPress={deleteMe}>
+        <Text style={styles.removeTextWrapper}>
+          &nbsp;&nbsp;
+          <FontAwesomeIcon
+            icon="minus-circle"
+            size={27}
+            style={styles.removeIcon}
+          />
+          &nbsp;&nbsp;
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -111,10 +104,13 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    marginVertical: 2,
+    marginVertical: 1,
     //backgroundColor: '#bfbfbf',
-    borderRadius: 15,
+    //borderRadius: 15,
     padding: 5,
+    borderColor: 'black',
+    marginHorizontal: -21,
+    //borderRadius: 1,
   },
   removeTextWrapper: {
     borderRadius: 10,
@@ -128,8 +124,14 @@ const styles = StyleSheet.create({
     //backgroundColor: 'red',
     paddingBottom: 10,
   },
+  inputContainer: {
+    //borderWidth: 1,
+    paddingVertical: 4,
+    borderRadius: 10,
+    //backgroundColor: '#d3d3d3',
+  },
   removeIcon: {
-    // backgroundColor: 'blue',
+    color: '#db4021',
     // scaleX: 1.5,
     // scaleY: 1.5,
   },
@@ -137,21 +139,23 @@ const styles = StyleSheet.create({
     fontSize: 18,
     //marginHorizontal: 15,
     paddingVertical: 10,
-    borderColor: 'gray',
-    borderWidth: 1,
+    //borderColor: 'gray',
+    //borderWidth: 1,
     padding: 15,
     borderRadius: 10,
-    backgroundColor: 'white',
+    backgroundColor: '#f3f8fc',
+    minWidth: 130,
     //backgroundColor: 'red'
   },
   varNumeric: {
     fontSize: 18,
     //marginLeft: 15,
-    borderColor: 'gray',
-    borderWidth: 1,
+    //borderColor: 'gray',
+    //borderWidth: 1,
     padding: 10,
+    minWidth: 130,
     borderRadius: 10,
-    backgroundColor: '#f5f3e1',
+    backgroundColor: '#f0f7e7',
   },
 });
 

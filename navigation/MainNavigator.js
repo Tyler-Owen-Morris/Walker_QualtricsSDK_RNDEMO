@@ -11,9 +11,14 @@ const Stack = createStackNavigator();
 
 function MainNavigator({auth}) {
   //console.log("Auth:", auth.auth);
+  let bgcolor = '#417cca';
   return (
     <>
-      <StatusBar barStyle="dark-content" hidden={true} />
+      <StatusBar
+        backgroundColor="#417cca"
+        barStyle="dark-content"
+        hidden={true}
+      />
       <Stack.Navigator>
         {auth.auth === null ? (
           <>

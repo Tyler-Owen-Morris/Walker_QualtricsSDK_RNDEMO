@@ -17,7 +17,7 @@ function BottomHud(props) {
         <FontAwesomeIcon style={{color: '#d1dfea'}} icon="undo" />
       </TouchableOpacity>
       <Button
-        title="Reset Project Credentials"
+        title="Reset Project"
         style={styles.myButton}
         color="#d1dfea"
         onPress={props.resetCreds}>
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     color: '#d1dfea',
   },
   container: {
-    backgroundColor: '#548ab4',
+    backgroundColor: '#f7971e',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     left: 20,
     right: 20,
     borderRadius: 10,
-    marginHorizontal: 20,
+    marginHorizontal: 50,
   },
 });
 

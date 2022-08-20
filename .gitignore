@@ -26,6 +26,7 @@ ios/Podfile.lock
 # Android/IntelliJ
 #
 build/
+/Android
 .idea
 .gradle
 local.properties

@@ -30,6 +30,9 @@ import {
   faMinusCircle,
   faPlay,
   faPlayCircle,
+  faArrowRight,
+  faQuestionCircle,
+  faPlusCircle,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -48,6 +51,9 @@ library.add(
   faUndo,
   faPlay,
   faPlayCircle,
+  faArrowRight,
+  faQuestionCircle,
+  faPlusCircle,
 );
 const {store, persistor} = configureStore();
 

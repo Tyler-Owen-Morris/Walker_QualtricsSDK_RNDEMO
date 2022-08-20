@@ -21,6 +21,8 @@ import BottomHud from '../controls/BottomHud';
 import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
 import QualtVar from '../controls/QualtVar';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import WalkerLogoComponent from '../assets/Walker_Logo_JSX';
+import QualtricsLogoComponent from '../assets/Qualtrics_logo_JSX';
 
 function FirstIntercept({auth, setLogin, setCustomVars}) {
   const [interceptIDs, setInterceptIDs] = useState([]);
@@ -171,101 +173,129 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
   }
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <Text style={styles.header}>Intercepts</Text>
-      <KeyboardAvoidingView behavior="position">
-        <ScrollView>
-          <CardView style={styles.card}>
-            {interceptIDs.length == 0 ? (
-              <Text style={styles.interceptHeader}>
-                No intercepts have been initilized.
-              </Text>
-            ) : (
-              <Text style={styles.interceptHeader}>
-                Press the intercept to test
-              </Text>
-            )}
-            {interceptIDs.map((val, idx) => {
-              let my_title = 'ID: ' + val;
-              return (
-                <View style={styles.intContainer}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      testIntercept(val);
-                    }}
-                    style={styles.interceptPlay}>
-                    <FontAwesomeIcon
-                      icon="play-circle"
-                      size={22}
-                      style={styles.interceptPlay}
-                    />
-                  </TouchableOpacity>
-                  <Button
-                    key={idx}
-                    style={styles.intButton}
-                    title={my_title}
-                    onPress={() => {
-                      testIntercept(val);
-                    }}
-                    color="#d1dfea"></Button>
-                </View>
-              );
-            })}
-          </CardView>
-          <CardView>
-            <View
-              style={{
-                backgroundColor: '#d3d3d3',
-                marginHorizontal: -20,
-                //borderRadius: 10,
-                flexDirection: 'row',
-                justifyContent: 'center',
-              }}>
-              <Text style={styles.interceptHeader}>Custom Variables:</Text>
-              <TouchableOpacity
-                onPress={newVariable}
-                style={styles.touchablePlusContainer}>
-                <FontAwesomeIcon
-                  icon="plus"
-                  size={20}
-                  style={styles.interceptPlus}
-                />
-              </TouchableOpacity>
-            </View>
-
-            <View style={{marginTop: 10}}>
-              {customVars.length > 0 ? (
-                customVars.map((val, idx) => {
-                  console.log('creating variables:', idx);
-                  return (
-                    <QualtVar
-                      input={val}
-                      key={idx}
-                      changeValue={updateCvarValue}
-                      changeName={updateCvarName}
-                      removeVar={removeVariable}
-                    />
-                  );
-                })
+    <>
+      <SafeAreaView style={{flex: 1, backgroundColor: '#417cca'}}>
+        {/* <Text style={styles.header}>Intercepts</Text> */}
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginBottom: 10,
+          }}>
+          <WalkerLogoComponent width="180" height="50" style={styles.Wlogo} />
+          <Text style={{color: 'white', fontSize: 15, marginLeft: 20}}>
+            Digitial CX {'\n'}Mobile Demo
+          </Text>
+        </View>
+        <KeyboardAvoidingView behavior="position">
+          <ScrollView>
+            <CardView style={styles.card}>
+              {interceptIDs.length == 0 ? (
+                <Text style={styles.interceptHeader}>
+                  No intercepts have been initilized.
+                </Text>
               ) : (
-                <TouchableOpacity onPress={newVariable}>
-                  <Text
-                    style={{
-                      fontSize: 20,
-                      alignSelf: 'center',
-                      marginRight: 10,
-                      margin: 10,
-                    }}>
-                    No Custom Variables
-                  </Text>
-                </TouchableOpacity>
+                <Text style={styles.interceptHeader}>Available Intercepts</Text>
               )}
-            </View>
-          </CardView>
-        </ScrollView>
-      </KeyboardAvoidingView>
-      <BottomHud resetCreds={resetCreds} />
-    </SafeAreaView>
+              {interceptIDs.map((val, idx) => {
+                let my_title = val;
+                return (
+                  <View style={styles.intContainer}>
+                    <Button
+                      key={idx}
+                      style={styles.intButton}
+                      title={my_title}
+                      onPress={() => {
+                        testIntercept(val);
+                      }}
+                      color="white"></Button>
+                    <TouchableOpacity
+                      onPress={() => {
+                        testIntercept(val);
+                      }}
+                      style={styles.interceptPlay}>
+                      <FontAwesomeIcon
+                        icon="arrow-right"
+                        size={22}
+                        style={styles.interceptPlay}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                );
+              })}
+            </CardView>
+            <CardView>
+              <View
+                style={{
+                  backgroundColor: '#d3d3d3',
+                  marginHorizontal: -20,
+                  //borderRadius: 10,
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                }}>
+                <Text style={styles.interceptHeader}>Qualtrics Variables:</Text>
+                <TouchableOpacity
+                  onPress={newVariable}
+                  style={styles.touchablePlusContainer}>
+                  <FontAwesomeIcon
+                    icon="plus-circle"
+                    size={30}
+                    style={styles.interceptPlus}
+                  />
+                </TouchableOpacity>
+              </View>
+
+              <View style={{marginTop: 10}}>
+                {customVars.length > 0 ? (
+                  customVars.map((val, idx) => {
+                    console.log('creating variables:', idx);
+                    return (
+                      <QualtVar
+                        input={val}
+                        key={idx}
+                        changeValue={updateCvarValue}
+                        changeName={updateCvarName}
+                        removeVar={removeVariable}
+                      />
+                    );
+                  })
+                ) : (
+                  <TouchableOpacity onPress={newVariable}>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        alignSelf: 'center',
+                        marginRight: 10,
+                        margin: 10,
+                      }}>
+                      No Custom Variables
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+            </CardView>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+      <CardView style={styles.footer}>
+        <Button title="reset" onPress={resetCreds} />
+        {/*<BottomHud resetCreds={resetCreds} />
+    <TouchableOpacity
+      style={styles.helpContainer}
+      onPress={() => {
+        console.log('works');
+      }}>
+      <FontAwesomeIcon
+        style={{color: '#417cca'}}
+        icon="question-circle"
+        size={20}></FontAwesomeIcon>
+      <Text style={styles.helpText}>Help</Text>
+    </TouchableOpacity> 
+    <QualtricsLogoComponent style={styles.Qlogo} height="80" width="150" />
+    */}
+      </CardView>
+    </>
   );
 }
 
@@ -276,11 +306,11 @@ const styles = StyleSheet.create({
     marginVertical: 12,
   },
   intContainer: {
-    backgroundColor: '#548ab4',
+    backgroundColor: '#f7971e',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     flexDirection: 'row',
-    color: '#a4a4a4',
+    color: 'white',
     borderRadius: 10,
     marginVertical: 10,
     height: 45,
@@ -292,13 +322,14 @@ const styles = StyleSheet.create({
   },
   interceptPlus: {
     fontSize: 29,
-    marginLeft: 10,
+    marginLeft: 20,
     alignSelf: 'center',
+    marginBottom: 9,
     //color: 'blue',
   },
   interceptPlay: {
     marginLeft: 8,
-    color: '#d1dfea',
+    color: 'white',
     paddingTop: 3,
   },
   touchablePlusContainer: {
@@ -319,7 +350,18 @@ const styles = StyleSheet.create({
   currLocText: {
     fontSize: 21,
   },
-  inputLabel: {marginLeft: 12, fontSize: 11, marginBottom: 10},
+  inputLabel: {
+    marginLeft: 12,
+    fontSize: 11,
+    marginBottom: 10,
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 0,
+    alignSelf: 'center',
+    alignContent: 'center',
+    backgroundColor: 'white',
+  },
 });
 
 const mapStateToProps = ({auth, custom_vars}) => ({
