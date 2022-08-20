@@ -201,27 +201,23 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
               {interceptIDs.map((val, idx) => {
                 let my_title = val;
                 return (
-                  <View style={styles.intContainer}>
+                  <TouchableOpacity
+                    key={idx}
+                    onPress={() => {
+                      testIntercept(val);
+                    }}
+                    style={styles.intContainer}>
                     <Button
-                      key={idx}
-                      style={styles.intButton}
                       title={my_title}
-                      onPress={() => {
-                        testIntercept(val);
-                      }}
+                      style={styles.intButton}
                       color="white"></Button>
-                    <TouchableOpacity
-                      onPress={() => {
-                        testIntercept(val);
-                      }}
-                      style={styles.interceptPlay}>
-                      <FontAwesomeIcon
-                        icon="arrow-right"
-                        size={22}
-                        style={styles.interceptPlay}
-                      />
-                    </TouchableOpacity>
-                  </View>
+
+                    <FontAwesomeIcon
+                      icon="arrow-right"
+                      size={22}
+                      style={styles.interceptPlay}
+                    />
+                  </TouchableOpacity>
                 );
               })}
             </CardView>
@@ -336,6 +332,7 @@ const styles = StyleSheet.create({
     color: 'white',
     borderRadius: 10,
     marginVertical: 10,
+    paddingHorizontal: 20,
     height: 45,
   },
   interceptHeader: {
