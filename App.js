@@ -33,6 +33,8 @@ import {
   faArrowRight,
   faQuestionCircle,
   faPlusCircle,
+  faArrowCircleRight,
+  faArrowCircleLeft,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -54,6 +56,8 @@ library.add(
   faArrowRight,
   faQuestionCircle,
   faPlusCircle,
+  faArrowCircleRight,
+  faArrowCircleLeft,
 );
 const {store, persistor} = configureStore();
 

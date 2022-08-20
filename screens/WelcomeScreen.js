@@ -175,7 +175,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
         <KeyboardAvoidingView
           style={{backgroundColor: '#417cca'}}
           behavior="height">
-          <WalkerLogoComponent width="280" height="50" style={styles.Wlogo} />
+          <WalkerLogoComponent width="300" height="53" style={styles.Wlogo} />
           <Text style={styles.subHeader}>Digital CX Mobile Demo</Text>
           <View>
             <Spinner visible={isBusy} textContent={'loading...'} />
@@ -368,7 +368,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginHorizontal: 10,
     marginTop: 30,
-    marginBottom: 20,
+    marginBottom: 180,
     height: 50,
     fontSize: 5,
     backgroundColor: '#f7971e',

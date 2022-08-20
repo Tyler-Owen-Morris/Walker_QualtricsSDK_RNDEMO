@@ -279,8 +279,21 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
         </KeyboardAvoidingView>
       </SafeAreaView>
       <CardView style={styles.footer}>
-        <Button title="reset" onPress={resetCreds} />
-        {/*<BottomHud resetCreds={resetCreds} />
+        <TouchableOpacity style={styles.resetButton} onPress={resetCreds}>
+          <View style={styles.resetContainer}>
+            <FontAwesomeIcon
+              icon="arrow-circle-left"
+              size={22}
+              style={styles.interceptPlay}
+            />
+            <Button
+              style={styles.resetButton}
+              title="RESET"
+              color="white"></Button>
+          </View>
+        </TouchableOpacity>
+        {/*<Button title="RESET" onPress={resetCreds} style={styles.resetButton} />
+        <BottomHud resetCreds={resetCreds} />
     <TouchableOpacity
       style={styles.helpContainer}
       onPress={() => {
@@ -307,6 +320,16 @@ const styles = StyleSheet.create({
   },
   intContainer: {
     backgroundColor: '#f7971e',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    color: 'white',
+    borderRadius: 10,
+    marginVertical: 10,
+    height: 45,
+  },
+  resetContainer: {
+    backgroundColor: '#6a737c',
     alignItems: 'center',
     justifyContent: 'space-around',
     flexDirection: 'row',
@@ -354,6 +377,12 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     fontSize: 11,
     marginBottom: 10,
+  },
+  resetButton: {
+    justifyContent: 'center',
+    alignSelf: 'center',
+    marginVertical: 5,
+    marginTop: -10,
   },
   footer: {
     position: 'absolute',
