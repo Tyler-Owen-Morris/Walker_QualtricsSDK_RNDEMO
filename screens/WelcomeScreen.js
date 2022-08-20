@@ -169,17 +169,19 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#417cca'}}>
-      <KeyboardAvoidingView
-        style={{backgroundColor: '#417cca'}}
-        behavior="height">
-        <WalkerLogoComponent width="280" height="50" style={styles.Wlogo} />
-        <Text style={styles.subHeader}>Digital CX Mobile Demo</Text>
-        <View>
-          <Spinner visible={isBusy} textContent={'loading...'} />
-          <CardView style={styles.card}>
-            <View style={styles.logoContainer}>
-              {/* <Image
+    <>
+      <SafeAreaView
+        style={{flex: 1, backgroundColor: '#417cca', marginBottom: 500}}>
+        <KeyboardAvoidingView
+          style={{backgroundColor: '#417cca'}}
+          behavior="height">
+          <WalkerLogoComponent width="280" height="50" style={styles.Wlogo} />
+          <Text style={styles.subHeader}>Digital CX Mobile Demo</Text>
+          <View>
+            <Spinner visible={isBusy} textContent={'loading...'} />
+            <CardView style={styles.card}>
+              <View style={styles.logoContainer}>
+                {/* <Image
                 style={styles.Wlogo}
                 resizeMethod="scale"
                 source={require('../assets/Walker_Logo.png')}
@@ -189,8 +191,8 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                 resizeMethod="scale"
                 style={styles.Qlogo}
               /> */}
-            </View>
-            {/* <View style={styles.helpTextContainer}>
+              </View>
+              {/* <View style={styles.helpTextContainer}>
               <Text style={styles.helpText}>
                 For more detailed instructions see
               </Text>
@@ -198,82 +200,83 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                 the Walker Help Page
               </Text>
             </View> */}
-            {/* <Text style={styles.header}>Input Your Project Credendials:</Text> */}
+              {/* <Text style={styles.header}>Input Your Project Credendials:</Text> */}
 
-            <View>
-              <Text style={styles.inputTitleText}>Brand ID:</Text>
-              <TextInput
-                style={styles.input}
-                value={brandID}
-                placeholder="Brand ID"
-                placholderTextColor="#adb5bd"
-                onChangeText={brandTextChange}
-                autoCapitalize="none"
-              />
-              <Text style={styles.inputTitleText}>Project ID:</Text>
-              <TextInput
-                style={styles.input}
-                value={projectID}
-                autoCapitalize="none"
-                placeholder="Project ID"
-                placholderTextColor="#adb5bd"
-                onChangeText={projectTextChange}
-              />
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginBottom: 2,
-                  marginTop: 30,
-                }}>
-                <Text style={{marginRight: 15}}>
-                  Initilize with External Data Reference
-                </Text>
-                <Switch
-                  trackColor={{false: '#548ab4', true: '#81b2fc'}}
-                  value={doExtRef}
-                  onValueChange={doExtRefValChange}
+              <View>
+                <Text style={styles.inputTitleText}>Brand ID:</Text>
+                <TextInput
+                  style={styles.input}
+                  value={brandID}
+                  placeholder="Brand ID"
+                  placholderTextColor="#adb5bd"
+                  onChangeText={brandTextChange}
+                  autoCapitalize="none"
                 />
-              </View>
-              {doExtRef ? (
-                <>
-                  <Text style={styles.inputTitleText}>
-                    External Reference ID:
+                <Text style={styles.inputTitleText}>Project ID:</Text>
+                <TextInput
+                  style={styles.input}
+                  value={projectID}
+                  autoCapitalize="none"
+                  placeholder="Project ID"
+                  placholderTextColor="#adb5bd"
+                  onChangeText={projectTextChange}
+                />
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginBottom: 2,
+                    marginTop: 30,
+                  }}>
+                  <Text style={{marginRight: 15}}>
+                    Initilize with External Data Reference
                   </Text>
-                  <TextInput
-                    style={styles.input}
-                    value={extRefID}
-                    autoCapitalize="none"
-                    placeholder="External Reference ID"
-                    placholderTextColor="#adb5bd"
-                    onChangeText={extRefTextChange}
+                  <Switch
+                    trackColor={{false: '#548ab4', true: '#81b2fc'}}
+                    value={doExtRef}
+                    onValueChange={doExtRefValChange}
                   />
-                </>
-              ) : (
-                <></>
-              )}
-            </View>
-            <TouchableOpacity style={styles.initBtn} onPress={initilizeQualt}>
-              <View style={styles.initBtnContent}>
-                <Text style={styles.initBtnTxt}>Load Project</Text>
-                <FontAwesomeIcon
-                  icon="arrow-right"
-                  size={22}
-                  style={styles.initBtnIcon}
-                />
+                </View>
+                {doExtRef ? (
+                  <>
+                    <Text style={styles.inputTitleText}>
+                      External Reference ID:
+                    </Text>
+                    <TextInput
+                      style={styles.input}
+                      value={extRefID}
+                      autoCapitalize="none"
+                      placeholder="External Reference ID"
+                      placholderTextColor="#adb5bd"
+                      onChangeText={extRefTextChange}
+                    />
+                  </>
+                ) : (
+                  <></>
+                )}
               </View>
-            </TouchableOpacity>
-          </CardView>
-        </View>
-        {/*<View style={styles.initBtn}>
+              <TouchableOpacity style={styles.initBtn} onPress={initilizeQualt}>
+                <View style={styles.initBtnContent}>
+                  <Text style={styles.initBtnTxt}>Load Project</Text>
+                  <FontAwesomeIcon
+                    icon="arrow-right"
+                    size={22}
+                    style={styles.initBtnIcon}
+                  />
+                </View>
+              </TouchableOpacity>
+            </CardView>
+          </View>
+          {/*<View style={styles.initBtn}>
           <Button
             title="Initilize Project"
             onPress={initilizeQualt}
             color="#d1dfea"
             accessibilityLabel="Learn more about this purple button"></Button>
         </View> */}
-      </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
       <CardView style={styles.footer}>
         <TouchableOpacity style={styles.helpContainer} onPress={openWalkerHelp}>
           <FontAwesomeIcon
@@ -284,7 +287,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
         </TouchableOpacity>
         <QualtricsLogoComponent style={styles.Qlogo} height="80" width="150" />
       </CardView>
-    </SafeAreaView>
+    </>
   );
 }
 
@@ -400,7 +403,7 @@ const styles = StyleSheet.create({
     color: '#417cca',
   },
   footer: {
-    position: 'absolute',
+    //position: 'absolute',
     //bottom: 0,
     alignSelf: 'center',
     alignContent: 'center',
