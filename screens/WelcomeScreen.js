@@ -65,6 +65,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   }
 
   function extRefTextChange(text) {
+    console.log('exref text change:', text);
     setExtRefID(text);
   }
 
@@ -74,10 +75,14 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
 
     if (doExtRef) {
       console.log('brand:', brandID, ' proj:', projectID, 'extRef:', extRefID);
+      let safeExtRef = '';
+      if (typeof extRefID !== 'undefined') {
+        safeExtRef = extRefID;
+      }
       Qualtrics.initializeProjectWithExtRefId(
         brandID,
         projectID,
-        extRefID,
+        safeExtRef,
         result => {
           console.log('result:', result);
           if (result.ERROR == null && Object.keys(result).length > 0) {
@@ -85,13 +90,13 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
             setLogin({
               brandID: brandID,
               projectID: projectID,
-              extRefID: extRefID,
+              extRefID: safeExtRef,
               intercepts: result,
             });
             setCreds({
               brandID: brandID,
               projectID: projectID,
-              extRefID: extRefID,
+              extRefID: safeExtRef,
             });
             setIsBusy(false);
           } else {
@@ -172,90 +177,66 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
     <>
       <SafeAreaView
         style={{flex: 1, backgroundColor: '#417cca', marginBottom: 500}}>
-        <KeyboardAvoidingView
-          style={{backgroundColor: '#417cca'}}
-          behavior="height">
-          <WalkerLogoComponent width="300" height="53" style={styles.Wlogo} />
-          <Text style={styles.subHeader}>Digital CX Mobile Demo</Text>
-          <View>
-            <Spinner visible={isBusy} textContent={'loading...'} />
+        <WalkerLogoComponent width="300" height="53" style={styles.Wlogo} />
+        <Text style={styles.subHeader}>Digital CX Mobile Demo</Text>
+        <View>
+          <KeyboardAvoidingView
+            style={{backgroundColor: '#417cca'}}
+            behavior="padding">
+            <Spinner visible={isBusy} textContent={''} />
             <CardView style={styles.card}>
-              <View style={styles.logoContainer}>
-                {/* <Image
-                style={styles.Wlogo}
-                resizeMethod="scale"
-                source={require('../assets/Walker_Logo.png')}
+              <Text style={styles.inputTitleText}>Brand ID:</Text>
+              <TextInput
+                style={styles.input}
+                value={brandID}
+                placeholder="Brand ID"
+                placholderTextColor="#adb5bd"
+                onChangeText={brandTextChange}
+                autoCapitalize="none"
               />
-              <Image
-                source={require('../assets/qualtrics3.png')}
-                resizeMethod="scale"
-                style={styles.Qlogo}
-              /> */}
+              <Text style={styles.inputTitleText}>Project ID:</Text>
+              <TextInput
+                style={styles.input}
+                value={projectID}
+                autoCapitalize="none"
+                placeholder="Project ID"
+                placholderTextColor="#adb5bd"
+                onChangeText={projectTextChange}
+              />
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginBottom: 10,
+                  marginTop: 30,
+                }}>
+                <Switch
+                  trackColor={{false: '#548ab4', true: '#81b2fc'}}
+                  value={doExtRef}
+                  onValueChange={doExtRefValChange}
+                />
+                <Text style={{marginLeft: 15, fontFamily: my_font}}>
+                  Initilize with External Data Reference
+                </Text>
               </View>
-              {/* <View style={styles.helpTextContainer}>
-              <Text style={styles.helpText}>
-                For more detailed instructions see
-              </Text>
-              <Text style={styles.helpTextLink} onPress={openWalkerHelp}>
-                the Walker Help Page
-              </Text>
-            </View> */}
-              {/* <Text style={styles.header}>Input Your Project Credendials:</Text> */}
-
-              <View>
-                <Text style={styles.inputTitleText}>Brand ID:</Text>
-                <TextInput
-                  style={styles.input}
-                  value={brandID}
-                  placeholder="Brand ID"
-                  placholderTextColor="#adb5bd"
-                  onChangeText={brandTextChange}
-                  autoCapitalize="none"
-                />
-                <Text style={styles.inputTitleText}>Project ID:</Text>
-                <TextInput
-                  style={styles.input}
-                  value={projectID}
-                  autoCapitalize="none"
-                  placeholder="Project ID"
-                  placholderTextColor="#adb5bd"
-                  onChangeText={projectTextChange}
-                />
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginBottom: 10,
-                    marginTop: 30,
-                  }}>
-                  <Switch
-                    trackColor={{false: '#548ab4', true: '#81b2fc'}}
-                    value={doExtRef}
-                    onValueChange={doExtRefValChange}
-                  />
-                  <Text style={{marginLeft: 15, fontFamily: my_font}}>
-                    Initilize with External Data Reference
+              {doExtRef ? (
+                <>
+                  <Text style={styles.inputTitleText}>
+                    External Reference ID:
                   </Text>
-                </View>
-                {doExtRef ? (
-                  <>
-                    <Text style={styles.inputTitleText}>
-                      External Reference ID:
-                    </Text>
-                    <TextInput
-                      style={styles.input}
-                      value={extRefID}
-                      autoCapitalize="none"
-                      placeholder="External Reference ID"
-                      placholderTextColor="#adb5bd"
-                      onChangeText={extRefTextChange}
-                    />
-                  </>
-                ) : (
-                  <></>
-                )}
-              </View>
+                  <TextInput
+                    style={styles.input}
+                    value={extRefID}
+                    autoCapitalize="none"
+                    placeholder="External Reference ID"
+                    placholderTextColor="#adb5bd"
+                    onChangeText={extRefTextChange}
+                  />
+                </>
+              ) : (
+                <></>
+              )}
               <TouchableOpacity style={styles.initBtn} onPress={initilizeQualt}>
                 <View style={styles.initBtnContent}>
                   <Text style={styles.initBtnTxt}>Load Project</Text>
@@ -267,15 +248,15 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                 </View>
               </TouchableOpacity>
             </CardView>
-          </View>
-          {/*<View style={styles.initBtn}>
+          </KeyboardAvoidingView>
+        </View>
+        {/*<View style={styles.initBtn}>
           <Button
-            title="Initilize Project"
-            onPress={initilizeQualt}
-            color="#d1dfea"
-            accessibilityLabel="Learn more about this purple button"></Button>
+          title="Initilize Project"
+          onPress={initilizeQualt}
+          color="#d1dfea"
+          accessibilityLabel="Learn more about this purple button"></Button>
         </View> */}
-        </KeyboardAvoidingView>
       </SafeAreaView>
       <CardView style={styles.footer}>
         <TouchableOpacity style={styles.helpContainer} onPress={openWalkerHelp}>
@@ -298,7 +279,7 @@ const styles = StyleSheet.create({
   Wlogo: {
     alignSelf: 'center',
     alignContent: 'center',
-    marginTop: 20,
+    marginTop: 10,
     marginRight: 0,
   },
   Qlogo: {
@@ -309,8 +290,8 @@ const styles = StyleSheet.create({
   },
   subHeader: {
     alignSelf: 'center',
-    marginBottom: 20,
-    marginTop: 15,
+    marginBottom: 10,
+    marginTop: 5,
     fontSize: 20,
     color: 'white',
     fontFamily: my_font,
@@ -338,13 +319,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#e9ecef',
     borderRadius: 10,
-    padding: 20,
+    padding: 10,
     backgroundColor: '#ffffff',
   },
   header: {
     alignSelf: 'center',
     fontSize: 20,
-    marginVertical: 15,
+    marginVertical: 20,
     paddingBottom: 20,
     margin: 5,
     fontWeight: 'bold',
@@ -367,14 +348,14 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: 'normal',
     marginTop: 0,
-    paddingTop: 8,
+    //paddingTop: 8,
     fontFamily: my_font,
   },
   initBtn: {
-    marginTop: 5,
+    marginTop: 2,
     marginHorizontal: 10,
     marginTop: 30,
-    marginBottom: 180,
+    marginBottom: 1800,
     height: 50,
     fontSize: 5,
     backgroundColor: '#f7971e',

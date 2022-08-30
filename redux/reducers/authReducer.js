@@ -9,7 +9,7 @@ const initialState = {
   },
   custom_vars: [
     {key: 0, name: 'test', value: 'true'},
-    {key: 1, name: 'Number', value: 55},
+    {key: 1, name: 'Number', value: '55'},
     {key: 2, name: 'String', value: 'sample string'},
   ],
 };
