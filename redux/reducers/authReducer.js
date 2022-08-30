@@ -6,6 +6,7 @@ const initialState = {
     brandID: 'walkersandbox',
     projectID: 'ZN_9XhdWiyfHvNt0ai', //this is for walkersandbox brand
     extRefID: 'tmorris',
+    doExtRef: true,
   },
   custom_vars: [
     {key: 0, name: 'test', value: 'true'},

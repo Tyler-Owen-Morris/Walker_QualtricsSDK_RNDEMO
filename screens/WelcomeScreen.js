@@ -47,7 +47,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   const [brandID, setBrandID] = useState(auth.creds.brandID);
   const [projectID, setProjectID] = useState(auth.creds.projectID);
   const [extRefID, setExtRefID] = useState(auth.creds.extRefID);
-  const [doExtRef, toggleExtRef] = useState(true);
+  const [doExtRef, toggleExtRef] = useState(auth.creds.doExtRef);
   const navigation = useNavigation();
   const walkerURL = 'https://walkerinfo.com/resources/';
 
@@ -97,6 +97,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
               brandID: brandID,
               projectID: projectID,
               extRefID: safeExtRef,
+              doExtRef: true,
             });
             setIsBusy(false);
           } else {
@@ -124,6 +125,10 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
         },
       );
     } else {
+      let safeExtRef = '';
+      if (typeof extRefID !== 'undefined') {
+        safeExtRef = extRefID;
+      }
       Qualtrics.initializeProject(brandID, projectID, result => {
         console.log('result:', result);
         if (result.ERROR == null && Object.keys(result).length > 0) {
@@ -136,6 +141,8 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
           setCreds({
             brandID: brandID,
             projectID: projectID,
+            extRefID: safeExtRef,
+            doExtRef: false,
           });
           setIsBusy(false);
         } else {
