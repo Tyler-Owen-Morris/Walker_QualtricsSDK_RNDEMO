@@ -25,7 +25,6 @@ import Qualtrics from 'react-native-qualtrics';
 
 import {
   SafeAreaView,
-  //TextInput,
   PrimaryButton,
   ImageLogo,
   PrimaryButtonText,
@@ -215,8 +214,8 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                   flexDirection: 'row',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  marginBottom: 10,
-                  marginTop: 30,
+                  marginBottom: 15,
+                  marginTop: 17,
                 }}>
                 <Switch
                   trackColor={{false: '#548ab4', true: '#81b2fc'}}
@@ -257,13 +256,6 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
             </CardView>
           </KeyboardAvoidingView>
         </View>
-        {/*<View style={styles.initBtn}>
-          <Button
-          title="Initilize Project"
-          onPress={initilizeQualt}
-          color="#d1dfea"
-          accessibilityLabel="Learn more about this purple button"></Button>
-        </View> */}
       </SafeAreaView>
       <CardView style={styles.footer}>
         <TouchableOpacity style={styles.helpContainer} onPress={openWalkerHelp}>
