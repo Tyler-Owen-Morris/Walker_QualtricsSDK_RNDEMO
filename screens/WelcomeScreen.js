@@ -187,7 +187,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
         style={{flex: 1, backgroundColor: '#417cca', marginBottom: 500}}>
         <WalkerLogoComponent width="300" height="53" style={styles.Wlogo} />
         <Text style={styles.subHeader}>Digital CX Mobile Demo</Text>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <TouchableOpacity onPress={Keyboard.dismiss} activeOpacity={1}>
           <Spinner visible={isBusy} textContent={''} />
           <KeyboardAvoidingView
             style={{backgroundColor: '#417cca'}}
@@ -257,7 +257,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
               </TouchableOpacity>
             </CardView>
           </KeyboardAvoidingView>
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
       </SafeAreaView>
       <CardView style={styles.footer}>
         <TouchableOpacity style={styles.helpContainer} onPress={openWalkerHelp}>
