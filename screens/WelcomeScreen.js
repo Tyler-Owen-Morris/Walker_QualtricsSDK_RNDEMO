@@ -12,6 +12,7 @@ import {
   Button,
   TouchableOpacity,
   TextInput,
+  Keyboard,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import styled from 'styled-components';
@@ -182,14 +183,15 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   return (
     <>
       <SafeAreaView
+        onPress={Keyboard.dismiss}
         style={{flex: 1, backgroundColor: '#417cca', marginBottom: 500}}>
         <WalkerLogoComponent width="300" height="53" style={styles.Wlogo} />
         <Text style={styles.subHeader}>Digital CX Mobile Demo</Text>
-        <View>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <Spinner visible={isBusy} textContent={''} />
           <KeyboardAvoidingView
             style={{backgroundColor: '#417cca'}}
             behavior="padding">
-            <Spinner visible={isBusy} textContent={''} />
             <CardView style={styles.card}>
               <Text style={styles.inputTitleText}>Brand ID:</Text>
               <TextInput
@@ -255,7 +257,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
               </TouchableOpacity>
             </CardView>
           </KeyboardAvoidingView>
-        </View>
+        </TouchableWithoutFeedback>
       </SafeAreaView>
       <CardView style={styles.footer}>
         <TouchableOpacity style={styles.helpContainer} onPress={openWalkerHelp}>
