@@ -183,10 +183,11 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   return (
     <>
       <SafeAreaView
-        onPress={Keyboard.dismiss}
         style={{flex: 1, backgroundColor: '#417cca', marginBottom: 500}}>
-        <WalkerLogoComponent width="300" height="53" style={styles.Wlogo} />
-        <Text style={styles.subHeader}>Digital CX Mobile Demo</Text>
+        <TouchableOpacity onPress={Keyboard.dismiss} activeOpacity={1}>
+          <WalkerLogoComponent width="300" height="53" style={styles.Wlogo} />
+          <Text style={styles.subHeader}>Digital CX Mobile Demo</Text>
+        </TouchableOpacity>
         <TouchableOpacity onPress={Keyboard.dismiss} activeOpacity={1}>
           <Spinner visible={isBusy} textContent={''} />
           <KeyboardAvoidingView

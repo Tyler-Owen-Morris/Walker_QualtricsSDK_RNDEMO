@@ -194,8 +194,8 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
             Digitial CX {'\n'}Mobile Demo
           </Text>
         </View>
-        <View style={{backgroundColor: 'white', height: '100%'}}>
-          <KeyboardAvoidingView behavior="position">
+        <KeyboardAvoidingView behavior="position">
+          <View style={{backgroundColor: 'white', height: '100%'}}>
             <ScrollView style={{height: '100%'}}>
               <CardView style={styles.card}>
                 {interceptIDs.length == 0 ? (
@@ -260,7 +260,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
                   </TouchableOpacity>
                 </View>
 
-                <View style={{marginTop: 5}}>
+                <View style={{marginTop: 5, marginBottom: 50}}>
                   {customVars.length > 0 ? (
                     customVars.map((val, idx) => {
                       console.log('creating variables:', idx);
@@ -292,8 +292,8 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
                 </View>
               </View>
             </ScrollView>
-          </KeyboardAvoidingView>
-        </View>
+          </View>
+        </KeyboardAvoidingView>
       </SafeAreaView>
       <CardView style={styles.footer}>
         <TouchableOpacity style={styles.resetButton} onPress={resetCreds}>
