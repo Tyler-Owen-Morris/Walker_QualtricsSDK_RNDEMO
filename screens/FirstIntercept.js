@@ -45,38 +45,78 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
   }, [auth.auth]);
 
   const resetCreds = () => {
-    console.log('resettingCreds');
+    //console.log('resettingCreds');
     setLogin(null);
   };
 
   async function testIntercept(intId) {
+    //setIsBusy(true);
     console.log('intId:', intId);
-    setQualtricsVariables();
-    Qualtrics.evaluateIntercept(intId, async res => {
-      console.log('evalRes:', res);
-      if (res.passed) {
-        console.log('result:', res);
-        var inter = await Qualtrics.displayIntercept(intId);
-        console.log('inter:', inter);
-      } else {
-        console.log('intercept failed...');
-        Alert.alert(
-          'Intercept Evaluated to FALSE\nNot displaying Intercept',
-          JSON.stringify(res),
-          [
-            {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-            {
-              text: 'OK',
-              onPress: () => {
-                //setIsBusy(false);
-                console.log('OK Pressed');
+    console.log('auth:', auth);
+    let myExRef = '';
+    if (auth.creds.doExtRef) {
+      myExRef = auth.auth.extRefID;
+    }
+
+    console.log('my exref:', myExRef);
+    Qualtrics.initializeProjectWithExtRefId(
+      auth.auth.brandID,
+      auth.auth.projectID,
+      myExRef,
+      result => {
+        console.log('result:', result);
+        if (result.ERROR == null && Object.keys(result).length > 0) {
+          console.log('Qualtrics Initilized!');
+          //setIsBusy(false);
+          setQualtricsVariables();
+          Qualtrics.evaluateIntercept(intId, async res => {
+            console.log('evalRes:', res);
+            if (res.passed) {
+              console.log('result:', res);
+              var inter = await Qualtrics.displayIntercept(intId);
+              console.log('inter:', inter);
+            } else {
+              console.log('intercept failed...');
+              Alert.alert(
+                'Intercept Evaluated to FALSE\nNot displaying Intercept',
+                JSON.stringify(res),
+                [
+                  {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed!'),
+                  },
+                  {
+                    text: 'OK',
+                    onPress: () => {
+                      //setIsBusy(false);
+                      console.log('OK Pressed');
+                    },
+                  },
+                ],
+                {cancelable: false},
+              );
+            }
+          });
+        } else {
+          console.log('unable to re-init the project');
+          Alert.alert(
+            'Project was not able to reinitilize\nNo intercepts were evaluated',
+            '',
+            [
+              {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+              {
+                text: 'OK',
+                onPress: () => {
+                  //setIsBusy(false);
+                  console.log('OK Pressed');
+                },
               },
-            },
-          ],
-          {cancelable: false},
-        );
-      }
-    });
+            ],
+            {cancelable: false},
+          );
+        }
+      },
+    );
   }
 
   const setQualtricsVariables = () => {
@@ -88,19 +128,19 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
       }
       let v = parseInt(cVal);
       let isNum = cVal.match(/^[0-9]*$/) != null;
-      console.log('isnum:', isNum);
-      console.log('val:', cVal);
-      console.log('v', v);
+      //console.log('isnum:', isNum);
+      //console.log('val:', cVal);
+      //console.log('v', v);
       if (!isNum) {
         Qualtrics.setString(nme, cVal);
-        console.log('set strin:', cVal);
+        //console.log('set strin:', cVal);
       } else {
         if (isNaN(v)) {
           Qualtrics.setNumber(nme, 0);
-          console.log('set num:', 0);
+          //console.log('set num:', 0);
         } else {
           Qualtrics.setNumber(nme, cVal);
-          console.log('set num:', cVal);
+          //console.log('set num:', cVal);
         }
       }
     }
@@ -131,7 +171,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
     // where k is position in DOM, n is var new name, v is var value, and o is old value - to be removed
     let result = [];
     for (var i = 0; i < customVars.length; i++) {
-      console.log('update cvar, name:', i, customVars[i].key, n, o);
+      //console.log('update cvar, name:', i, customVars[i].key, n, o);
       if (customVars[i].key == k) {
         let nObj = {
           key: customVars[i].key,
@@ -140,7 +180,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
         };
         result.push(nObj);
       } else {
-        console.log('passing on ', k, n, v, o);
+        //console.log('passing on ', k, n, v, o);
         result.push(customVars[i]);
       }
     }

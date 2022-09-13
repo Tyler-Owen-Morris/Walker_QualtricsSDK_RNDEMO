@@ -34,9 +34,9 @@ function QualtVar(props) {
     let v = parseInt(val);
     try {
       let isNum = val.match(/^[0-9]*$/) != null;
-      console.log('isnum:', isNum);
-      console.log('val:', val);
-      console.log('v', v);
+      //console.log('isnum:', isNum);
+      //console.log('val:', val);
+      //console.log('v', v);
       if (!isNum) {
         //Qualtrics.setString(name, val);
         setNumeric(false);
