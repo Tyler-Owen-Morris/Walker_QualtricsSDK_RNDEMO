@@ -127,20 +127,20 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
         continue;
       }
       let v = parseInt(cVal);
-      let isNum = cVal.match(/^[0-9]*$/) != null;
-      //console.log('isnum:', isNum);
+      let isNum = cVal.match(/^[0-9]*[.]{0,1}[0-9]*$/) != null;
+      console.log('isnum:', isNum);
       //console.log('val:', cVal);
       //console.log('v', v);
-      if (!isNum) {
+      if (my_num == NaN) {
         Qualtrics.setString(nme, cVal);
-        //console.log('set strin:', cVal);
+        console.log('set string:', cVal);
       } else {
         if (isNaN(v)) {
           Qualtrics.setNumber(nme, 0);
-          //console.log('set num:', 0);
+          console.log('set num:', 0);
         } else {
-          Qualtrics.setNumber(nme, cVal);
-          //console.log('set num:', cVal);
+          Qualtrics.setNumber(nme, Number(cVal));
+          console.log('set num:', cVal);
         }
       }
     }

@@ -33,7 +33,7 @@ function QualtVar(props) {
     }
     let v = parseInt(val);
     try {
-      let isNum = val.match(/^[0-9]*$/) != null;
+      let isNum = val.match(/^[0-9]*[.]{0,1}[0-9]*$/) != null;
       //console.log('isnum:', isNum);
       //console.log('val:', val);
       //console.log('v', v);
