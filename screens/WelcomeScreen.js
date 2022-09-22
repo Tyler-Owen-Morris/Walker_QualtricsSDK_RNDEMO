@@ -15,7 +15,6 @@ import {
   Keyboard,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import styled from 'styled-components';
 import {
   updateAuth,
   updateCreds,
@@ -23,20 +22,7 @@ import {
 } from '../redux/actions/authActions';
 import Spinner from 'react-native-loading-spinner-overlay';
 import Qualtrics from 'react-native-qualtrics';
-
-import {
-  SafeAreaView,
-  PrimaryButton,
-  ImageLogo,
-  PrimaryButtonText,
-  PrimaryTextInput,
-  SecondaryButton,
-  SecondaryButtonText,
-} from '../controls/styles';
-import {
-  ScrollView,
-  TouchableWithoutFeedback,
-} from 'react-native-gesture-handler';
+import {SafeAreaView} from '../controls/styles';
 import CardView from '../controls/CardView';
 import WalkerLogoComponent from '../assets/Walker_Logo_JSX';
 import QualtricsLogoComponent from '../assets/Qualtrics_logo_JSX';
@@ -287,8 +273,6 @@ const styles = StyleSheet.create({
   Qlogo: {
     alignSelf: 'center',
     alignContent: 'center',
-    //marginVertical: 5,
-    //marginTop: 12,
   },
   subHeader: {
     alignSelf: 'center',
@@ -350,7 +334,6 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: 'normal',
     marginTop: 0,
-    //paddingTop: 8,
     fontFamily: my_font,
   },
   initBtn: {
@@ -371,7 +354,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     flexDirection: 'row',
-    //backgroundColor: 'red',
   },
   initBtnTxt: {
     fontSize: 20,
@@ -393,8 +375,6 @@ const styles = StyleSheet.create({
     color: '#417cca',
   },
   footer: {
-    //position: 'absolute',
-    //bottom: 0,
     alignSelf: 'center',
     alignContent: 'center',
     backgroundColor: 'white',

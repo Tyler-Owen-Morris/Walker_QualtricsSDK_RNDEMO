@@ -60,6 +60,7 @@ function QualtVar(props) {
     setVal(e);
     props.changeValue(key, name, e);
   }
+
   function deleteMe() {
     //console.log('reging');
     //Qualtrics.setString(name, '');

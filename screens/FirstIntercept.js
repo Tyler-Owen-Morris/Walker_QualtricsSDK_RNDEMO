@@ -5,14 +5,8 @@ import {
   Alert,
   View,
   KeyboardAvoidingView,
-  Button,
 } from 'react-native';
-import {
-  SafeAreaView,
-  PrimaryButton,
-  PrimaryButtonText,
-  PrimaryTextInput,
-} from '../controls/styles';
+import {SafeAreaView} from '../controls/styles';
 import CardView from '../controls/CardView';
 import {connect} from 'react-redux';
 import {updateAuth, updateVars} from '../redux/actions/authActions';
@@ -130,7 +124,6 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
       let isNum = cVal.match(/^[-]{0,1}[0-9]*[.]{0,1}[0-9]*$/) != null;
       console.log('isnum:', isNum);
       //console.log('val:', cVal);
-      //console.log('v', v);
       if (!isNum) {
         Qualtrics.setString(nme, cVal);
         console.log('set string:', cVal);
@@ -140,7 +133,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
           console.log('set num:', 0);
         } else {
           Qualtrics.setNumber(nme, Number(cVal));
-          console.log('set num:', cVal);
+          console.log('set num:', Number(cVal));
         }
       }
     }
@@ -215,7 +208,6 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
   return (
     <>
       <SafeAreaView style={{flex: 1, backgroundColor: '#417cca'}}>
-        {/* <Text style={styles.header}>Intercepts</Text> */}
         <View
           style={{
             flexDirection: 'row',
@@ -256,10 +248,6 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
                         testIntercept(val);
                       }}
                       style={styles.intContainer}>
-                      {/* <Button
-                        title={my_title}
-                        style={styles.intButton}
-                    color="white"></Button> */}
                       <Text style={styles.intButton}>{my_title}</Text>
                       <FontAwesomeIcon
                         icon="arrow-right"
@@ -272,9 +260,8 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
               </CardView>
               <View
                 style={{
-                  //borderWidth: 1,
                   borderColor: '#e9ecef',
-                  //borderRadius: 10,
+
                   justifyContent: 'space-between',
                   padding: 10,
                 }}>
@@ -282,7 +269,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
                   style={{
                     backgroundColor: '#d3d3d3',
                     marginHorizontal: -10,
-                    //borderRadius: 10,
+
                     flexDirection: 'row',
                     justifyContent: 'space-evenly',
                   }}>
@@ -344,27 +331,8 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
               style={styles.interceptPlay}
             />
             <Text style={styles.resetButton}>Reset Project</Text>
-            {/* <Button
-              style={styles.resetButton}
-              title="Reset Project"
-                      color="white"></Button> */}
           </View>
         </TouchableOpacity>
-        {/*<Button title="RESET" onPress={resetCreds} style={styles.resetButton} />
-        <BottomHud resetCreds={resetCreds} />
-    <TouchableOpacity
-      style={styles.helpContainer}
-      onPress={() => {
-        console.log('works');
-      }}>
-      <FontAwesomeIcon
-        style={{color: '#417cca'}}
-        icon="question-circle"
-        size={20}></FontAwesomeIcon>
-      <Text style={styles.helpText}>Help</Text>
-    </TouchableOpacity> 
-    <QualtricsLogoComponent style={styles.Qlogo} height="80" width="150" />
-    */}
       </CardView>
     </>
   );
@@ -391,7 +359,6 @@ const styles = StyleSheet.create({
   resetContainer: {
     backgroundColor: '#6a737c',
     alignItems: 'center',
-    //justifyContent: 'center',
     flexDirection: 'row',
     color: 'white',
     borderRadius: 10,
@@ -411,7 +378,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 9,
     fontFamily: my_font,
-    //color: 'blue',
   },
   interceptPlay: {
     marginRight: 8,
@@ -448,11 +414,9 @@ const styles = StyleSheet.create({
     fontFamily: my_font,
   },
   resetButton: {
-    //justifyContent: 'center',
     alignSelf: 'center',
     marginVertical: 5,
     fontSize: 17,
-    //marginTop: -10,
     fontFamily: my_font,
     color: 'white',
   },
