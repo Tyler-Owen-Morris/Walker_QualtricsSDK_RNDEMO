@@ -5,6 +5,7 @@ import {
   Alert,
   View,
   KeyboardAvoidingView,
+  Linking,
 } from 'react-native';
 import {SafeAreaView} from '../controls/styles';
 import CardView from '../controls/CardView';
@@ -66,9 +67,30 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
           Qualtrics.evaluateIntercept(intId, async res => {
             console.log('evalRes:', res);
             if (res.passed) {
-              console.log('result:', res);
-              var inter = await Qualtrics.displayIntercept(intId);
-              console.log('inter:', inter);
+              console.log('creativeType:', res.creativeType);
+              if (res.creativeType == 'MobileNotification') {
+                Alert.alert(
+                  'This application does not support push notifications',
+                  'your intercept passed validation, but was unable to be displayed. The survey can be viewed here: ',
+                  [
+                    {
+                      text: 'View Survey',
+                      onPress: () => Linking.openURL(res.surveyUrl),
+                    },
+                    {
+                      text: 'OK',
+                      onPress: () => {
+                        //setIsBusy(false);
+                        console.log('OK Pressed');
+                      },
+                    },
+                  ],
+                  {cancelable: false},
+                );
+              } else {
+                var inter = await Qualtrics.displayIntercept(intId);
+                console.log('inter:', inter);
+              }
             } else {
               console.log('intercept failed...');
               Alert.alert(
