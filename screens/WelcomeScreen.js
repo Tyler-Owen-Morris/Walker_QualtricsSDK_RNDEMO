@@ -169,7 +169,12 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   return (
     <>
       <SafeAreaView
-        style={{flex: 1, backgroundColor: '#417cca', marginBottom: 500}}>
+        style={{
+          backgroundColor: '#417cca',
+          marginBottom: 500,
+          borderRadius: 2,
+          borderColor: 'black',
+        }}>
         <TouchableOpacity
           style={{}}
           onPress={Keyboard.dismiss}
@@ -252,7 +257,8 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
           </KeyboardAvoidingView>
         </TouchableOpacity>
       </SafeAreaView>
-      <CardView style={styles.footer}>
+      <View style={styles.footer}>
+        {/* <View style={{backgroundColor: 'black', height: 10}}></View> */}
         <TouchableOpacity style={styles.helpContainer} onPress={openWalkerHelp}>
           <FontAwesomeIcon
             style={{color: '#417cca'}}
@@ -261,7 +267,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
           <Text style={styles.helpText}>Help</Text>
         </TouchableOpacity>
         <QualtricsLogoComponent style={styles.Qlogo} height="80" width="150" />
-      </CardView>
+      </View>
     </>
   );
 }
@@ -277,8 +283,9 @@ const styles = StyleSheet.create({
     marginRight: 0,
   },
   Qlogo: {
-    alignSelf: 'center',
+    // alignSelf: 'center',
     alignContent: 'center',
+    // marginBottom: -10,
   },
   subHeader: {
     alignSelf: 'center',
@@ -374,6 +381,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: -100,
   },
   helpText: {
     fontSize: 20,
@@ -383,7 +391,9 @@ const styles = StyleSheet.create({
   footer: {
     alignSelf: 'center',
     alignContent: 'center',
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
+    // borderWidth: 1,
+    // borderColor: '#e9ecef',
   },
 });
 
