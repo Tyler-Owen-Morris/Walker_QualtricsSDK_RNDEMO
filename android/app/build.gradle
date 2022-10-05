@@ -131,7 +131,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.QualRNDEMO"
+        applicationId "com.qualrndemo"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
