@@ -375,7 +375,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     color: 'white',
     borderRadius: 10,
-    marginVertical: 10,
+    marginVertical: 8,
     height: 45,
   },
   resetContainer: {
@@ -384,13 +384,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     color: 'white',
     borderRadius: 10,
-    marginVertical: 10,
+    marginVertical: 5,
     paddingHorizontal: 20,
-    height: 45,
+    height: 40,
   },
   interceptHeader: {
     fontSize: 22,
-    margin: 10,
+    margin: 5,
     alignSelf: 'center',
     fontFamily: my_font,
   },
@@ -412,7 +412,7 @@ const styles = StyleSheet.create({
     marginTop: 13,
   },
   card: {
-    margin: 5,
+    //margin: 0,
   },
   intButton: {
     marginVertical: 5,
@@ -437,7 +437,7 @@ const styles = StyleSheet.create({
   },
   resetButton: {
     alignSelf: 'center',
-    marginVertical: 5,
+    marginVertical: 0,
     fontSize: 17,
     fontFamily: my_font,
     color: 'white',

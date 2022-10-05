@@ -168,8 +168,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
 
   return (
     <>
-      <SafeAreaView
-        style={{flex: 1, backgroundColor: '#417cca', marginBottom: 500}}>
+      <SafeAreaView style={{flex: 1, backgroundColor: '#417cca'}}>
         <TouchableOpacity onPress={Keyboard.dismiss} activeOpacity={1}>
           <WalkerLogoComponent width="300" height="53" style={styles.Wlogo} />
           <Text style={styles.subHeader}>Digital CX Mobile Demo</Text>
@@ -198,14 +197,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                 placholderTextColor="#adb5bd"
                 onChangeText={projectTextChange}
               />
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginBottom: 15,
-                  marginTop: 17,
-                }}>
+              <View style={styles.toggleInput}>
                 <Switch
                   trackColor={{false: '#548ab4', true: '#81b2fc'}}
                   value={doExtRef}
@@ -254,7 +246,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
             size={20}></FontAwesomeIcon>
           <Text style={styles.helpText}>Help</Text>
         </TouchableOpacity>
-        <QualtricsLogoComponent style={styles.Qlogo} height="80" width="150" />
+        <QualtricsLogoComponent style={styles.Qlogo} height="60" width="150" />
       </CardView>
     </>
   );
@@ -284,8 +276,8 @@ const styles = StyleSheet.create({
   },
   helpTextContainer: {
     alignContent: 'center',
-    marginVertical: 10,
-    marginTop: 20,
+    //marginVertical: 10,
+    //marginTop: 0,
   },
   helpText: {
     alignSelf: 'center',
@@ -319,7 +311,7 @@ const styles = StyleSheet.create({
     textShadowColor: 'black',
   },
   input: {
-    marginTop: 10,
+    marginTop: 6,
     margin: 10,
     height: 45,
     borderWidth: 0.0,
@@ -336,10 +328,16 @@ const styles = StyleSheet.create({
     marginTop: 0,
     fontFamily: my_font,
   },
+  toggleInput: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 15,
+    marginTop: 5,
+  },
   initBtn: {
-    marginTop: 2,
+    marginTop: 5,
     marginHorizontal: 10,
-    marginTop: 30,
     marginBottom: 1800,
     height: 50,
     fontSize: 5,
@@ -368,6 +366,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    marginRight: 5,
+    marginTop: -8,
   },
   helpText: {
     fontSize: 20,
