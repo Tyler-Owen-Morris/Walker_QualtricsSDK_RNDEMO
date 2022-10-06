@@ -40,7 +40,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   const [customMargin, setCustomMargin] = useState(10);
   const [qLogoDims, setQLogoDims] = useState({w: '150', h: '50'});
   const navigation = useNavigation();
-  const walkerURL = 'https://walkerinfo.com/resources/';
+  const walkerURL = 'https://walkerinfo.com/demo/DX/mobile-app-demo.php';
 
   useEffect(() => {
     //console.log("WelcomeAuth", auth);
