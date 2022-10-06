@@ -35,7 +35,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   const [extRefID, setExtRefID] = useState(auth.creds.extRefID);
   const [doExtRef, toggleExtRef] = useState(auth.creds.doExtRef);
   const navigation = useNavigation();
-  const walkerURL = 'https://walkerinfo.com/resources/';
+  const walkerURL = 'https://walkerinfo.com/demo/DX/mobile-app-demo.php';
 
   useEffect(() => {
     //console.log("WelcomeAuth", auth);
