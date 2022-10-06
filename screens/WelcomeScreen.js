@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
   TextInput,
   Keyboard,
+  Dimensions,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {
@@ -35,6 +36,9 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   const [projectID, setProjectID] = useState(auth.creds.projectID);
   const [extRefID, setExtRefID] = useState(auth.creds.extRefID);
   const [doExtRef, toggleExtRef] = useState(auth.creds.doExtRef);
+  const [keyboardAvoidActive, setKeyboardAvoidActive] = useState(true);
+  const [customMargin, setCustomMargin] = useState(10);
+  const [qLogoDims, setQLogoDims] = useState({w: '150', h: '50'});
   const navigation = useNavigation();
   const walkerURL = 'https://walkerinfo.com/resources/';
 
@@ -42,6 +46,20 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
     //console.log("WelcomeAuth", auth);
     //console.log("creds--", auth.creds);
   }, [auth.auth, auth.creds]);
+
+  useEffect(() => {
+    const s_height = Dimensions.get('window').height;
+    const s_width = Dimensions.get('window').width;
+    const div_height = 614;
+    let diff = 10;
+    if (s_height > div_height) {
+      diff = s_height - div_height;
+    }
+    setCustomMargin(diff);
+    // let l_wid = s_width / 3;
+    // let l_heit = s_height / 6;
+    // setQLogoDims({w: l_wid, h: l_heit});
+  }, []);
 
   function brandTextChange(text) {
     setBrandID(text);
@@ -163,6 +181,50 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
     toggleExtRef(!doExtRef);
   };
 
+  const onLayout = event => {
+    const {x, y, height, width} = event.nativeEvent.layout;
+    console.log('my div height', height);
+    const heit = Dimensions.get('window').height;
+    console.log('screen height:', heit);
+    let diff = heit - height;
+    console.log('difference:', diff);
+    if (customMargin != diff) {
+      //setCustomMargin(diff);
+    }
+  };
+
+  const styleFunction = opts => {
+    console.log('style func called:', customMargin);
+    return {
+      marginTop: 5,
+      marginHorizontal: 10,
+      marginBottom: customMargin,
+      height: 50,
+      fontSize: 5,
+      backgroundColor: '#f7971e',
+      borderRadius: 10,
+      color: '#548ab4',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'row',
+    };
+  };
+
+  const enableKeyboardAvoid = () => {
+    console.log('enable keyboard avoiding');
+    setKeyboardAvoidActive(true);
+  };
+
+  const disableKeyboardAvoid = () => {
+    console.log('dismiss keyboard avoiding');
+    setKeyboardAvoidActive(false);
+  };
+
+  const pressOutsideTxtInput = () => {
+    Keyboard.dismiss();
+    disableKeyboardAvoid();
+  };
+
   const openWalkerHelp = () => {
     Linking.openURL(walkerURL);
   };
@@ -172,17 +234,18 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
       <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
         <TouchableOpacity
           style={{backgroundColor: '#417cca'}}
-          onPress={Keyboard.dismiss}
+          onPress={pressOutsideTxtInput}
           activeOpacity={1}>
           <WalkerLogoComponent width="300" height="53" style={styles.Wlogo} />
           <Text style={styles.subHeader}>Digital CX Mobile Demo</Text>
         </TouchableOpacity>
-        <ScrollView style={{flexGrow: 0}} vertical={true}>
-          <TouchableOpacity onPress={Keyboard.dismiss} activeOpacity={1}>
+        <ScrollView style={{flexGrow: 0}} onLayout={onLayout} vertical={true}>
+          <TouchableOpacity onPress={pressOutsideTxtInput} activeOpacity={1}>
             <Spinner visible={isBusy} textContent={''} />
             <KeyboardAvoidingView
               style={{backgroundColor: '#417cca'}}
-              behavior="padding">
+              behavior="padding"
+              enabled={keyboardAvoidActive}>
               <CardView style={styles.card}>
                 <Text style={styles.inputTitleText}>Brand ID:</Text>
                 <TextInput
@@ -191,6 +254,8 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                   placeholder="Brand ID"
                   placholderTextColor="#adb5bd"
                   onChangeText={brandTextChange}
+                  onFocus={enableKeyboardAvoid}
+                  onBlur={pressOutsideTxtInput}
                   autoCapitalize="none"
                 />
                 <Text style={styles.inputTitleText}>Project ID:</Text>
@@ -201,6 +266,8 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                   placeholder="Project ID"
                   placholderTextColor="#adb5bd"
                   onChangeText={projectTextChange}
+                  onFocus={enableKeyboardAvoid}
+                  onBlur={pressOutsideTxtInput}
                 />
                 <View style={styles.toggleInput}>
                   <Switch
@@ -224,13 +291,15 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                       placeholder="External Reference ID"
                       placholderTextColor="#adb5bd"
                       onChangeText={extRefTextChange}
+                      onFocus={enableKeyboardAvoid}
+                      onBlur={pressOutsideTxtInput}
                     />
                   </>
                 ) : (
                   <></>
                 )}
                 <TouchableOpacity
-                  style={styles.initBtn}
+                  style={styleFunction()}
                   onPress={initilizeQualt}>
                   <View style={styles.initBtnContent}>
                     <Text style={styles.initBtnTxt}>Load Project</Text>
@@ -254,7 +323,11 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
             size={20}></FontAwesomeIcon>
           <Text style={styles.helpText}>Help</Text>
         </TouchableOpacity>
-        <QualtricsLogoComponent style={styles.Qlogo} height="50" width="150" />
+        <QualtricsLogoComponent
+          style={styles.Qlogo}
+          height={qLogoDims.h}
+          width={qLogoDims.w}
+        />
       </CardView>
     </>
   );
@@ -346,7 +419,7 @@ const styles = StyleSheet.create({
   initBtn: {
     marginTop: 5,
     marginHorizontal: 10,
-    marginBottom: 100,
+    marginBottom: 10,
     height: 50,
     fontSize: 5,
     backgroundColor: '#f7971e',
