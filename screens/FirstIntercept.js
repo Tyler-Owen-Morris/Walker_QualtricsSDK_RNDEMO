@@ -68,28 +68,27 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
             console.log('evalRes:', res);
             if (res.passed) {
               console.log('creativeType:', res.creativeType);
+              var inter = await Qualtrics.displayIntercept(intId);
+              console.log('inter:', inter);
               if (res.creativeType == 'MobileNotification') {
                 Alert.alert(
-                  'This application does not support push notifications',
-                  'your intercept passed validation, but was unable to be displayed. The survey can be viewed here: ',
+                  'Success!',
+                  'Check your notifications to see the resulting message, or click View Survey below to go directly to the survey.',
                   [
                     {
                       text: 'View Survey',
                       onPress: () => Linking.openURL(res.surveyUrl),
                     },
                     {
-                      text: 'OK',
+                      text: 'Dismiss',
                       onPress: () => {
                         //setIsBusy(false);
-                        console.log('OK Pressed');
+                        console.log('Dismissed Pressed');
                       },
                     },
                   ],
                   {cancelable: false},
                 );
-              } else {
-                var inter = await Qualtrics.displayIntercept(intId);
-                console.log('inter:', inter);
               }
             } else {
               console.log('intercept failed...');
@@ -98,14 +97,10 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
                 JSON.stringify(res),
                 [
                   {
-                    text: 'Cancel',
-                    onPress: () => console.log('Cancel Pressed!'),
-                  },
-                  {
-                    text: 'OK',
+                    text: 'Dismiss',
                     onPress: () => {
                       //setIsBusy(false);
-                      console.log('OK Pressed');
+                      console.log('Dismiss Pressed');
                     },
                   },
                 ],
