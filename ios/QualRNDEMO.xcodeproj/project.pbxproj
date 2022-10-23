@@ -38,6 +38,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = QualRNDEMO/main.m; sourceTree = "<group>"; };
 		1FAE089D0BC0201F2A1CA20C /* Pods-QualRNDEMO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QualRNDEMO.debug.xcconfig"; path = "Target Support Files/Pods-QualRNDEMO/Pods-QualRNDEMO.debug.xcconfig"; sourceTree = "<group>"; };
 		4B0859E7231260EE05A32E67 /* Pods-QualRNDEMO-QualRNDEMOTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QualRNDEMO-QualRNDEMOTests.debug.xcconfig"; path = "Target Support Files/Pods-QualRNDEMO-QualRNDEMOTests/Pods-QualRNDEMO-QualRNDEMOTests.debug.xcconfig"; sourceTree = "<group>"; };
+		573996142904BD520077BD49 /* QualRNDEMO.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = QualRNDEMO.entitlements; path = QualRNDEMO/QualRNDEMO.entitlements; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = QualRNDEMO/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		82861524E5D6FA3EE313A8FD /* libPods-QualRNDEMO-QualRNDEMOTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-QualRNDEMO-QualRNDEMOTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1CB7AAC53F22A52A134FF17 /* libPods-QualRNDEMO.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-QualRNDEMO.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,6 +87,7 @@
 		13B07FAE1A68108700A75B9A /* QualRNDEMO */ = {
 			isa = PBXGroup;
 			children = (
+				573996142904BD520077BD49 /* QualRNDEMO.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -483,10 +485,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = QualRNDEMO/QualRNDEMO.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = VNH96U99ZV;
+				DEVELOPMENT_TEAM = W4JW5A6RFV;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = QualRNDEMO/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Walker Digital CX Mobile Demo";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -498,7 +503,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tandoproductions.walkerqualtrics;
+				PRODUCT_BUNDLE_IDENTIFIER = com.walkerinfo.qualtricssdkdemodev;
 				PRODUCT_NAME = QualRNDEMO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -512,9 +517,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = QualRNDEMO/QualRNDEMO.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = VNH96U99ZV;
+				DEVELOPMENT_TEAM = W4JW5A6RFV;
 				INFOPLIST_FILE = QualRNDEMO/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Walker Digital CX Mobile Demo";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -526,7 +534,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tandoproductions.walkerqualtrics;
+				PRODUCT_BUNDLE_IDENTIFIER = com.walkerinfo.qualtricssdkdemodev;
 				PRODUCT_NAME = QualRNDEMO;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
