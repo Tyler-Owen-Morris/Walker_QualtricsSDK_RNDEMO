@@ -67,8 +67,29 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
           Qualtrics.evaluateIntercept(intId, async res => {
             console.log('evalRes:', res);
             if (res.passed) {
+              console.log('creativeType:', res.creativeType);
               var inter = await Qualtrics.displayIntercept(intId);
               console.log('inter:', inter);
+              if (res.creativeType == 'MobileNotification') {
+                Alert.alert(
+                  'Success!',
+                  'Check your notifications to see the resulting message, or click View Survey below to go directly to the survey.',
+                  [
+                    {
+                      text: 'View Survey',
+                      onPress: () => Linking.openURL(res.surveyUrl),
+                    },
+                    {
+                      text: 'Dismiss',
+                      onPress: () => {
+                        //setIsBusy(false);
+                        console.log('Dismissed Pressed');
+                      },
+                    },
+                  ],
+                  {cancelable: false},
+                );
+              }
             } else {
               console.log('intercept failed...');
               Alert.alert(
@@ -76,14 +97,10 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
                 JSON.stringify(res),
                 [
                   {
-                    text: 'Cancel',
-                    onPress: () => console.log('Cancel Pressed!'),
-                  },
-                  {
-                    text: 'OK',
+                    text: 'Dismiss',
                     onPress: () => {
                       //setIsBusy(false);
-                      console.log('OK Pressed');
+                      console.log('Dismiss Pressed');
                     },
                   },
                 ],
