@@ -35,7 +35,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   const [extRefID, setExtRefID] = useState(auth.creds.extRefID);
   const [doExtRef, toggleExtRef] = useState(auth.creds.doExtRef);
   const navigation = useNavigation();
-  const walkerURL = 'https://walkerinfo.com/demo/DX/mobile-app-demo.php';
+  const walkerURL = 'https://walkerinfo.com/demo/DX/mobile-app';
 
   useEffect(() => {
     //console.log("WelcomeAuth", auth);
@@ -171,7 +171,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
       <SafeAreaView style={{flex: 1, backgroundColor: '#417cca'}}>
         <TouchableOpacity onPress={Keyboard.dismiss} activeOpacity={1}>
           <WalkerLogoComponent width="300" height="53" style={styles.Wlogo} />
-          <Text style={styles.subHeader}>Digital CX Mobile Demo</Text>
+          <Text style={styles.subHeader}>Digital CX Mobile Utility</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={Keyboard.dismiss} activeOpacity={1}>
           <Spinner visible={isBusy} textContent={''} />
