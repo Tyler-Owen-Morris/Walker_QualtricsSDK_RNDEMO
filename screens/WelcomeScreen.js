@@ -40,7 +40,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   const [customMargin, setCustomMargin] = useState(10);
   const [qLogoDims, setQLogoDims] = useState({w: '150', h: '50'});
   const navigation = useNavigation();
-  const walkerURL = 'https://walkerinfo.com/demo/DX/mobile-app-demo.php';
+  const walkerURL = 'https://walkerinfo.com/demo/DX/mobile-app';
 
   useEffect(() => {
     //console.log("WelcomeAuth", auth);
@@ -237,7 +237,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
           onPress={pressOutsideTxtInput}
           activeOpacity={1}>
           <WalkerLogoComponent width="300" height="53" style={styles.Wlogo} />
-          <Text style={styles.subHeader}>Digital CX Mobile Demo</Text>
+          <Text style={styles.subHeader}>Digital CX Mobile Utility</Text>
         </TouchableOpacity>
         <ScrollView style={{flexGrow: 0}} onLayout={onLayout} vertical={true}>
           <TouchableOpacity onPress={pressOutsideTxtInput} activeOpacity={1}>

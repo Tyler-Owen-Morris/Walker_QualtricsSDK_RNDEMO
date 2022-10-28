@@ -240,7 +240,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
               marginLeft: 20,
               fontFamily: my_font,
             }}>
-            Digitial CX {'\n'}Mobile Demo
+            Digitial CX {'\n'}Mobile Utility
           </Text>
         </View>
         <KeyboardAvoidingView behavior="position">
