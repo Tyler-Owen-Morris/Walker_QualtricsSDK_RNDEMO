@@ -58,7 +58,11 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   async function InitializeQualt() {
     //console.log('init goes here.', brandID, projectID);
     setIsBusy(true);
-
+    // await analytics().logEvent('initialize', {
+    //   brandID: brandID,
+    //   projectID: projectID,
+    //   extRefID: extRefID,
+    // });
     if (doExtRef) {
       console.log('brand:', brandID, ' proj:', projectID, 'extRef:', extRefID);
       let safeExtRef = '';
