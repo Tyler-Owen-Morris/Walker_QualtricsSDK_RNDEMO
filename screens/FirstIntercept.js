@@ -61,7 +61,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
       result => {
         console.log('result:', result);
         if (result.ERROR == null && Object.keys(result).length > 0) {
-          console.log('Qualtrics Initilized!');
+          console.log('Qualtrics Initialized!');
           //setIsBusy(false);
           setQualtricsVariables();
           Qualtrics.evaluateIntercept(intId, async res => {
@@ -111,7 +111,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
         } else {
           console.log('unable to re-init the project');
           Alert.alert(
-            'Project was not able to reinitilize\nNo intercepts were evaluated',
+            'Project was not able to reInitialize\nNo intercepts were evaluated',
             '',
             [
               {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
@@ -249,7 +249,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
               <CardView style={styles.card}>
                 {interceptIDs.length == 0 ? (
                   <Text style={styles.interceptHeader}>
-                    No intercepts have been initilized.
+                    No intercepts have been Initialized.
                   </Text>
                 ) : (
                   <Text style={styles.interceptHeader}>
@@ -290,9 +290,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
                     flexDirection: 'row',
                     justifyContent: 'space-evenly',
                   }}>
-                  <Text style={styles.interceptHeader}>
-                    Qualtrics Variables:
-                  </Text>
+                  <Text style={styles.interceptHeader}>Custom Properties:</Text>
                   <TouchableOpacity
                     onPress={newVariable}
                     style={styles.touchablePlusContainer}>
@@ -329,7 +327,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
                           margin: 10,
                           fontFamily: my_font,
                         }}>
-                        No Custom Variables
+                        No Custom Properties
                       </Text>
                     </TouchableOpacity>
                   )}

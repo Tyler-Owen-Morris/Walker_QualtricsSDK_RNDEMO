@@ -55,7 +55,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
     setExtRefID(text);
   }
 
-  async function initilizeQualt() {
+  async function InitializeQualt() {
     //console.log('init goes here.', brandID, projectID);
     setIsBusy(true);
 
@@ -72,7 +72,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
         result => {
           console.log('result:', result);
           if (result.ERROR == null && Object.keys(result).length > 0) {
-            console.log('Qualtrics Initilized!');
+            console.log('Qualtrics Initialized!');
             setLogin({
               brandID: brandID,
               projectID: projectID,
@@ -95,7 +95,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
               msg = result.ERROR.message;
             }
             Alert.alert(
-              'Failed To Initilize',
+              'Failed To Initialize',
               msg + '\nResult:' + JSON.stringify(result),
               [
                 {
@@ -118,7 +118,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
       Qualtrics.initializeProject(brandID, projectID, result => {
         console.log('result:', result);
         if (result.ERROR == null && Object.keys(result).length > 0) {
-          console.log('Qualtrics Initilized!');
+          console.log('Qualtrics Initialized!');
           setLogin({
             brandID: brandID,
             projectID: projectID,
@@ -141,7 +141,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
             msg = result.ERROR.message;
           }
           Alert.alert(
-            'Failed To Initilize',
+            'Failed To Initialize',
             msg + '\nResult : ' + JSON.stringify(result),
             [
               {
@@ -204,7 +204,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                   onValueChange={doExtRefValChange}
                 />
                 <Text style={{marginLeft: 15, fontFamily: my_font}}>
-                  Initilize with External Data Reference
+                  Initialize with External Data Reference
                 </Text>
               </View>
               {doExtRef ? (
@@ -224,7 +224,9 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
               ) : (
                 <></>
               )}
-              <TouchableOpacity style={styles.initBtn} onPress={initilizeQualt}>
+              <TouchableOpacity
+                style={styles.initBtn}
+                onPress={InitializeQualt}>
                 <View style={styles.initBtnContent}>
                   <Text style={styles.initBtnTxt}>Load Project</Text>
                   <FontAwesomeIcon
