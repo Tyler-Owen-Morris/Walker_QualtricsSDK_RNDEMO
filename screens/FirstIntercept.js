@@ -18,10 +18,12 @@ import QualtVar from '../controls/QualtVar';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import WalkerLogoComponent from '../assets/Walker_Logo_JSX';
 import QualtricsLogoComponent from '../assets/Qualtrics_logo_JSX';
+import {useAnalytics} from '@segment/analytics-react-native';
 
 function FirstIntercept({auth, setLogin, setCustomVars}) {
   const [interceptIDs, setInterceptIDs] = useState([]);
   const [customVars, setCVars] = useState(auth.custom_vars);
+  const {track} = useAnalytics();
 
   useEffect(() => {
     console.log('intercept-auth:', auth);
@@ -68,6 +70,14 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
             console.log('evalRes:', res);
             if (res.passed) {
               console.log('creativeType:', res.creativeType);
+              // Segment Analyitics
+              track('Intercept Passed', {
+                intId,
+                brandID: auth.auth.brandID,
+                projectID: auth.auth.projectID,
+                extRefID: myExRef,
+                creativeType: res.creativeType,
+              });
               var inter = await Qualtrics.displayIntercept(intId);
               console.log('inter:', inter);
               if (res.creativeType == 'MobileNotification') {
@@ -92,6 +102,13 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
               }
             } else {
               console.log('intercept failed...');
+              // Segment Analyitics
+              track('Intercept Failed', {
+                intId,
+                brandID: auth.auth.brandID,
+                projectID: auth.auth.projectID,
+                extRefID: myExRef,
+              });
               Alert.alert(
                 'Intercept Evaluated to FALSE\nNot displaying Intercept',
                 JSON.stringify(res),

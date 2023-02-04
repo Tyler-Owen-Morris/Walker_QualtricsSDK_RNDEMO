@@ -27,6 +27,7 @@ import CardView from '../controls/CardView';
 import WalkerLogoComponent from '../assets/Walker_Logo_JSX';
 import QualtricsLogoComponent from '../assets/Qualtrics_logo_JSX';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {useAnalytics} from '@segment/analytics-react-native';
 
 function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   const [isBusy, setIsBusy] = useState(false);
@@ -36,6 +37,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   const [doExtRef, toggleExtRef] = useState(auth.creds.doExtRef);
   const navigation = useNavigation();
   const walkerURL = 'https://walkerinfo.com/demo/DX/mobile-app';
+  const {track} = useAnalytics();
 
   useEffect(() => {
     //console.log("WelcomeAuth", auth);
@@ -86,6 +88,12 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
               doExtRef: true,
             });
             setIsBusy(false);
+            // Segment Analyitics
+            track('Init Success', {
+              brandID,
+              projectID,
+              extRefID,
+            });
           } else {
             let msg = '';
             if (result.ERROR == null) {
@@ -94,6 +102,13 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
             } else {
               msg = result.ERROR.message;
             }
+            // Segment Analyitics
+            track('Init Failed', {
+              brandID,
+              projectID,
+              extRefID: '',
+              errorMessage: msg,
+            });
             Alert.alert(
               'Failed To Initialize',
               msg + '\nResult:' + JSON.stringify(result),
@@ -131,6 +146,12 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
             doExtRef: false,
           });
           setIsBusy(false);
+          // Segment Analyitics
+          track('Init Success', {
+            brandID,
+            projectID,
+            extRefID: '',
+          });
         } else {
           let msg = '';
           console.log('failed result:', result);
@@ -140,6 +161,13 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
           } else {
             msg = result.ERROR.message;
           }
+          // Segment Analyitics
+          track('Init Failed', {
+            brandID,
+            projectID,
+            extRefID: '',
+            errorMessage: msg,
+          });
           Alert.alert(
             'Failed To Initialize',
             msg + '\nResult : ' + JSON.stringify(result),
