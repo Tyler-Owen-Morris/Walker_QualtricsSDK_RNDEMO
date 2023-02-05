@@ -11,6 +11,9 @@ import {configureStore} from './redux/configureStore';
 import MainNavigator from './navigation/MainNavigator';
 import ErrorBoundary from 'react-native-error-boundary';
 
+//Analytics
+import {createClient, AnalyticsProvider} from '@segment/analytics-react-native';
+
 //Font Awesome setup
 import {library} from '@fortawesome/fontawesome-svg-core';
 //import {fab} from '@fortawesome/free-brands-svg-icons';
@@ -63,16 +66,24 @@ library.add(
 );
 const {store, persistor} = configureStore();
 
+const segmentClient = createClient({
+  writeKey: 'cdnZuncPQB0GQ7BMgKzz7zErgcZsuw7l',
+  trackAppLifecycleEvents: true,
+  collectDeviceId: true,
+});
+
 function App() {
   return (
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <ErrorBoundary>
-          <NavigationContainer>
-            <MainNavigator />
-          </NavigationContainer>
-        </ErrorBoundary>
-      </PersistGate>
+      <AnalyticsProvider client={segmentClient}>
+        <PersistGate persistor={persistor}>
+          <ErrorBoundary>
+            <NavigationContainer>
+              <MainNavigator />
+            </NavigationContainer>
+          </ErrorBoundary>
+        </PersistGate>
+      </AnalyticsProvider>
     </Provider>
   );
 }

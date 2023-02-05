@@ -18,10 +18,12 @@ import QualtVar from '../controls/QualtVar';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import WalkerLogoComponent from '../assets/Walker_Logo_JSX';
 import QualtricsLogoComponent from '../assets/Qualtrics_logo_JSX';
+import {useAnalytics} from '@segment/analytics-react-native';
 
 function FirstIntercept({auth, setLogin, setCustomVars}) {
   const [interceptIDs, setInterceptIDs] = useState([]);
   const [customVars, setCVars] = useState(auth.custom_vars);
+  const {track} = useAnalytics();
 
   useEffect(() => {
     console.log('intercept-auth:', auth);
@@ -61,15 +63,13 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
       result => {
         console.log('result:', result);
         if (result.ERROR == null && Object.keys(result).length > 0) {
-          console.log('Qualtrics Initilized!');
+          console.log('Qualtrics Initialized!');
           //setIsBusy(false);
           setQualtricsVariables();
           Qualtrics.evaluateIntercept(intId, async res => {
             console.log('evalRes:', res);
             if (res.passed) {
               console.log('creativeType:', res.creativeType);
-              var inter = await Qualtrics.displayIntercept(intId);
-              console.log('inter:', inter);
               if (res.creativeType == 'MobileNotification') {
                 Alert.alert(
                   'Success!',
@@ -92,6 +92,13 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
               }
             } else {
               console.log('intercept failed...');
+              // Segment Analyitics
+              track('Intercept Failed', {
+                intId,
+                brandID: auth.auth.brandID,
+                projectID: auth.auth.projectID,
+                extRefID: myExRef,
+              });
               Alert.alert(
                 'Intercept Evaluated to FALSE\nNot displaying Intercept',
                 JSON.stringify(res),
@@ -111,7 +118,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
         } else {
           console.log('unable to re-init the project');
           Alert.alert(
-            'Project was not able to reinitilize\nNo intercepts were evaluated',
+            'Project was not able to reInitialize\nNo intercepts were evaluated',
             '',
             [
               {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
@@ -249,7 +256,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
               <CardView style={styles.card}>
                 {interceptIDs.length == 0 ? (
                   <Text style={styles.interceptHeader}>
-                    No intercepts have been initilized.
+                    No intercepts have been Initialized.
                   </Text>
                 ) : (
                   <Text style={styles.interceptHeader}>
@@ -290,9 +297,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
                     flexDirection: 'row',
                     justifyContent: 'space-evenly',
                   }}>
-                  <Text style={styles.interceptHeader}>
-                    Qualtrics Variables:
-                  </Text>
+                  <Text style={styles.interceptHeader}>Custom Properties:</Text>
                   <TouchableOpacity
                     onPress={newVariable}
                     style={styles.touchablePlusContainer}>
@@ -329,7 +334,7 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
                           margin: 10,
                           fontFamily: my_font,
                         }}>
-                        No Custom Variables
+                        No Custom Properties
                       </Text>
                     </TouchableOpacity>
                   )}
@@ -370,7 +375,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     color: 'white',
     borderRadius: 10,
-    marginVertical: 10,
+    marginVertical: 8,
     height: 45,
   },
   resetContainer: {
@@ -379,13 +384,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     color: 'white',
     borderRadius: 10,
-    marginVertical: 10,
+    marginVertical: 5,
     paddingHorizontal: 20,
-    height: 45,
+    height: 40,
   },
   interceptHeader: {
     fontSize: 22,
-    margin: 10,
+    margin: 5,
     alignSelf: 'center',
     fontFamily: my_font,
   },
@@ -407,7 +412,7 @@ const styles = StyleSheet.create({
     marginTop: 13,
   },
   card: {
-    margin: 5,
+    //margin: 0,
   },
   intButton: {
     marginVertical: 5,
@@ -432,7 +437,7 @@ const styles = StyleSheet.create({
   },
   resetButton: {
     alignSelf: 'center',
-    marginVertical: 5,
+    marginVertical: 0,
     fontSize: 17,
     fontFamily: my_font,
     color: 'white',

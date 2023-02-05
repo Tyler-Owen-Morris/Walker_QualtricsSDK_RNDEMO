@@ -28,7 +28,11 @@ import CardView from '../controls/CardView';
 import WalkerLogoComponent from '../assets/Walker_Logo_JSX';
 import QualtricsLogoComponent from '../assets/Qualtrics_logo_JSX';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+<<<<<<< HEAD
 import {ScrollView} from 'react-native-gesture-handler';
+=======
+import {useAnalytics} from '@segment/analytics-react-native';
+>>>>>>> master
 
 function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   const [isBusy, setIsBusy] = useState(false);
@@ -41,6 +45,10 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
   const [qLogoDims, setQLogoDims] = useState({w: '150', h: '50'});
   const navigation = useNavigation();
   const walkerURL = 'https://walkerinfo.com/demo/DX/mobile-app';
+<<<<<<< HEAD
+=======
+  const {track} = useAnalytics();
+>>>>>>> master
 
   useEffect(() => {
     //console.log("WelcomeAuth", auth);
@@ -74,7 +82,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
     setExtRefID(text);
   }
 
-  async function initilizeQualt() {
+  async function InitializeQualt() {
     //console.log('init goes here.', brandID, projectID);
     setIsBusy(true);
 
@@ -91,7 +99,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
         result => {
           console.log('result:', result);
           if (result.ERROR == null && Object.keys(result).length > 0) {
-            console.log('Qualtrics Initilized!');
+            console.log('Qualtrics Initialized!');
             setLogin({
               brandID: brandID,
               projectID: projectID,
@@ -105,6 +113,12 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
               doExtRef: true,
             });
             setIsBusy(false);
+            // Segment Analyitics
+            track('Init Success', {
+              brandID,
+              projectID,
+              extRefID,
+            });
           } else {
             let msg = '';
             if (result.ERROR == null) {
@@ -113,8 +127,15 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
             } else {
               msg = result.ERROR.message;
             }
+            // Segment Analyitics
+            track('Init Failed', {
+              brandID,
+              projectID,
+              extRefID: '',
+              errorMessage: msg,
+            });
             Alert.alert(
-              'Failed To Initilize',
+              'Failed To Initialize',
               msg + '\nResult:' + JSON.stringify(result),
               [
                 {
@@ -137,7 +158,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
       Qualtrics.initializeProject(brandID, projectID, result => {
         console.log('result:', result);
         if (result.ERROR == null && Object.keys(result).length > 0) {
-          console.log('Qualtrics Initilized!');
+          console.log('Qualtrics Initialized!');
           setLogin({
             brandID: brandID,
             projectID: projectID,
@@ -150,6 +171,12 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
             doExtRef: false,
           });
           setIsBusy(false);
+          // Segment Analyitics
+          track('Init Success', {
+            brandID,
+            projectID,
+            extRefID: '',
+          });
         } else {
           let msg = '';
           console.log('failed result:', result);
@@ -159,8 +186,15 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
           } else {
             msg = result.ERROR.message;
           }
+          // Segment Analyitics
+          track('Init Failed', {
+            brandID,
+            projectID,
+            extRefID: '',
+            errorMessage: msg,
+          });
           Alert.alert(
-            'Failed To Initilize',
+            'Failed To Initialize',
             msg + '\nResult : ' + JSON.stringify(result),
             [
               {
@@ -231,6 +265,7 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
 
   return (
     <>
+<<<<<<< HEAD
       <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
         <TouchableOpacity
           style={{backgroundColor: '#417cca'}}
@@ -274,6 +309,73 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
                     trackColor={{false: '#548ab4', true: '#81b2fc'}}
                     value={doExtRef}
                     onValueChange={doExtRefValChange}
+=======
+      <SafeAreaView style={{flex: 1, backgroundColor: '#417cca'}}>
+        <TouchableOpacity onPress={Keyboard.dismiss} activeOpacity={1}>
+          <WalkerLogoComponent width="300" height="53" style={styles.Wlogo} />
+          <Text style={styles.subHeader}>Digital CX Mobile Utility</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={Keyboard.dismiss} activeOpacity={1}>
+          <Spinner visible={isBusy} textContent={''} />
+          <KeyboardAvoidingView
+            style={{backgroundColor: '#417cca'}}
+            behavior="padding">
+            <CardView style={styles.card}>
+              <Text style={styles.inputTitleText}>Brand ID:</Text>
+              <TextInput
+                style={styles.input}
+                value={brandID}
+                placeholder="Brand ID"
+                placholderTextColor="#adb5bd"
+                onChangeText={brandTextChange}
+                autoCapitalize="none"
+              />
+              <Text style={styles.inputTitleText}>Project ID:</Text>
+              <TextInput
+                style={styles.input}
+                value={projectID}
+                autoCapitalize="none"
+                placeholder="Project ID"
+                placholderTextColor="#adb5bd"
+                onChangeText={projectTextChange}
+              />
+              <View style={styles.toggleInput}>
+                <Switch
+                  trackColor={{false: '#548ab4', true: '#81b2fc'}}
+                  value={doExtRef}
+                  onValueChange={doExtRefValChange}
+                />
+                <Text style={{marginLeft: 15, fontFamily: my_font}}>
+                  Initialize with External Data Reference
+                </Text>
+              </View>
+              {doExtRef ? (
+                <>
+                  <Text style={styles.inputTitleText}>
+                    External Reference ID:
+                  </Text>
+                  <TextInput
+                    style={styles.input}
+                    value={extRefID}
+                    autoCapitalize="none"
+                    placeholder="External Reference ID"
+                    placholderTextColor="#adb5bd"
+                    onChangeText={extRefTextChange}
+                  />
+                </>
+              ) : (
+                <></>
+              )}
+              <TouchableOpacity
+                style={styles.initBtn}
+                onPress={InitializeQualt}>
+                <View style={styles.initBtnContent}>
+                  <Text style={styles.initBtnTxt}>Load Project</Text>
+                  <FontAwesomeIcon
+                    icon="arrow-right"
+                    size={22}
+                    style={styles.initBtnIcon}
+>>>>>>> master
                   />
                   <Text style={{marginLeft: 15, fontFamily: my_font}}>
                     Initilize with External Data Reference
@@ -323,11 +425,15 @@ function WelcomeScreen({auth, setLogin, setCreds, setVars}) {
             size={20}></FontAwesomeIcon>
           <Text style={styles.helpText}>Help</Text>
         </TouchableOpacity>
+<<<<<<< HEAD
         <QualtricsLogoComponent
           style={styles.Qlogo}
           height={qLogoDims.h}
           width={qLogoDims.w}
         />
+=======
+        <QualtricsLogoComponent style={styles.Qlogo} height="60" width="150" />
+>>>>>>> master
       </CardView>
     </>
   );
@@ -419,7 +525,11 @@ const styles = StyleSheet.create({
   initBtn: {
     marginTop: 5,
     marginHorizontal: 10,
+<<<<<<< HEAD
     marginBottom: 10,
+=======
+    marginBottom: 1800,
+>>>>>>> master
     height: 50,
     fontSize: 5,
     backgroundColor: '#f7971e',

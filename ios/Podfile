@@ -11,7 +11,7 @@ target 'QualRNDEMO' do
     # to enable hermes on iOS, change `false` to `true` and then install pods
     :hermes_enabled => false
   )
-  pod 'Qualtrics', '~> 2.6.0'
+  pod 'Qualtrics', '~> 2.9.1'
 
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
 
