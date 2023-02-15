@@ -12,7 +12,7 @@ target 'QualRNDEMO' do
     :hermes_enabled => false
   )
   pod 'Qualtrics', '~> 2.9.1'
-  pod 'Segment-Firebase'
+  
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
