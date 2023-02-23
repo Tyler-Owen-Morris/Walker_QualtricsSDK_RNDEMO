@@ -19,9 +19,12 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import WalkerLogoComponent from '../assets/Walker_Logo_JSX';
 import QualtricsLogoComponent from '../assets/Qualtrics_logo_JSX';
 import {useAnalytics} from '@segment/analytics-react-native';
+import InterceptButton from '../controls/InterceptButton';
 
 function FirstIntercept({auth, setLogin, setCustomVars}) {
   const [interceptIDs, setInterceptIDs] = useState([]);
+  const [projectEvalStatus, setProjectEvalStatus] = useState({});
+  const [isProjectEval, setIsProjectEval] = useState(false);
   const [customVars, setCVars] = useState(auth.custom_vars);
   const {track} = useAnalytics();
 
@@ -147,7 +150,23 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
     );
   }
 
-  const setQualtricsVariables = () => {
+  async function testProject() {
+    if (!isProjectEval) {
+      await setQualtricsVariables().then(() => {
+        // TODO - add error handling for evaluate "error" key
+        Qualtrics.evaluateProject(async res => {
+          console.log('evalRes:', res);
+          setProjectEvalStatus(res);
+          setIsProjectEval(true);
+        });
+      });
+    } else {
+      setProjectEvalStatus({});
+      setIsProjectEval(false);
+    }
+  }
+
+  const setQualtricsVariables = async () => {
     for (let i = 0; i < customVars.length; i++) {
       let cVal = customVars[i].value;
       let nme = customVars[i].name;
@@ -269,27 +288,50 @@ function FirstIntercept({auth, setLogin, setCustomVars}) {
                     No intercepts have been Initialized.
                   </Text>
                 ) : (
-                  <Text style={styles.interceptHeader}>
-                    Available Intercepts
-                  </Text>
-                )}
-                {interceptIDs.map((val, idx) => {
-                  let my_title = val;
-                  return (
+                  <>
                     <TouchableOpacity
-                      key={idx}
                       onPress={() => {
-                        testIntercept(val);
+                        //testIntercept(val);
+                        console.log('Evaluate project');
+                        testProject();
                       }}
                       style={styles.intContainer}>
-                      <Text style={styles.intButton}>{my_title}</Text>
-                      <FontAwesomeIcon
-                        icon="arrow-right"
-                        size={22}
-                        style={styles.interceptPlay}
-                      />
+                      <Text style={styles.intButton}>
+                        {isProjectEval ? 'Reset' : 'Evaluate Project'}
+                      </Text>
                     </TouchableOpacity>
-                  );
+                    <Text style={styles.interceptHeader}>
+                      Available Intercepts
+                    </Text>
+                  </>
+                )}
+                {interceptIDs.map((val, idx) => {
+                  if (isProjectEval) {
+                    return (
+                      <InterceptButton
+                        testIntercept={testIntercept}
+                        my_title={val}
+                        evalStatus={projectEvalStatus}
+                      />
+                    );
+                  } else {
+                    return (
+                      <TouchableOpacity
+                        key={idx}
+                        onPress={() => {
+                          testIntercept(val);
+                        }}
+                        style={styles.intContainer}>
+                        <Text style={styles.intButton}>{val}</Text>
+
+                        <FontAwesomeIcon
+                          icon="arrow-right"
+                          size={22}
+                          style={styles.interceptPlay}
+                        />
+                      </TouchableOpacity>
+                    );
+                  }
                 })}
               </CardView>
               <View

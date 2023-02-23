@@ -39,6 +39,7 @@ import {
   faArrowCircleRight,
   faArrowCircleLeft,
   faSpinner,
+  faCheckCircle,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -54,6 +55,7 @@ library.add(
   faMinusCircle,
   faCircle,
   faTimesCircle,
+  faCheckCircle,
   faUndo,
   faPlay,
   faPlayCircle,
